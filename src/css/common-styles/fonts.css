@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../assets/fonts/Rubik-Regular.woff2') format('woff2'),
+    url('../../assets/fonts/Rubik-Regular.woff') format('woff');
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../assets/fonts/Rubik-SemiBold.woff2') format('woff2'),
+    url('../../assets/fonts/Rubik-SemiBold.woff') format('woff');
+  font-weight: 600; /* Semi-bold */
+  font-style: normal;
+  font-display: swap;
+}
