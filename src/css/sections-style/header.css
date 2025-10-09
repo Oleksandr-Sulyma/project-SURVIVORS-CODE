@@ -1,0 +1,23 @@
+.header {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header-nav {
+  display: flex;
+}
+
+.header-nav-list {
+  display: flex;
+  gap: 32px;
+}
+
+.header-nav-link {
+  font-size: 16px;
+}
