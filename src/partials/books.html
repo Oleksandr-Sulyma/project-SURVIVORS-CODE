@@ -1,69 +1,40 @@
-  <section id="books-section" class="books-section">
-      <div class="books-container">
-        <div class="books-header">
-          <h2 class="books-title">Books</h2>
-          <div class="books-counter">
-            <span id="books-counter-text">Showing 24 of 100</span>
-          </div>
-        </div>
+<section
+  id="books-section"
+  class="books-section"
+  aria-labelledby="books-heading"
+>
+  <h2 id="books-heading" class="sr-only">Trending books</h2>
 
-        <div class="books-content">
-          <aside class="books-categories">
-            <ul class="categories-list">
-              <li class="category-item active" data-category="all">
-                <button class="category-button">All categories</button>
-              </li>
-              <li class="category-item" data-category="combined-fiction">
-                <button class="category-button">
-                  Combined Print and E-book Fiction
-                </button>
-              </li>
-              <li class="category-item" data-category="combined-nonfiction">
-                <button class="category-button">
-                  Combined Print & E-book Nonfiction
-                </button>
-              </li>
-              <li class="category-item" data-category="hardcover-fiction">
-                <button class="category-button">Hardcover fiction</button>
-              </li>
-              <li class="category-item" data-category="paperback-fiction">
-                <button class="category-button">Paperback trade fiction</button>
-              </li>
-              <li class="category-item" data-category="paperback-nonfiction">
-                <button class="category-button">Paperback nonfiction</button>
-              </li>
-              <li class="category-item" data-category="advice-misc">
-                <button class="category-button">
-                  Advice, how-to & Miscellaneous
-                </button>
-              </li>
-              <li class="category-item" data-category="children-hardcover">
-                <button class="category-button">
-                  Children's middle grade hardcover
-                </button>
-              </li>
-            </ul>
-          </aside>
-
-          <main class="books-main">
-            <div id="books-loader" class="books-loader hidden">
-              <div class="loader-spinner"></div>
-              <p>Loading books...</p>
-            </div>
-
-            <div id="books-grid" class="books-grid"></div>
-
-            <div class="show-more-container">
-              <button id="show-more-btn" class="show-more-button" type="button">
-                Show More
-              </button>
-            </div>
-          </main>
-        </div>
+  <div class="books-container">
+    <div class="books-header">
+      <h3 class="books-title">Books</h3>
+      <div class="books-counter">
+        <span id="books-counter-text">Showing 0 of 0</span>
       </div>
-    </section>
+    </div>
 
-    <script src="books-data.js"></script>
-    <script src="script.js"></script>
-  </body>
-</html>
+    <div class="books-content">
+      <aside class="books-categories">
+        <ul id="categories-list" class="categories-list"></ul>
+      </aside>
+
+      <main class="books-main">
+        <div id="books-loader" class="books-loader hidden">
+          <div class="loader-spinner"></div>
+          <p>Loading books...</p>
+        </div>
+
+        <div id="books-grid" class="books-grid"></div>
+
+        <div class="show-more-container">
+          <button id="show-more-btn" class="show-more-button" type="button">
+            Show More
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<script src="./js/books-data.js"></script>
+<script src="./js/books.js"></script>
