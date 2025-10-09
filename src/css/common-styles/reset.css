@@ -2,46 +2,30 @@
 *,
 *::before,
 *::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* 2. Глобальне скидання марджинів */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
-
-/* 3. Скидання стилів списків */
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* 4. Налаштування Body та HTML */
 html {
   -webkit-text-size-adjust: 100%;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
 body {
   min-height: 100vh;
-  margin: 0;
   text-rendering: optimizeSpeed;
 }
 
-/* 5. Стилізація посилань */
 a {
   color: currentColor;
   text-decoration: none;
 }
 
-/* 6. Стилізація зображень та медіа */
 img,
 picture,
 svg {
@@ -50,14 +34,12 @@ svg {
   height: auto;
 }
 
-/* 7. Стилізація кнопок */
 button {
   cursor: pointer;
   background: transparent;
   border: none;
 }
 
-/* 8. Успадкування шрифтів для форм */
 input,
 textarea,
 select,
