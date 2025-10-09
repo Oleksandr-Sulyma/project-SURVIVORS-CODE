@@ -1,5 +1,36 @@
 <footer class="footer" id="footer">
   <div class="container">
-    footer
+    <nav class="footer-nav">
+      <a class="logo"></a>
+      <ul class="footer-nav-list">
+        <li class="nav-item"><a href="">Home</a></li>
+        <li class="nav-item"><a href="">Books</a></li>
+        <li class="nav-item"><a href="">Feedback</a></li>
+        <li class="nav-item"><a href="">Location</a></li>
+      </ul>
+    </nav>
+    <div class="footer-form">
+      <p class="footer-title">Join</p>
+      <form class="footer-input-box">
+        <label aria-label="email" class="footer-label">
+          <input
+            type="email"
+            class="footer-input"
+            name="fopoter-email"
+            id="fopoter-email"
+            required
+            placeholder="Enter your email"
+            pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+          />
+        </label>
+        <button type="submit" class="btn footer-btn">
+          Sign Up
+        </button>
+        <small class="footer-remark">* Required field</small>
+      </form>
+    </div>
+    <p class="footer-copyright">
+        © 2025 Booksy. All rights reserved.
+      </p>
   </div>
 </footer>

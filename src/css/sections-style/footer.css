@@ -19,3 +19,82 @@
   background-color: #41d1ff;
   transition: 200ms ease;
 }
+
+/* ------375------ */
+
+@media (min-width: 375px) {
+  .footer {
+    padding: 80px 16px;
+
+}
+.container {
+}
+.footer-nav {
+}
+.logo {
+}
+.footer-nav-list {
+}
+.nav-item {
+}
+.footer-form {
+}
+.footer-title {
+}
+.footer-input-box {
+}
+.footer-label {
+}
+.footer-input {
+}
+.footer-btn {
+}
+.footer-remark {
+}
+.footer-copyright {
+}
+}
+
+
+/* ------768------ */
+
+@media (min-width: 768px) {
+  
+}
+
+/* ------1440------ */
+
+@media (min-width: 1440px) {
+
+}
+
+
+
+.footer {
+}
+.container {
+}
+.footer-nav {
+}
+.logo {
+}
+.footer-nav-list {
+}
+.nav-item {
+}
+.footer-form {
+}
+.footer-title {
+}
+.footer-input-box {
+}
+.footer-label {
+}
+.footer-input {
+}
+.footer-btn {
+}
+.footer-remark {
+}
+.footer-copyright {
+}
