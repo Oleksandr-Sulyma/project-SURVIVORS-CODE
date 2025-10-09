@@ -7,8 +7,6 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css');
 
 /* підключення бібліотек */
-@import 'node_modules/@splidejs/splide/dist/css/splide.min.css';
-@import 'node_modules/izitoast/dist/css/iziToast.min.css';
 @import "accordion-js/dist/accordion.min.css";
 
 /* Common styles */
