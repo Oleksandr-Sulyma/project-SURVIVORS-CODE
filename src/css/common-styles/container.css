@@ -1,22 +1,32 @@
-/* Styles for Mobile devices */
-.container {
-  min-width: 320px;
-  max-width: 375px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
+:root {
+  --min-width: 320px;
+  --max-width: 1440px;
 }
-/* Styles for Tablet devices */
-@media only screen and (min-width: 768px) {
-  .container {
-    max-width: 768px;
-    padding: 0 32px;
-  }
+
+.grid-container {
+  --flap: minmax(16px, 1fr);
+  --content: minmax(var(--min-width), var(--max-width));
+
+  display: grid;
+  grid-template-columns:
+    var(--flap)
+    var(--content)
+    var(--flap);
 }
-/* Styles for Desktop devices */
-@media only screen and (min-width: 1200px) {
-  .container {
-    max-width: 1440px;
-    padding: 0 64px;
-  }
+
+.grid-content {
+  grid-column: 2 / 3;
+}
+
+.grid-content-full {
+  grid-column: 1 / -1;
+}
+
+.placement-center {
+  align-self: center;
+  align-items: center;
+}
+
+.placement-vertical-center {
+  align-self: center;
 }

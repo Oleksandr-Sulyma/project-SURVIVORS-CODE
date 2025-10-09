@@ -1,0 +1,22 @@
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+  padding: var(--gap-xxl) 0;
+}
+
+.section-content-horizontal {
+  flex-direction: row;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.section-header .type {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+}

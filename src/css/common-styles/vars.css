@@ -1,0 +1,23 @@
+:root {
+  /* COLORS */
+  --clr-dark: #0b0500;
+  --clr-orange: #e15d05;
+  --clr-orange-dark: #b44a04;
+  --clr-orange-darker: #5a2502;
+  --clr-orange-light: #ea8d50;
+  --clr-neutral: #dad9d8;
+
+  /* GAPS */
+  --gap-xs: 4px;
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+  --gap-xxl: 64px;
+
+  /* Font */
+  --font-main: 'Rubik', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  /* Transition */
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
