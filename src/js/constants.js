@@ -1,0 +1,1 @@
+export const baseUrl = 'https://books-backend.p.goit.global';
