@@ -9,9 +9,9 @@
       content="Project SURVIVOR’S CODE — your one-page online bookstore with top books, reader reviews, and upcoming literary events."
     />
     <title>Project SURVIVOR'S CODE</title>
-    <script type="module" crossorigin src="/project-SURVIVORS-CODE/assets/styles-DhPKp0Eo.js"></script>
-    <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/styles-DLNnTwc_.css">
-    <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/vendor-BMnmey_f.css">
+    <script type="module" crossorigin src="/project-SURVIVORS-CODE/assets/styles-C8IwAMgJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/styles-8YYrqsvS.css">
+    <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/vendor-DnveWo0P.css">
   </head>
   <body>
     <header class="header" id="header">
@@ -74,7 +74,6 @@
         </li>
       </ul>
     </nav>
-  </div>
 </header>
 
     <main>
@@ -141,53 +140,35 @@
     </div>
   </div>
 </section>
-
 <script src="./js/books-data.js"></script>
-<script src="./js/books.js"></script>
+<!-- <script src="./js/books.js"></script> -->
 
-      <section class="feedbacks" id="feedbacks">
-  
-   <div class="container">
-    feedbacks
-    <!-- HTML для слайдера -->
-  <div class="splide feedbacks-slider">
-    <div class="splide__track">
-      <ul class="splide__list">
-        <li class="splide__slide">Ваш контент для першого слайду</li>
-        <li class="splide__slide">Ваш контент для другого слайду</li>
-      </ul>
-    </div>
-
-    <div class="splide__arrows">
-      <button class="splide__arrow splide__arrow--prev">Prev</button>
-      <button class="splide__arrow splide__arrow--next">Next</button>
-    </div>
-  </div>
-  <!-- кінець HTML для сладера -->
-   </div>
-   
+      <section class="grid-container feedbacks" id="feedbacks">
+  <div class="grid-content section-content">feedbacks</div>
 </section>
 
-      <section class="events" id="events">
-  <div class="container">events</div>
+      <section class="grid-container events" id="events">
+  <div class="grid-content section-content">events</div>
 </section>
 
-      <section class="article" id="article">
-  <div class="container">article</div>
+      <section class="grid-container article" id="article">
+  <div class="grid-content section-content">article</div>
 </section>
 
-      <section class="location" id="location">
-  <div class="container">location</div>
+      <section class="grid-container location" id="location">
+  <div class="grid-content section-content">location</div>
 </section>
     </main>
 
-    <footer class="footer" id="footer">
-  <div class="container">
-    footer
-  </div>
+    <footer class="grid-container footer" id="footer">
+  <div class="grid-content section-content">footer</div>
 </footer>
 
     <div class="modal container">
+
+
+
+  
   <!-- HTML для аккордеону -->
   <div class="accordion-container">
     <div class="ac">
@@ -202,6 +183,22 @@
   <!-- кінець HTML для аккордеону -->
 </div>
 
+<div class="modal container" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <header class="modal__header">
+          <h2 class="modal__title" id="modal-1-title">Привіт!</h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <main class="modal__content" id="modal-1-content">
+          Тут твій контент модалки.
+        </main>
+        <footer class="modal__footer">
+          <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Закрити</button>
+        </footer>
+      </div>
+    </div>
+  </div>
 
   </body>
 </html>
