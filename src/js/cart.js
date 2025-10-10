@@ -1,1 +1,0 @@
-import iziToast from 'izitoast';
