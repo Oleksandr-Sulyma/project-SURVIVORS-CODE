@@ -1,5 +1,39 @@
-<section class="grid-container books" id="books">
-  <div class="grid-content section-content">
-    <button class="btn" id="open-modal-btn">Відкрити модалку</button>
+<section
+  id="books-section"
+  class="books-section"
+  aria-labelledby="books-heading"
+>
+  <h2 id="books-heading" class="sr-only">Trending books</h2>
+
+  <div class="books-container">
+    <div class="books-header">
+      <h3 class="books-title">Books</h3>
+      <div class="books-counter">
+        <span id="books-counter-text">Showing 0 of 0</span>
+      </div>
+    </div>
+
+    <div class="books-content">
+      <aside class="books-categories">
+        <ul id="categories-list" class="categories-list"></ul>
+      </aside>
+
+      <main class="books-main">
+        <div id="books-loader" class="books-loader hidden">
+          <div class="loader-spinner"></div>
+          <p>Loading books...</p>
+        </div>
+
+        <ul id="books-grid" class="books-grid"></ul>
+
+        <div class="show-more-container">
+          <button id="show-more-btn" class="show-more-button" type="button">
+            Show More
+          </button>
+        </div>
+      </main>
+    </div>
   </div>
 </section>
+<script src="./js/books-data.js"></script>
+<script src="./js/books.js"></script>

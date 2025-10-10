@@ -1,10 +1,21 @@
 :root {
-  --min-width: 320px;
-  --max-width: 1440px;
+  --min-width: auto;
+  --max-width: 343px;
+  --space: var(--gap-md);
+
+  @media screen and (min-width: 768px) {
+    --max-width: 705px;
+    --space: var(--gap-xl);
+  }
+
+  @media screen and (min-width: 1440px) {
+    --max-width: 1312px;
+    --space: var(--gap-xxl);
+  }
 }
 
 .grid-container {
-  --flap: minmax(16px, 1fr);
+  --flap: minmax(var(--space), 1fr);
   --content: minmax(var(--min-width), var(--max-width));
 
   display: grid;

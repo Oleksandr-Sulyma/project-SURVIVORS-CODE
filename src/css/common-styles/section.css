@@ -6,7 +6,13 @@
 }
 
 .section-content-horizontal {
-  flex-direction: row;
+  display: grid;
+}
+
+@media screen and (min-width: 768px) {
+  .section-content-horizontal {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .section-header {
