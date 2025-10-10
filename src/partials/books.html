@@ -1,11 +1,15 @@
-<section class="books" id="books">
-  <div class="container">
-    <h2 class="visually-hidden">Trending books</h2>
+<section
+  id="books-section"
+  class="books-section"
+  aria-labelledby="books-heading"
+>
+  <h2 id="books-heading" class="sr-only">Trending books</h2>
 
+  <div class="books-container">
     <div class="books-header">
       <h3 class="books-title">Books</h3>
       <div class="books-counter">
-        <span id="books-counter-text">Showing 0 of 0</span>
+        <span id="books-counter-text" aria-live="polite">Showing 0 of 0</span>
       </div>
     </div>
 
@@ -15,12 +19,18 @@
       </aside>
 
       <main class="books-main">
-        <div id="books-loader" class="books-loader visually-hidden">
+        <div id="books-loader" class="books-loader hidden" aria-hidden="true">
           <div class="loader-spinner"></div>
           <p>Loading books...</p>
         </div>
 
-        <ul id="books-grid" class="books-grid"></ul>
+        <ul
+          id="books-grid"
+          class="books-grid"
+          role="list"
+          aria-busy="false"
+          aria-live="polite"
+        ></ul>
 
         <div class="show-more-container">
           <button id="show-more-btn" class="show-more-button" type="button">
