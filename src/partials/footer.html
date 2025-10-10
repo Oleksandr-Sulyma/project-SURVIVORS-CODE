@@ -1,40 +1,42 @@
-<footer class="footer" id="footer">
-  <div class="grid-container footer-inner">
-    <div class="grid-content">
+<footer class="footer grid-container" id="footer">
+  <div class="grid-content footer-container">
+    <div class="footer-content">
       <nav class="footer-nav">
-        <a class="logo"><svg class="logo-footer" width="84" height="36">
-          <use href="/img/symbol-defs.svg#icon-logo-booksy"></use>
-        </svg></a>
+        <a class="logo" href="/index.html">
+          <svg class="logo-footer" width="84" height="36">
+            <use href="/img/symbol-defs.svg#icon-logo-booksy"></use>
+          </svg>
+        </a>
         <ul class="footer-nav-list">
-          <li class="nav-item"><a href="">Home</a></li>
-          <li class="nav-item"><a href="">Books</a></li>
-          <li class="nav-item"><a href="">Feedback</a></li>
-          <li class="nav-item"><a href="">Location</a></li>
+          <li class="nav-item"><a href="#header">Home</a></li>
+          <li class="nav-item"><a href="#books-section">Books</a></li>
+          <li class="nav-item"><a href="#feedbacks">Feedback</a></li>
+          <li class="nav-item"><a href="#location">Location</a></li>
         </ul>
       </nav>
+
       <div class="footer-form">
-        <p class="footer-title">Join</p>
+        <p class="footer-title h3">Join</p>
         <form class="footer-input-box" novalidate>
-          <label aria-label="email" class="footer-label">
+          <label class="footer-label">
             <input
               type="email"
               class="footer-input"
-              name="fopoter-email"
-              id="fopoter-email"
+              id="footer-email"
+              name="footer-email"
+              placeholder="Enter your email*"
               required
-              placeholder="Enter your email"
               pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
             />
           </label>
-          <button type="submit" class="btn footer-btn">
-            Sign Up
-          </button>
+          <button type="submit" class="btn btn-secondary footer-btn">Sign Up</button>
         </form>
         <small class="footer-remark"></small>
       </div>
-      <p class="footer-copyright">
-          © 2025 Booksy. All rights reserved.
-        </p>
     </div>
+
+    <p class="footer-copyright body-sm">
+      © 2025 Booksy. All rights reserved.
+    </p>
   </div>
 </footer>

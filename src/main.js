@@ -2,6 +2,4 @@ import 'izitoast/dist/css/iziToast.min.css';
 import '@splidejs/splide/dist/css/splide.min.css';
 
 
-import {
-  
-} from './js/footer-form';
+import './js/join-form.js';
