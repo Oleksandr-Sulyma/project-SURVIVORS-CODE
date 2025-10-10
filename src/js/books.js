@@ -11,37 +11,22 @@ class BooksSection {
     this.isLoading = false;
     this.hasMore = true;
     this.loadedBooks = [];
-    this.isInitialized = false;
 
-    this.initialPerPage = this.getInitialBooksCount();
+    this.initialPerPage = window.innerWidth >= 1024 ? 24 : 10;
     this.perLoad = 4;
 
     this.imageObserver = null;
-    this.resizeTimeout = null;
-
     this.init();
-  }
-
-  getInitialBooksCount() {
-    return window.innerWidth >= 1024 ? 24 : 10;
   }
 
   async init() {
     try {
       this.setupGlobalListeners();
       this.setupImageObserver();
-      this.setupResizeHandler();
-
-      console.log('Books section initializing...');
-      
       await this.renderCategories();
       await this.loadBooks(true);
-      
-      this.isInitialized = true;
-      console.log('Books section initialized successfully');
     } catch (error) {
       console.error('Failed to initialize Books section:', error);
-      this.showError('Помилка ініціалізації секції книг. Оновіть сторінку.');
     }
   }
 
@@ -99,22 +84,8 @@ class BooksSection {
     document.dispatchEvent(event);
   }
 
-  setupResizeHandler() {
-    window.addEventListener('resize', () => {
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = setTimeout(() => {
-        const newInitialCount = this.getInitialBooksCount();
-        if (newInitialCount !== this.initialPerPage) {
-          this.initialPerPage = newInitialCount;
-          console.log('Screen size changed, new initial count:', this.initialPerPage);
-        }
-      }, 250);
-    });
-  }
-
   async renderCategories() {
     try {
-      console.log('Loading categories...');
       const categories = await window.booksAPI.getCategories();
       
       const categoryItems = [
@@ -139,12 +110,9 @@ class BooksSection {
           const item = e.currentTarget.closest('.category-item');
           const category = item.dataset.category;
           
-          console.log('Category clicked:', category);
           await this.filterByCategory(category);
         });
       });
-
-      console.log('Categories rendered:', categoryItems.length);
     } catch (err) {
       console.error('Failed to load categories', err);
       this.categoriesUL.innerHTML = `
@@ -156,7 +124,6 @@ class BooksSection {
 
   setupImageObserver() {
     if (!('IntersectionObserver' in window)) {
-      console.warn('IntersectionObserver not supported, using immediate loading');
       return;
     }
 
@@ -191,7 +158,6 @@ class BooksSection {
       img.classList.remove('loading');
       img.src = 'https://via.placeholder.com/300x400/f0f0f0/666666?text=No+Image';
       img.removeAttribute('data-src');
-      console.warn('Failed to load image:', src);
     };
     
     loader.referrerPolicy = 'no-referrer';
@@ -199,37 +165,27 @@ class BooksSection {
   }
 
   async loadBooks(reset = false) {
-    if (this.isLoading) {
-      console.log('Already loading books, skipping...');
-      return;
-    }
+    if (this.isLoading) return;
 
     this.setLoading(true);
     
     try {
       const limit = reset ? this.initialPerPage : this.perLoad;
-      console.log(`Loading books: category=${this.currentCategory}, page=${this.currentPage}, limit=${limit}`);
-      
       const data = await window.booksAPI.getBooks(this.currentCategory, this.currentPage, limit);
       
       if (reset) {
         this.loadedBooks = [...data.books];
         this.renderBooks(this.loadedBooks);
-        console.log('Books reset, loaded:', this.loadedBooks.length);
       } else {
         this.loadedBooks = [...this.loadedBooks, ...data.books];
         this.appendBooks(data.books);
-        console.log('Books appended, total:', this.loadedBooks.length);
       }
 
       this.hasMore = data.hasMore;
       this.updateCounter(data.showing, data.total);
       this.updateShowMoreButton();
-      
-      console.log(`Books loaded successfully. Has more: ${this.hasMore}`);
     } catch (err) {
       console.error('Error loading books:', err);
-      this.showError('Помилка завантаження книг. Спробуйте пізніше.');
     } finally {
       this.setLoading(false);
     }
@@ -241,28 +197,20 @@ class BooksSection {
   }
 
   appendBooks(books) {
-    if (!books.length) {
-      console.log('No books to append');
-      return;
-    }
+    if (!books.length) return;
 
     const frag = document.createDocumentFragment();
     books.forEach((book, i) => {
-      const card = this.createBookCard(book, this.loadedBooks.length - books.length + i);
+      const card = this.createBookCard(book, i);
       if (card) {
         frag.appendChild(card);
       }
     });
     this.booksGrid.appendChild(frag);
-    
-    console.log('Books appended to DOM:', books.length);
   }
 
   createBookCard(book, index = 0) {
-    if (!book || !book.id) {
-      console.warn('Invalid book data for card creation:', book);
-      return null;
-    }
+    if (!book || !book.id) return null;
 
     const card = document.createElement('li');
     card.className = 'book-card';
@@ -305,13 +253,8 @@ class BooksSection {
   }
 
   async filterByCategory(category) {
-    if (category === this.currentCategory || this.isLoading) {
-      console.log('Category filter skipped:', { category, current: this.currentCategory, isLoading: this.isLoading });
-      return;
-    }
+    if (category === this.currentCategory || this.isLoading) return;
 
-    console.log('Filtering by category:', category);
-    
     this.updateActiveCategory(category);
     this.currentCategory = category;
     this.currentPage = 1;
@@ -328,17 +271,12 @@ class BooksSection {
     const activeItem = this.categoriesUL.querySelector(`.category-item[data-category="${CSS.escape(category)}"]`);
     if (activeItem) {
       activeItem.classList.add('active');
-      console.log('Active category updated:', category);
     }
   }
 
   async loadMore() {
-    if (!this.hasMore || this.isLoading) {
-      console.log('Load more skipped:', { hasMore: this.hasMore, isLoading: this.isLoading });
-      return;
-    }
+    if (!this.hasMore || this.isLoading) return;
 
-    console.log('Loading more books...');
     this.currentPage += 1;
     await this.loadBooks(false);
   }
@@ -354,44 +292,16 @@ class BooksSection {
     
     this.showMoreBtn.style.display = this.hasMore ? 'inline-block' : 'none';
     this.showMoreBtn.disabled = this.isLoading || !this.hasMore;
-    
-    if (this.isLoading) {
-      this.showMoreBtn.textContent = 'Loading...';
-    } else if (!this.hasMore) {
-      this.showMoreBtn.textContent = 'All Books Loaded';
-    } else {
-      this.showMoreBtn.textContent = 'Show More';
-    }
   }
 
   setLoading(flag) {
     this.isLoading = flag;
     
     if (this.booksLoader) {
-      this.booksLoader.classList.toggle('hidden', !flag);
-    }
-    
-    if (this.showMoreBtn) {
-      this.showMoreBtn.classList.toggle('loading', flag);
+      this.booksLoader.classList.toggle('visually-hidden', !flag);
     }
     
     this.updateShowMoreButton();
-    
-    console.log('Loading state:', flag);
-  }
-
-  showError(message) {
-    console.error('Books section error:', message);
-    
-    if (window.iziToast) {
-      window.iziToast.error({
-        title: 'Error',
-        message: message,
-        position: 'topRight'
-      });
-    } else {
-      alert(message);
-    }
   }
 
   escapeHtml(text) {
@@ -420,38 +330,6 @@ class BooksSection {
       return null;
     }
   }
-
-  getCurrentBooks() {
-    return [...this.loadedBooks];
-  }
-
-  getCurrentCategory() {
-    return this.currentCategory;
-  }
-
-  isReady() {
-    return this.isInitialized && !this.isLoading;
-  }
-
-  async reload() {
-    console.log('Reloading books section...');
-    this.currentPage = 1;
-    this.hasMore = true;
-    this.loadedBooks = [];
-    await this.loadBooks(true);
-  }
-
-  destroy() {
-    if (this.imageObserver) {
-      this.imageObserver.disconnect();
-    }
-    
-    if (this.resizeTimeout) {
-      clearTimeout(this.resizeTimeout);
-    }
-    
-    console.log('Books section destroyed');
-  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -460,37 +338,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const requiredElements = [
-    'books-grid', 
-    'books-loader', 
-    'books-counter-text', 
-    'show-more-btn', 
-    'categories-list'
-  ];
-
-  const missingElements = requiredElements.filter(id => !document.getElementById(id));
-  if (missingElements.length > 0) {
-    console.error('Missing required DOM elements:', missingElements);
-    return;
-  }
-
-  try {
-    window.booksSection = new BooksSection();
-    console.log('Books section instance created successfully');
-    
-    window.booksDebug = {
-      reload: () => window.booksSection.reload(),
-      getBooks: () => window.booksSection.getCurrentBooks(),
-      getCategory: () => window.booksSection.getCurrentCategory(),
-      isReady: () => window.booksSection.isReady(),
-      testAPI: () => window.booksAPIUtils.testAPI()
-    };
-    
-  } catch (error) {
-    console.error('Failed to create Books section instance:', error);
-  }
+  window.booksSection = new BooksSection();
 });
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = BooksSection;
 }
+

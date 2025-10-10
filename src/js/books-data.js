@@ -42,11 +42,7 @@ function normalizeBook(b) {
     cover: b.book_image || 'https://via.placeholder.com/300x400/f0f0f0/666666?text=No+Image',
     price: pseudoPriceFromId(b._id),
     buy_links: Array.isArray(b.buy_links) ? b.buy_links : [],
-    category: b.list_name || 'Uncategorized',
-    isbn: b.isbn || '',
-    publisher: b.publisher || '',
-    published_date: b.published_date || '',
-    rank: b.rank || 0
+    category: b.list_name || 'Uncategorized'
   };
 }
 
@@ -217,68 +213,11 @@ class BooksAPI {
     }
     return shuffled;
   }
-
-  async searchBooks(query, category = 'all') {
-    if (!query || query.trim().length < 2) {
-      return [];
-    }
-
-    try {
-      const allBooks = category === 'all'
-        ? await this.getTopBooksFlatten()
-        : await this.getBooksByCategory(category);
-
-      const searchTerm = query.toLowerCase().trim();
-      return allBooks.filter(book => 
-        book.title.toLowerCase().includes(searchTerm) ||
-        book.author.toLowerCase().includes(searchTerm) ||
-        book.description.toLowerCase().includes(searchTerm)
-      );
-    } catch (error) {
-      console.error('Search failed:', error);
-      return [];
-    }
-  }
-
-  clearCache() {
-    this.cache.clear();
-    console.log('Books API cache cleared');
-  }
-
-  getCacheStats() {
-    return {
-      size: this.cache.size,
-      keys: Array.from(this.cache.keys())
-    };
-  }
 }
 
 if (typeof window !== 'undefined') {
   window.booksAPI = new BooksAPI();
-  
-  window.booksAPIUtils = {
-    clearCache: () => window.booksAPI.clearCache(),
-    getCacheStats: () => window.booksAPI.getCacheStats(),
-    testAPI: async () => {
-      console.log('Testing Books API...');
-      try {
-        const categories = await window.booksAPI.getCategories();
-        console.log('Categories:', categories.length);
-        
-        const books = await window.booksAPI.getBooks('all', 1, 5);
-        console.log('Books:', books.books.length);
-        
-        if (books.books.length > 0) {
-          const firstBook = await window.booksAPI.getBookById(books.books[0].id);
-          console.log('Book details:', firstBook?.title);
-        }
-        
-        console.log('API test completed successfully');
-      } catch (error) {
-        console.error('API test failed:', error);
-      }
-    }
-  };
 } else {
   module.exports = { BooksAPI, normalizeBook, pseudoPriceFromId };
 }
+
