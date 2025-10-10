@@ -1,12 +1,19 @@
 class BooksSection {
     constructor() {
+        // Desktop elements
         this.booksGrid = document.getElementById('books-grid');
         this.booksLoader = document.getElementById('books-loader');
-        this.booksCounter = document.getElementById('books-counter-text');
         this.showMoreBtn = document.getElementById('show-more-btn');
         this.categoriesUL = document.getElementById('categories-list');
         this.categoriesLoader = document.getElementById('categories-loader');
         this.errorElement = document.getElementById('books-error');
+        
+        // Counter element (same for all layouts)
+        this.booksCounter = document.getElementById('books-counter-text');
+        
+        // Category select elements for different layouts
+        this.categoriesSelectTablet = document.getElementById('categories-select-tablet');
+        this.categoriesSelectMobile = document.getElementById('categories-select-mobile');
         
         this.currentCategory = 'all';
         this.currentPage = 1;
@@ -19,7 +26,8 @@ class BooksSection {
             initialPerPageMobile: 10,
             initialPerPageDesktop: 24,
             perLoadMore: 4,
-            mobileBreakpoint: 768
+            mobileBreakpoint: 768,
+            tabletBreakpoint: 1024
         };
         
         this.imageObserver = null;
@@ -30,15 +38,11 @@ class BooksSection {
     
     async init() {
         try {
-            console.log('BooksSection: Starting initialization...');
             this.hideError();
             this.setupEventListeners();
             this.setupObservers();
-            console.log('BooksSection: Loading categories...');
             await this.renderCategories();
-            console.log('BooksSection: Loading books...');
             await this.loadBooks(true);
-            console.log('BooksSection: Initialization complete!');
         } catch (error) {
             console.error('Initialization error:', error);
             this.showError('Failed to load books. Please try again.');
@@ -52,58 +56,45 @@ class BooksSection {
         
         this.booksGrid?.addEventListener('click', (e) => this.handleBookClick(e));
         window.addEventListener('resize', () => this.handleResize());
+        
+        // Setup dropdown change handlers
+        if (this.categoriesSelectTablet) {
+            this.categoriesSelectTablet.addEventListener('change', (e) => {
+                this.filterByCategory(e.target.value);
+            });
+        }
+        
+        if (this.categoriesSelectMobile) {
+            this.categoriesSelectMobile.addEventListener('change', (e) => {
+                this.filterByCategory(e.target.value);
+            });
+        }
     }
     
     setupObservers() {
         if ('IntersectionObserver' in window) {
-            this.imageObserver = new IntersectionObserver(
-                (entries) => this.handleImageIntersection(entries),
-                { rootMargin: '50px 0px', threshold: 0.1 }
-            );
+            this.imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            this.loadImage(img);
+                        }
+                    }
+                });
+            }, { rootMargin: '50px' });
         }
-    }
-    
-    handleBookClick(e) {
-        const btn = e.target.closest('.learn-more-btn');
-        if (!btn) return;
-        
-        const card = btn.closest('.book-card');
-        if (!card) return;
-        
-        const bookId = card.dataset.bookId;
-        if (!bookId) return;
-        
-        window.dispatchEvent(new CustomEvent('books:open', { 
-            detail: { bookId } 
-        }));
-    }
-    
-    handleResize() {
-        if (this.debounceTimeout) {
-            clearTimeout(this.debounceTimeout);
-        }
-        
-        this.debounceTimeout = setTimeout(() => {
-            const newInitialCount = this.getInitialBooksCount();
-        }, 300);
-    }
-    
-    getInitialBooksCount() {
-        return window.innerWidth < this.config.mobileBreakpoint 
-            ? this.config.initialPerPageMobile 
-            : this.config.initialPerPageDesktop;
     }
     
     async renderCategories() {
-        console.log('renderCategories: Starting, categoriesUL exists:', !!this.categoriesUL);
         if (!this.categoriesUL) return;
         
         this.setCategoriesLoading(true);
         
         try {
             const categories = await window.booksAPI.getCategories();
-            console.log('renderCategories: Got categories:', categories.length);
             
+            // Render desktop categories (sidebar)
             const allCategories = ['All categories', ...categories];
             
             this.categoriesUL.innerHTML = allCategories.map((name, index) => {
@@ -135,22 +126,42 @@ class BooksSection {
                 });
             });
             
+            // Populate dropdown selects for tablet and mobile
+            this.populateDropdowns(categories);
+            
         } catch (error) {
-            console.error('Categories loading error:', error);
-            this.categoriesUL.innerHTML = `
-                <li class="category-item active" data-category="all">
-                    <button class="category-button" type="button" aria-pressed="true">
-                        All categories
-                    </button>
-                </li>
-            `;
+            console.error('Error rendering categories:', error);
         } finally {
             this.setCategoriesLoading(false);
         }
     }
     
+    populateDropdowns(categories) {
+        const dropdowns = [this.categoriesSelectTablet, this.categoriesSelectMobile];
+        
+        dropdowns.forEach(dropdown => {
+            if (!dropdown) return;
+            
+            // Очищуємо dropdown
+            dropdown.innerHTML = '<option value="all">Categories</option>';
+            
+            // Додаємо категорії, перевіряючи що це строки та не пусті
+            if (Array.isArray(categories)) {
+                categories.forEach(category => {
+                    if (typeof category === 'string' && category.trim()) {
+                        const option = document.createElement('option');
+                        option.value = category;
+                        option.textContent = category;
+                        dropdown.appendChild(option);
+                    }
+                });
+            }
+            
+            dropdown.value = this.currentCategory;
+        });
+    }
+    
     async loadBooks(reset = false) {
-        console.log('loadBooks: Starting, reset:', reset, 'category:', this.currentCategory);
         if (this.isLoading) return;
         
         this.setLoading(true);
@@ -159,166 +170,150 @@ class BooksSection {
         try {
             const limit = reset ? this.getInitialBooksCount() : this.config.perLoadMore;
             const page = reset ? 1 : this.currentPage + 1;
-            console.log('loadBooks: Requesting page:', page, 'limit:', limit);
             
             const data = await window.booksAPI.getBooks(this.currentCategory, page, limit);
-            console.log('loadBooks: Got data, books:', data.books.length, 'total:', data.total);
             
             if (reset) {
                 this.loadedBooks = [...data.books];
                 this.currentPage = 1;
                 this.renderBooks(this.loadedBooks);
             } else {
-                this.loadedBooks = [...this.loadedBooks, ...data.books];
+                this.loadedBooks.push(...data.books);
                 this.currentPage = page;
                 this.appendBooks(data.books);
             }
             
             this.hasMore = data.hasMore;
-            this.updateCounter(data.showing, data.total);
             this.updateShowMoreButton();
+            this.updateBooksCounter(data.showing, data.total);
             
         } catch (error) {
-            console.error('Books loading error:', error);
-            const errorMessage = error.message || 'Failed to load books. Please try again.';
-            this.showError(errorMessage);
+            console.error('Error loading books:', error);
+            this.showError(`Failed to load books: ${error.message}`);
         } finally {
             this.setLoading(false);
         }
     }
     
     renderBooks(books) {
-        console.log('renderBooks: Starting, booksGrid exists:', !!this.booksGrid, 'books count:', books.length);
         if (!this.booksGrid) return;
         
         this.booksGrid.innerHTML = '';
         this.appendBooks(books);
-        console.log('renderBooks: Completed, final children count:', this.booksGrid.children.length);
     }
     
     appendBooks(books) {
-        console.log('appendBooks: Starting, books:', books.length);
         if (!this.booksGrid || !Array.isArray(books)) return;
         
         const fragment = document.createDocumentFragment();
         
         books.forEach((book, index) => {
-            const bookElement = this.createBookItem(book, this.loadedBooks.length - books.length + index);
-            if (bookElement) {
-                fragment.appendChild(bookElement);
-            }
+            const bookCard = this.createBookCard(book, index);
+            fragment.appendChild(bookCard);
         });
         
         this.booksGrid.appendChild(fragment);
-        this.booksGrid.setAttribute('aria-busy', 'false');
     }
     
-    createBookItem(book, index = 0) {
-        if (!book || !book.id) return null;
-        
+    createBookCard(book, index = 0) {
         const li = document.createElement('li');
         li.className = 'book-card';
-        li.dataset.bookId = book.id;
-        li.setAttribute('role', 'listitem');
-        li.style.animationDelay = `${(index % 8) * 0.05}s`;
+        li.style.animationDelay = `${(index % 8) * 0.05 + 0.1}s`;
         
-        const coverUrl = book.cover || 'https://via.placeholder.com/227x323/f0f0f0/666666?text=No+Image';
+        const priceText = book.price && book.price !== '$0' ? book.price : '';
         
         li.innerHTML = `
             <div class="book-media">
                 <img 
-                    class="book-cover" 
-                    data-src="${this.escapeHtml(coverUrl)}" 
-                    alt="${this.escapeHtml(book.title)} cover" 
-                    loading="lazy" 
-                    decoding="async" 
-                    referrerpolicy="no-referrer"
+                    class="book-cover loading" 
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='227' height='323'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3C/svg%3E"
+                    ${book.image ? `data-src="${book.image}"` : ''}
+                    alt="${this.escapeHtml(book.title)}"
+                    loading="lazy"
                 >
             </div>
             <div class="book-info">
                 <div class="book-title-row">
                     <h3 class="book-title">${this.escapeHtml(book.title)}</h3>
-                    <span class="book-price">${this.escapeHtml(book.price)}</span>
+                    ${priceText ? `<span class="book-price">${this.escapeHtml(priceText)}</span>` : ''}
                 </div>
                 <p class="book-author">${this.escapeHtml(book.author)}</p>
             </div>
             <div class="book-footer">
-                <button class="learn-more-btn" type="button">Learn More</button>
+                <button 
+                    class="learn-more-btn" 
+                    type="button"
+                    data-book-id="${this.escapeHtml(book.id)}"
+                    data-amazon-url="${this.escapeHtml(book.amazon_product_url)}"
+                >
+                    Learn More
+                </button>
             </div>
         `;
         
         const img = li.querySelector('.book-cover');
-        if (this.imageObserver && img?.dataset.src) {
-            this.imageObserver.observe(img);
-        } else if (img) {
-            this.loadImage(img);
+        if (img && book.image) {
+            if (this.imageObserver) {
+                this.imageObserver.observe(img);
+            } else {
+                this.loadImage(img);
+            }
         }
         
         return li;
     }
     
     loadImage(img) {
-        const src = img.dataset.src;
-        if (!src) return;
+        if (!img.dataset.src) return;
         
-        img.classList.add('loading');
-        
-        const loader = new Image();
-        loader.onload = () => {
-            img.src = src;
+        const tempImg = new Image();
+        tempImg.onload = () => {
+            img.src = img.dataset.src;
             img.classList.remove('loading');
             img.removeAttribute('data-src');
         };
-        
-        loader.onerror = () => {
+        tempImg.onerror = () => {
             img.classList.remove('loading');
-            img.src = 'https://via.placeholder.com/227x323/f0f0f0/666666?text=No+Image';
             img.removeAttribute('data-src');
         };
+        tempImg.src = img.dataset.src;
         
-        loader.referrerPolicy = 'no-referrer';
-        loader.src = src;
-    }
-    
-    handleImageIntersection(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                this.loadImage(img);
-                this.imageObserver.unobserve(img);
-            }
-        });
+        if (this.imageObserver) {
+            this.imageObserver.unobserve(img);
+        }
     }
     
     async filterByCategory(category) {
-        if (category === this.currentCategory || this.isLoading) return;
+        if (category === this.currentCategory) return;
         
-        this.updateActiveCategory(category);
         this.currentCategory = category;
         this.currentPage = 1;
-        this.hasMore = true;
         this.loadedBooks = [];
+        
+        // Update active states in desktop sidebar
+        this.updateCategoriesActiveState(category);
+        
+        // Update dropdown values
+        if (this.categoriesSelectTablet) this.categoriesSelectTablet.value = category;
+        if (this.categoriesSelectMobile) this.categoriesSelectMobile.value = category;
         
         await this.loadBooks(true);
     }
     
-    updateActiveCategory(category) {
+    updateCategoriesActiveState(activeCategory) {
         if (!this.categoriesUL) return;
         
         this.categoriesUL.querySelectorAll('.category-item').forEach(item => {
-            item.classList.remove('active');
+            const category = item.dataset.category;
+            const isActive = category === activeCategory;
+            
+            item.classList.toggle('active', isActive);
+            
             const button = item.querySelector('.category-button');
-            if (button) button.setAttribute('aria-pressed', 'false');
+            if (button) {
+                button.setAttribute('aria-pressed', isActive.toString());
+            }
         });
-        
-        const activeCategory = this.categoriesUL.querySelector(
-            `.category-item[data-category="${CSS.escape(category)}"]`
-        );
-        if (activeCategory) {
-            activeCategory.classList.add('active');
-            const button = activeCategory.querySelector('.category-button');
-            if (button) button.setAttribute('aria-pressed', 'true');
-        }
     }
     
     async loadMore() {
@@ -326,23 +321,63 @@ class BooksSection {
         await this.loadBooks(false);
     }
     
-    updateCounter(showing, total) {
-        if (this.booksCounter) {
-            this.booksCounter.textContent = `Showing ${showing} of ${total}`;
-        }
-    }
-    
     updateShowMoreButton() {
         if (!this.showMoreBtn) return;
         
-        const shouldShow = this.hasMore && !this.isLoading && this.loadedBooks.length > 0;
-        this.showMoreBtn.style.display = shouldShow ? 'block' : 'none';
-        this.showMoreBtn.disabled = this.isLoading || !this.hasMore;
-        
-        const buttonText = this.showMoreBtn.querySelector('.button-text');
-        if (buttonText) {
-            buttonText.textContent = this.isLoading ? 'Loading...' : 'Show More';
+        if (this.hasMore && !this.isLoading) {
+            this.showMoreBtn.style.display = 'block';
+            this.showMoreBtn.disabled = false;
+            this.showMoreBtn.textContent = 'Show More';
+        } else if (this.isLoading) {
+            this.showMoreBtn.disabled = true;
+            this.showMoreBtn.textContent = 'Loading...';
+        } else {
+            this.showMoreBtn.style.display = 'none';
         }
+    }
+    
+    updateBooksCounter(showing, total) {
+        const text = `Showing ${showing} of ${total}`;
+        
+        if (this.booksCounter) {
+            this.booksCounter.textContent = text;
+        }
+    }
+    
+    handleBookClick(e) {
+        const button = e.target.closest('.learn-more-btn');
+        if (!button) return;
+        
+        e.preventDefault();
+        
+        const amazonUrl = button.dataset.amazonUrl;
+        if (amazonUrl && amazonUrl !== '#') {
+            window.open(amazonUrl, '_blank', 'noopener,noreferrer');
+        }
+    }
+    
+    handleResize() {
+        if (this.debounceTimeout) {
+            clearTimeout(this.debounceTimeout);
+        }
+        
+        this.debounceTimeout = setTimeout(() => {
+            this.updateBooksGrid();
+        }, 250);
+    }
+    
+    updateBooksGrid() {
+        // Force recalculation of grid layout if needed
+        if (this.booksGrid) {
+            this.booksGrid.style.display = 'none';
+            this.booksGrid.offsetHeight; // Trigger reflow
+            this.booksGrid.style.display = 'grid';
+        }
+    }
+    
+    getInitialBooksCount() {
+        const isMobile = window.innerWidth <= this.config.mobileBreakpoint;
+        return isMobile ? this.config.initialPerPageMobile : this.config.initialPerPageDesktop;
     }
     
     setLoading(isLoading) {
@@ -352,13 +387,11 @@ class BooksSection {
             this.booksLoader.classList.toggle('hidden', !isLoading);
         }
         
-        if (this.showMoreBtn) {
-            this.showMoreBtn.disabled = isLoading || !this.hasMore;
+        if (this.booksGrid) {
+            this.booksGrid.setAttribute('aria-busy', isLoading.toString());
         }
         
-        if (this.booksGrid) {
-            this.booksGrid.setAttribute('aria-busy', String(isLoading));
-        }
+        this.updateShowMoreButton();
     }
     
     setCategoriesLoading(isLoading) {

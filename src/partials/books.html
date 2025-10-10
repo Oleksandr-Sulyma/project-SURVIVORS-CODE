@@ -1,96 +1,83 @@
-<html lang="uk">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Books</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <section
-      id="books-section"
-      class="books-section"
-      aria-labelledby="books-heading"
-    >
-      <div class="books-container">
-        <div class="books-header">
-          <div class="books-header-content">
-            <h1 id="books-heading" class="books-title">Books</h1>
-            <span
-              id="books-counter-text"
-              class="books-counter"
-              aria-live="polite"
-              >Showing 0 of 0</span
-            >
-          </div>
+<section
+  id="books-section"
+  class="books-section"
+  aria-labelledby="books-heading"
+>
+  <div class="books-container">
+    <div class="books-header">
+      <div class="books-header-main">
+        <div class="books-header-left">
+          <h1 id="books-heading" class="books-title">Books</h1>
+          <span id="books-counter-text" class="books-counter" aria-live="polite"
+            >Showing 0 of 0</span
+          >
         </div>
 
-        <div
-          id="books-error"
-          class="books-error"
-          role="alert"
-          aria-live="assertive"
-          style="display: none"
-        >
-          <div class="error-content">
-            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-            <p class="error-message"></p>
-            <button class="retry-btn" type="button">
-              <span>Try again</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="books-content">
-          <aside class="books-categories" role="complementary">
-            <ul id="categories-list" class="categories-list" role="list"></ul>
-            <div
-              id="categories-loader"
-              class="categories-loader hidden"
-              aria-hidden="true"
-            >
-              <div class="small-spinner"></div>
-            </div>
-          </aside>
-
-          <main class="books-main" role="main">
-            <div
-              id="books-loader"
-              class="books-loader hidden"
-              aria-hidden="true"
-            >
-              <div class="loader-spinner"></div>
-              <p>Loading books...</p>
-            </div>
-
-            <ul
-              id="books-grid"
-              class="books-grid"
-              role="list"
-              aria-busy="false"
-              aria-live="polite"
-            ></ul>
-
-            <div class="show-more-container">
-              <button id="show-more-btn" class="show-more-button" type="button">
-                <span class="button-text">Show More</span>
-              </button>
-            </div>
-          </main>
+        <div class="categories-dropdown tablet-only">
+          <select id="categories-select-tablet" class="categories-select">
+            <option value="all">Categories</option>
+          </select>
         </div>
       </div>
-    </section>
 
-    <script src="js/books-data.js"></script>
-    <script src="js/books.js"></script>
-  </body>
-</html>
+      <div class="categories-dropdown mobile-only">
+        <select id="categories-select-mobile" class="categories-select">
+          <option value="all">Categories</option>
+        </select>
+      </div>
+    </div>
+
+    <div
+      id="books-error"
+      class="books-error"
+      role="alert"
+      aria-live="assertive"
+      style="display: none"
+    >
+      <div class="error-content">
+        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+        <p class="error-message"></p>
+        <button class="retry-btn" type="button">
+          <span>Try again</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="books-content">
+      <aside class="books-categories desktop-categories" role="complementary">
+        <ul id="categories-list" class="categories-list" role="list"></ul>
+        <div
+          id="categories-loader"
+          class="categories-loader hidden"
+          aria-hidden="true"
+        >
+          <div class="small-spinner"></div>
+        </div>
+      </aside>
+
+      <main class="books-main" role="main">
+        <div id="books-loader" class="books-loader hidden" aria-hidden="true">
+          <div class="loader-spinner"></div>
+          <p>Loading books...</p>
+        </div>
+
+        <ul
+          id="books-grid"
+          class="books-grid"
+          role="list"
+          aria-busy="false"
+          aria-live="polite"
+        ></ul>
+
+        <div class="show-more-container">
+          <button id="show-more-btn" class="show-more-button" type="button">
+            <span class="button-text">Show More</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<script src="js/books-data.js"></script>
+<script src="js/books.js"></script>

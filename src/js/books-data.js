@@ -32,89 +32,45 @@ async function fetchJSON(path, options = {}) {
             
         } catch (error) {
             lastError = error;
-            console.warn(`Attempt ${attempt} failed:`, error.message);
             
-            if (attempt === RETRY_ATTEMPTS || error.name === 'AbortError') {
-                break;
+            if (error.name === 'AbortError') {
+                throw new Error('Request timeout. Please check your connection.');
+            }
+            
+            if (attempt === RETRY_ATTEMPTS) {
+                throw lastError;
             }
             
             await new Promise(resolve => setTimeout(resolve, RETRY_DELAY * attempt));
         }
     }
-    
-    clearTimeout(timeoutId);
-    throw lastError || new Error('Unknown API error');
 }
 
-function pseudoPriceFromId(id) {
-    if (!id) return '$0';
-    
-    let hash = 0;
-    const str = String(id);
-    for (let i = 0; i < str.length; i++) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(i);
-        hash = hash & hash;
-    }
-    
-    const price = 5 + Math.abs(hash % 45);
-    return `$${price}`;
-}
-
-function normalizeBook(bookData) {
-    if (!bookData || typeof bookData !== 'object') {
-        console.warn('Invalid book data:', bookData);
+function normalizeBook(book) {
+    if (!book || typeof book !== 'object') {
         return null;
     }
     
-    const id = bookData._id || bookData.id;
-    if (!id) {
-        console.warn('Book missing ID:', bookData);
-        return null;
-    }
+    const id = book._id || book.id || `book_${Date.now()}_${Math.random().toString(36).substring(7)}`;
     
-    const normalized = {
-        id: String(id),
-        title: (bookData.title || '').toString().trim() || 'Untitled',
-        author: (bookData.author || '').toString().trim() || 'Unknown Author',
-        description: (bookData.description || '').toString().trim(),
-        cover: sanitizeImageUrl(bookData.book_image || bookData.image || bookData.cover || ''),
-        price: bookData.price || pseudoPriceFromId(id),
-        buy_links: Array.isArray(bookData.buy_links) ? bookData.buy_links : [],
-        category: (bookData.list_name || bookData.category || '').toString().trim(),
-        
-        rating: parseFloat(bookData.rating) || null,
-        pages: parseInt(bookData.pages) || null,
-        year: parseInt(bookData.year || bookData.publish_date) || null,
-        publisher: (bookData.publisher || '').toString().trim(),
-        isbn: (bookData.isbn13 || bookData.isbn10 || bookData.isbn || '').toString().trim(),
-        
-        normalized_at: new Date().toISOString(),
-        source_api: bookData._source || 'books-api'
+    return {
+        id: id,
+        title: book.book_title || book.title || 'Unknown Title',
+        author: book.author || 'Unknown Author',
+        image: book.book_image || book.image || book.cover || '',
+        description: book.description || book.desc || '',
+        list_name: book.list_name || book.category || 'General',
+        amazon_product_url: book.amazon_product_url || book.url || '#',
+        buy_links: Array.isArray(book.buy_links) ? book.buy_links : [],
+        price: book.price || '$0'
     };
-    
-    return normalized;
 }
 
-function sanitizeImageUrl(url) {
-    if (!url || typeof url !== 'string') return '';
-    
-    const trimmedUrl = url.trim();
-    if (!trimmedUrl) return '';
-    
-    try {
-        new URL(trimmedUrl);
-        return trimmedUrl;
-    } catch {
-        console.warn('Invalid image URL:', url);
-        return '';
-    }
-}
-
-class BookCache {
-    constructor(maxSize = 100, maxAge = 5 * 60 * 1000) {
+class MemoryCache {
+    constructor(maxSize = 50, ttl = 5 * 60 * 1000) {
         this.cache = new Map();
         this.maxSize = maxSize;
-        this.maxAge = maxAge;
+        this.ttl = ttl;
     }
     
     set(key, value) {
@@ -133,7 +89,7 @@ class BookCache {
         const item = this.cache.get(key);
         if (!item) return null;
         
-        if (Date.now() - item.timestamp > this.maxAge) {
+        if (Date.now() - item.timestamp > this.ttl) {
             this.cache.delete(key);
             return null;
         }
@@ -148,8 +104,16 @@ class BookCache {
 
 class BooksAPI {
     constructor() {
-        this.cache = new BookCache();
-        this.requestQueue = new Map();
+        this.cache = new MemoryCache();
+        this.fallbackCategories = [
+            "Hardcover Fiction", "Hardcover Nonfiction", "Trade Fiction Paperback",
+            "Mass Market Monthly", "Paperback Trade Fiction", "Paperback Nonfiction",
+            "E-Book Fiction", "E-Book Nonfiction", "Hardcover Advice", "Paperback Advice",
+            "Advice How-To and Miscellaneous", "Children's Middle Grade Hardcover",
+            "Picture Books", "Series Books", "Young Adult Hardcover",
+            "Audio Fiction", "Audio Nonfiction", "Business Books", "Graphic Books and Manga",
+            "Mass Market", "Middle Grade Paperback", "Young Adult Paperback"
+        ];
     }
     
     async getCategories() {
@@ -161,38 +125,24 @@ class BooksAPI {
             const data = await fetchJSON('/books/category-list');
             
             if (!Array.isArray(data)) {
-                throw new Error('Invalid categories response format');
+                console.warn('Invalid categories format, using fallback');
+                return this.fallbackCategories;
             }
             
-            const categories = [...new Set(
-                data
-                    .map(item => {
-                        if (typeof item === 'string') return item.trim();
-                        if (item && typeof item === 'object') return (item.list_name || item.name || '').trim();
-                        return '';
-                    })
-                    .filter(cat => cat && cat.length > 0)
-            )].sort();
+            // Перевіряємо, чи це об'єкти з полем list_name
+            let categories = data;
+            if (data.length > 0 && typeof data[0] === 'object' && data[0].list_name) {
+                categories = data.map(item => item.list_name).filter(name => name && name.trim());
+            }
             
-            this.cache.set(cacheKey, categories);
-            return categories;
+            const finalCategories = categories.length > 0 ? categories : this.fallbackCategories;
+            
+            this.cache.set(cacheKey, finalCategories);
+            return finalCategories;
             
         } catch (error) {
-            console.error('Error fetching categories:', error);
-            const fallbackCategories = [
-                'Combined Print and E-book Fiction',
-                'Combined Print & E-book Nonfiction',
-                'Hardcover Fiction',
-                'Hardcover Nonfiction',
-                'Trade Fiction Paperback',
-                'Mass Market Monthly',
-                'Paperback Nonfiction',
-                'Paperback Books',
-                'Hardcover Business Books',
-                'Children\'s Middle Grade Hardcover'
-            ];
-            this.cache.set(cacheKey, fallbackCategories);
-            return fallbackCategories;
+            console.warn('Error fetching categories, using fallback:', error);
+            return this.fallbackCategories;
         }
     }
     

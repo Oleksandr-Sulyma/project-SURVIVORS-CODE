@@ -16,6 +16,7 @@ body {
     min-height: 100vh;
 }
 
+/* Desktop container */
 .books-container {
     max-width: 1440px;
     margin: 0 auto;
@@ -26,7 +27,14 @@ body {
     margin-bottom: 24px;
 }
 
-.books-header-content {
+/* Main header with Books, Showing, and tablet categories */
+.books-header-main {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.books-header-left {
     display: flex;
     align-items: center;
     gap: 24px;
@@ -45,6 +53,16 @@ body {
     font-weight: 400;
     font-size: 14px;
     color: #000;
+}
+
+/* Hide mobile categories by default */
+.mobile-only {
+    display: none;
+}
+
+/* Hide tablet categories on desktop */
+.tablet-only {
+    display: none;
 }
 
 .books-error {
@@ -160,9 +178,34 @@ body {
     margin: 0 auto 1rem;
 }
 
+/* Categories dropdown styles */
+.categories-dropdown {
+    position: relative;
+}
+
+.categories-select {
+    width: 100%;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
 .books-main {
     position: relative;
     width: 980px;
+    margin-top: 8px;
+    /* 24px + 8px = 32px total spacing */
 }
 
 .books-loader {
@@ -306,7 +349,10 @@ body {
 }
 
 .show-more-container {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin-top: 60px;
 }
 
@@ -429,34 +475,149 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+/* Планшетна версія (769px - 1024px) - контейнер 702px */
+@media (max-width: 1024px) and (min-width: 769px) {
     .books-container {
-        padding: 0 16px;
+        max-width: 702px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Show tablet categories on the right */
+    .books-header-main {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .tablet-only {
+        display: block;
+    }
+
+    .tablet-only .categories-select {
+        width: 160px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    /* Hide desktop categories sidebar */
+    .desktop-categories {
+        display: none;
     }
 
     .books-content {
         display: block;
     }
 
-    .books-categories {
-        position: static;
-        margin-bottom: 24px;
-        width: 100%;
-    }
-
     .books-main {
         width: 100%;
+        margin-top: 8px;
     }
 
     .books-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        justify-content: center;
+        gap: 24px;
+        justify-content: start;
+        width: 100%;
+        max-width: none;
     }
 
-    .book-card,
-    .book-media,
+    .book-card {
+        width: 100%;
+        max-width: 337px;
+    }
+
+    .book-media {
+        width: 100%;
+        height: 380px;
+    }
+
     .learn-more-btn {
         width: 100%;
+    }
+
+    .show-more-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 60px;
+    }
+}
+
+/* Мобільна версія (до 768px) - контейнер 343px */
+@media (max-width: 768px) {
+    .books-container {
+        max-width: 343px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+
+    .books-header {
+        margin-bottom: 24px;
+    }
+
+    /* Hide tablet categories, show mobile */
+    .tablet-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+        margin-top: 24px;
+    }
+
+    .mobile-only .categories-select {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        border-radius: 8px;
+        background-size: 20px;
+        background-position: right 12px center;
+        padding-right: 40px;
+    }
+
+    /* Hide desktop categories sidebar */
+    .desktop-categories {
+        display: none;
+    }
+
+    .books-content {
+        display: block;
+    }
+
+    .books-main {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        justify-content: center;
+        width: 100%;
+        max-width: none;
+    }
+
+    .book-card {
+        width: 100%;
+        max-width: 311px;
+        margin: 0 auto;
+    }
+
+    .book-media {
+        width: 100%;
+        height: 380px;
+    }
+
+    .learn-more-btn {
+        width: 100%;
+    }
+
+    .show-more-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 60px;
     }
 }
