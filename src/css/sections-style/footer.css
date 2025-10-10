@@ -59,34 +59,88 @@
 .footer-input {
   flex: 1;
   min-width: 0;
-  background: rgba(11, 5, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--clr-orange-light);
   border: 1px solid rgba(11, 5, 0, 0.15);
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 16px;
   color: var(--clr-dark);
-  transition: var(--transition);
-}
-
-.footer-input:focus {
-  outline: 1px solid rgba(11, 5, 0, 0.6);
-  background: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .footer-input::placeholder {
   color: rgba(11, 5, 0, 0.6);
 }
 
+.footer-input:focus::placeholder {
+  color: transparent;
+}
+
+.footer-input:invalid:not(:placeholder-shown) {
+  border-color: var(--clr-error) !important;
+  color: var(--clr-error) !important;
+  background-color: var(--clr-orange-light) !important;
+}
+
+.footer-input:valid {
+  background-color: #eb9b67 !important;
+  border-color: #eb9b67 !important;
+  color: var(--clr-dark) !important;
+}
+
+.footer-input:focus,
+.footer-input:focus-visible {
+  background-color: #eb9b67 !important;
+  border-color: #eb9b67 !important;
+  outline: none;
+  color: var(--clr-dark) !important;
+}
+
+.footer-input:-webkit-autofill {
+  background-color: #eb9b67 !important;
+  border: 1px solid #eb9b67 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #eb9b67 inset !important;
+  -webkit-text-fill-color: var(--clr-dark) !important;
+}
+
+.footer-input:-moz-autofill {
+  background-color: #eb9b67 !important;
+  border: 1px solid #eb9b67 !important;
+  color: var(--clr-dark) !important;
+}
 .footer-btn {
   align-self: flex-start;
   white-space: nowrap;
+  cursor: pointer;
+  color: var(--clr-dark);
+  border: 1px solid var(--clr-dark);
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 11px 24px;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-btn:hover,
-.footer-btn:focus {
+.footer-btn:focus-visible {
   color: var(--clr-orange-dark);
   border-color: var(--clr-orange-dark);
-  opacity: initial;
+  background-color: #eb9b67;
+}
+
+.btn-error {
+  color: var(--clr-error);
+  border-color: var(--clr-error);
+  background-color: transparent;
+}
+
+.btn-success {
+  border-color: var(--clr-orange-dark);
+  background-color: #9c6037;
 }
 
 .footer-remark {
@@ -94,6 +148,18 @@
   line-height: 1.5;
   min-height: 18px;
   color: var(--clr-dark);
+}
+
+.remark-default {
+  color: var(--clr-dark);
+}
+
+.remark-error {
+  color: var(--clr-error);
+}
+
+.remark-success {
+  color: green;
 }
 
 .footer-copyright {
