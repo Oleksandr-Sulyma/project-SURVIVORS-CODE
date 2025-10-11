@@ -1,3 +1,20 @@
-<section class="article" id="article">
-  <div class="container">article</div>
+<section class="grid-container article" id="article">
+  <div class="grid-content section-content section-content-horizontal">
+    <div class="section-header placement-vertical-center">
+      <h2>Welcome to Booksy – your cozy corner for handpicked reads.</h2>
+      <p>We believe books are more than just stories — they’re companions, doorways, and memories. Whether you’re chasing adventures or quiet moments, we’re here to help you find your next favorite book.</p>
+    </div>
+    <picture>
+      <source media="(min-width: 1440px)" srcset="
+        ./img/webp/desktop/des-article-img.webp 1x,
+        ./img/webp/desktop/des-article-img2x.webp 2x" type="image/webp" />
+      <source media="(min-width: 768px)" srcset="
+        ./img/webp/tablet/tab-article-img.webp 1x,
+        ./img/webp/tablet/tab-article-img2x.webp 2x" type="image/webp"/>
+      <source media="(max-width: 767px)" srcset="
+        ./img/webp/mobile/mob-article-img.webp 1x,
+        ./img/webp/mobile/mob-article-img2x.webp 2x" type="image/webp"/>
+      <img src="./img/webp/desktop/des-article-img.webp" alt="Booksy article" width="640" height="474">
+    </picture>
+  </div>
 </section>

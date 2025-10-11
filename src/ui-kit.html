@@ -62,6 +62,31 @@
           <img src="https://picsum.photos/640" alt="">
         </div>
       </section>
+      <section class="grid-container">
+        <div class="grid-content section-content">
+          <div class="section-header">
+            <h2>Form</h2>
+          </div>
+          <form>
+            <label>
+              Name*
+              <input type="text" placeholder="Placeholder" name="text" required>
+              <div class="error-text">Error text</div>
+            </label>
+            <label>
+              Email*
+              <input type="email" placeholder="Placeholder" name="email" required pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
+              <div class="error-text">Error text</div>
+            </label>
+            <label>
+              Message
+              <textarea placeholder="Type your message..." rows="5" name="Message"></textarea>
+              <div class="error-text">Error text</div>
+            </label>
+            <button class="btn" type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
     </main>
     <script type="module" src="./js/ui-kit.js"></script>
   </body>

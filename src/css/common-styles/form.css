@@ -1,0 +1,67 @@
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='url'],
+input[type='search'],
+input[type='tel'],
+textarea {
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  border-radius: 4px;
+  padding: 8px 12px;
+  width: 100%;
+  transition: var(--transition);
+  background: rgba(11, 5, 0, 0.05);
+  line-height: 1.25;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--clr-dark);
+
+  &:focus,
+  &:focus-visible {
+    outline: 1px solid rgba(11, 5, 0, 0.6);
+  }
+
+  &::placeholder {
+    color: rgba(11, 5, 0, 0.6);
+  }
+
+  &:focus::placeholder,
+  &:focus-visible::placeholder {
+    color: transparent;
+  }
+
+  &:user-invalid,
+  &:user-invalid::placeholder {
+    color: var(--clr-error);
+    border-color: var(--clr-error);
+  }
+
+  &:user-invalid ~ .error-text {
+    display: block;
+  }
+}
+
+.error-text {
+  display: none;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #ad0000;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+  text-align: start;
+
+  button {
+    align-self: center;
+  }
+}

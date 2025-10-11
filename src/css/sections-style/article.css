@@ -1,0 +1,12 @@
+.article {
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .article h1 {
+    font-size: 40px;
+  }
+}

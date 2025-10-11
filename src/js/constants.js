@@ -1,3 +1,4 @@
+
 export const BOOKS_BASE_URL = 'https://books-backend.p.goit.global';
 export const REQUEST_TIMEOUT = 10000;
 export const RETRY_ATTEMPTS = 3;
@@ -43,3 +44,4 @@ export const DOM_ELEMENTS = {
 
 // для екранування
 export const HTML_ESCAPE_MAP = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' };
+
