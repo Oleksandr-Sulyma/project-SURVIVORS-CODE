@@ -30,13 +30,13 @@ textarea {
     color: transparent;
   }
 
-  &:invalid,
-  &:invalid::placeholder {
+  &:user-invalid,
+  &:user-invalid::placeholder {
     color: var(--clr-error);
     border-color: var(--clr-error);
   }
 
-  &:invalid + .error-text {
+  &:user-invalid ~ .error-text {
     display: block;
   }
 }
