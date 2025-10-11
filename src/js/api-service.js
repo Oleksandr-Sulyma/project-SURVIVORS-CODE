@@ -104,4 +104,3 @@ class BooksAPI {
 }
 
 export { fetchJSON, normalizeBook, MemoryCache };
-export const api = new BooksAPI();
