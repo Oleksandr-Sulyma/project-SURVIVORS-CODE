@@ -1,28 +1,163 @@
-.modal {
-  display: none;
-}
-.modal.is-open {
-  display: block;
-}
-.modal__overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+* Модалка */
+.modal-content {
+  grid-column: 2 / 3;                /* центр у grid-container */
+  width: 100%;
+  max-width: var(--max-width);        /* 343px на мобілці, змінюється на tablet/desktop */
+  margin: 0 auto;
+  padding: var(--space);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--gap-xl);
 }
-.modal__container {
-  background: #fff;
-  padding: 2rem;
-  max-width: 500px;
-  width: 90%;
+
+/* Для внутрішньої grid-структури у модалці */
+.modal-content .section-content-horizontal {
+  display: grid;
+  gap: var(--gap-xl);
+}
+
+@media screen and (min-width: 768px) {
+  .modal-content .section-content-horizontal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Картинка книги */
+.book-cover-img {
+  width: 100%;
+  max-width: 309px;
+  height: auto;
+  aspect-ratio: 309 / 467;
+  display: block;
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
-.modal__close {
-  background: transparent;
-  border: 0;
+
+/* Основна інформація */
+.book-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.book-modal-title {
   font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.book-modal-author {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.book-modal-price {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* Контроль кількості */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.quantity-input {
+  width: 48px;
+  text-align: center;
+}
+
+/* Кнопки */
+.modal-book-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.add-to-cart-btn {
+  background-color: var(--clr-orange);
+  color: white;
+}
+
+.buy-now-btn {
+  background-color: var(--clr-orange-dark);
+  color: white;
+}
+
+/* Аккордеони */
+.accordion-container {
+  margin-top: 16px;
+}
+
+.ac-header {
+  margin: 0;
+}
+
+.ac-trigger {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.ac-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 8px;
+}
+
+.ac-panel.open {
+  max-height: 500px; /* або auto через JS */
+}
+
+/* Mobile First медіа-запити */
+
+/* Tablet */
+@media (min-width: 768px) {
+  .modal-content {
+    max-width: var(--max-width);  /* 705px */
+    padding: var(--space);
+  }
+
+  .book-main-info {
+    flex-direction: row;
+    gap: var(--gap-xl);
+  }
+
+  .book-cover-img {
+    max-width: 320px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1440px) {
+  .modal-content {
+    max-width: var(--max-width);  /* 1312px */
+    padding: var(--space);
+  }
+
+  .book-main-info {
+    gap: var(--gap-xxl);
+  }
+
+  .book-cover-img {
+    max-width: 360px;
+  }
 }
