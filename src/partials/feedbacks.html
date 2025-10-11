@@ -1,22 +1,128 @@
-<section class="feedbacks" id="feedbacks">
-  
-   <div class="container">
-    feedbacks
-    <!-- HTML для слайдера -->
-  <div class="splide feedbacks-slider">
-    <div class="splide__track">
-      <ul class="splide__list">
-        <li class="splide__slide">Ваш контент для першого слайду</li>
-        <li class="splide__slide">Ваш контент для другого слайду</li>
+<section class="feedbacks grid-container" id="feedbacks">
+  <div class="grid-content section-content">
+    <header class="feedbacks-header">
+      <h1 class="feedbacks-header-capture">Customer Feedbacks</h1>
+      <p class="feedbacks-header-text">
+        See what our readers are saying about us!
+      </p>
+    </header>
+
+    <div class="swiper feedbacks-slider">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide">
+          <div class="feedback-card">
+            <p class="feedback-text">
+              Great selection, fast delivery, and beautifully packaged books. My
+              go-to store for weekend reads!
+            </p>
+            <div class="customer-info">
+              <img
+                src="/img/webp/desktop/avatar-1.webp"
+                alt="Avatar of Jane Doe"
+                class="customer-avatar"
+              />
+              <div class="customer-details">
+                <span class="customer-name">Jane Doe</span>
+                <span class="customer-title">Book Lover, Reader</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="swiper-slide">
+          <div class="feedback-card">
+            <p class="feedback-text">
+              Customer service was super helpful, and my order arrived earlier
+              than expected. Highly recommend!
+            </p>
+            <div class="customer-info">
+              <img
+                src="/src/img/webp/desktop/avatar-2.webp"
+                alt="Avatar of John Smith"
+                class="customer-avatar"
+              />
+              <div class="customer-details">
+                <span class="customer-name">John Smith</span>
+                <span class="customer-title">Editor, BookMag</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="swiper-slide">
+          <div class="feedback-card">
+            <p class="feedback-text">
+              Love the curated picks and clear descriptions. Makes it easy to
+              find my next favorite book.
+            </p>
+            <div class="customer-info">
+              <img
+                src=""
+                alt="Avatar of Emily Johnson"
+                class="customer-avatar"
+              />
+              <div class="customer-details">
+                <span class="customer-name">Emily Johnson</span>
+                <span class="customer-title">Author, Novelist</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="swiper-slide">
+          <div class="feedback-card">
+            <p class="feedback-text">
+              Love the curated picks and clear descriptions. Makes it easy to
+              find my next favorite book.
+            </p>
+            <div class="customer-info">
+              <img
+                src=""
+                alt="Avatar of Emily Johnson"
+                class="customer-avatar"
+              />
+              <div class="customer-details">
+                <span class="customer-name">Emily Johnson</span>
+                <span class="customer-title">Author, Novelist</span>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
+  </div>
+  <div class="carousel-navigation grid-content">
+    <div class="swiper-pagination dots"></div>
 
-    <div class="splide__arrows">
-      <button class="splide__arrow splide__arrow--prev">Prev</button>
-      <button class="splide__arrow splide__arrow--next">Next</button>
+    <div class="swiper-arrows">
+      <button class="swiper-button-prev">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12.7069 18.1323L8.41394 13.8393H17.9999V11.8393H8.41394L12.7069 7.54632L11.2929 6.13232L4.58594 12.8393L11.2929 19.5463L12.7069 18.1323Z"
+            stroke="white"
+          />
+        </svg>
+      </button>
+      <button class="swiper-button-next">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="white"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5.293 12.1323L6.707 13.5463L13.414 6.83932L6.707 0.132324L5.293 1.54632L9.586 5.83932H0V7.83932H9.586L5.293 12.1323Z"
+            stroke="white"
+          />
+        </svg>
+      </button>
     </div>
   </div>
-  <!-- кінець HTML для сладера -->
-   </div>
-   
 </section>

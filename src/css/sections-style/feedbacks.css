@@ -1,0 +1,188 @@
+/* ============================================== */
+/* MOBILE FIRST: Базові стилі (320px - 767px) */
+/* ============================================== */
+
+.feedbacks {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  background-color: #fceee6;
+  color: #0b0500;
+  padding: 64px 0px;
+  overflow-x: clip;
+}
+.feedbacks .section-content {
+  display: block !important;
+}
+.feedbacks-header {
+  margin-bottom: 80px;
+}
+.feedbacks-header-capture {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.feedbacks-header-text {
+  font-size: 18px;
+  line-height: 1.5;
+}
+/* --- Картка Відгуку та Слайдер --- */
+.feedbacks-slider {
+  width: 100%;
+}
+.feedbacks-slider .swiper-wrapper {
+  display: flex;
+}
+.feedback-card {
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  gap: 24px;
+}
+
+.feedback-text {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #0b0500;
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.customer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.customer-name {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #0b0500;
+}
+
+.customer-title {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #0b0500;
+}
+
+/* --- Навігація Слайдера --- */
+
+.carousel-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 343px;
+  margin: 0 auto;
+  padding-top: 32px;
+}
+.swiper-pagination.dots {
+  position: static;
+  display: flex;
+  gap: 8px;
+  width: auto;
+}
+.swiper-pagination-bullet {
+  background: none !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  display: inline-block !important;
+}
+.swiper-pagination.dots .dot {
+  width: 7px;
+  height: 7px;
+  background-color: #d1c1b7;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 1;
+  transition: background-color 0.2s;
+}
+
+.swiper-pagination.dots .dot.active {
+  background-color: #0b0500;
+  opacity: 1;
+}
+.swiper-arrows {
+  display: flex;
+  gap: 20px;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: '' !important;
+  font-size: 0 !important;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #e15d05;
+  border: none;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: static !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: #fceee6;
+  color: #0b0500;
+}
+.swiper-button-prev:active,
+.swiper-button-next:active {
+  background-color: #5a2502;
+  color: #fff;
+}
+.swiper-button-disabled {
+  background-color: #e15d05;
+  opacity: 0.2;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ============================================== */
+/* TABLET: min-width: 768px */
+/* ============================================== */
+
+@media screen and (min-width: 768px) {
+  .carousel-navigation {
+    width: 704px;
+  }
+}
+
+/* ============================================== */
+/* DESKTOP: min-width: 1440px */
+/* ============================================== */
+
+@media screen and (min-width: 1440px) {
+  .feedbacks-header-capture {
+    font-size: 48px;
+  }
+  .carousel-navigation {
+    width: 1312px;
+  }
+}
