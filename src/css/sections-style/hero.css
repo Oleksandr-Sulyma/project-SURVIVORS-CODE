@@ -4,11 +4,130 @@
   letter-spacing: -0.01em;
 }
 
-.slide {
+.hero .swiper {
+  width: 343px;
+  height: 295px;
+}
+
+.hero .swiper-horizontal > .swiper-button-next {
+  top: 247px;
+
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+
+  background-color: var(--clr-orange);
+}
+
+.icon-left-arrow {
+  fill: black;
+}
+
+.hero .swiper-horizontal > .swiper-button-prev {
+  top: 247px;
+  left: 230px;
+
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+
+  background-color: var(--clr-orange);
+}
+
+.icon-right-arrow {
+  fill: black;
+}
+
+.swiper-scrollbar {
+  display: none;
+}
+
+.swiper-pagination {
+  display: none;
+}
+
+.slide-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 16px;
+
   height: 199px;
   width: 343px;
 
   background-image: url(/img/webp/mobile/mob-banner-1.webp);
   background-repeat: no-repeat;
   border-radius: 8px;
+}
+
+.slide-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 16px;
+
+  height: 199px;
+  width: 343px;
+
+  background-image: url(/img/webp/mobile/mob-banner-2.webp);
+  background-repeat: no-repeat;
+  border-radius: 8px;
+}
+
+.slide-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 16px;
+
+  height: 199px;
+  width: 343px;
+
+  background-image: url(/img/webp/mobile/mob-banner-3.webp);
+  background-repeat: no-repeat;
+  border-radius: 8px;
+}
+
+.slide-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 16px;
+
+  height: 199px;
+  width: 343px;
+
+  background-image: url(/img/webp/mobile/mob-banner-4.webp);
+  background-repeat: no-repeat;
+  border-radius: 8px;
+}
+
+.swiper-slide h3 {
+  margin-bottom: 16px;
+
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--clr-white);
+}
+
+.btn-slider {
+  width: 117px;
+  height: 20px;
+
+  padding: 4px 10px;
+
+  border: 0.52px solid var(--clr-orange);
+  border-radius: 2px;
+
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 12px;
+
+  color: var(--clr-white);
 }
