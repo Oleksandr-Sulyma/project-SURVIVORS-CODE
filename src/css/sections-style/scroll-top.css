@@ -3,6 +3,10 @@
   bottom: 20px;
   right: 15px;
   padding: 10px;
+
+  &:hover svg {
+    translate: 0 -5px;
+  }
 }
 
 .scroll-top.hidden {
