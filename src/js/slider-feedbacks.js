@@ -1,8 +1,62 @@
-// import Swiper bundle with all modules installed
-import Swiper from 'swiper/bundle';
+import Swiper from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import {
+  Navigation,
+  Pagination,
+  A11y,
+  Keyboard,
+  Mousewheel,
+} from 'swiper/modules';
 
-// import styles bundle
-import 'swiper/css/bundle';
+Swiper.use([Navigation, Pagination, A11y, Keyboard, Mousewheel]);
 
-// init Swiper:
-// const swiper = new Swiper(...);
+document.addEventListener('DOMContentLoaded', function () {
+  const swiperElement = document.querySelector('.feedbacks-slider');
+
+  if (!swiperElement) {
+    console.error('Swiper: Контейнер .feedbacks-slider не знайдено.');
+    return;
+  }
+
+  const swiper = new Swiper(swiperElement, {
+    slidesPerView: 1,
+    spaceBetween: 24,
+    watchOverflow: true,
+
+    navigation: {
+      nextEl: '.swiper-arrows .swiper-button-next',
+      prevEl: '.swiper-arrows .swiper-button-prev',
+    },
+    pagination: {
+      el: '.carousel-navigation .swiper-pagination',
+      clickable: true,
+    },
+    a11y: {
+      enabled: true,
+    },
+    keyboard: {
+      enabled: true,
+    },
+    mousewheel: {
+      enabled: true,
+      forceToAxis: true,
+    },
+
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 24,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 32,
+      },
+      1440: {
+        slidesPerView: 3,
+        spaceBetween: 32,
+      },
+    },
+  });
+});
