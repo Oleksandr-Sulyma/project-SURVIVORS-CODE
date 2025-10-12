@@ -1,3 +1,7 @@
+body.no-scroll {
+  overflow: hidden;
+}
+
 .header {
   padding-top: 14px;
   padding-bottom: 14px;
@@ -31,4 +35,66 @@
     display: flex;
     gap: 32px;
   }
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  width: 100%;
+  height: 433px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  overflow: auto;
+  background-color: #fceee6;
+
+  transform: translateY(-110%);
+  transition: transform 1800ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 100ms ease, visibility 1100ms linear 1800ms;
+}
+
+.navbar.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1), opacity 100ms ease,
+    visibility 0s;
+}
+
+.navbar.is-close {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(-110%);
+  transition: transform 1800ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 100ms ease, visibility 1100ms linear 1800ms;
+}
+
+.navbar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 auto;
+
+  padding-left: 20px;
+  padding-right: 8px;
+  padding-top: 14px;
+  padding-bottom: 30px;
+
+  max-width: 375px;
+}
+
+.navbar-nav-list {
+  text-align: center;
+}
+
+.navbar-nav-item:not(:last-child) {
+  margin-bottom: 40px;
 }
