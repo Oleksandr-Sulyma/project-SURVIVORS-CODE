@@ -1,3 +1,39 @@
-<footer class="grid-container footer" id="footer">
-  <div class="grid-content section-content">footer</div>
+<footer class="footer grid-container" id="footer">
+  <div class="grid-content footer-container">
+    <div class="footer-content">
+      <nav class="footer-nav">
+        <a class="logo" href="/index.html">
+          <svg class="logo-footer" width="84" height="36">
+            <use href="/img/symbol-defs.svg#icon-logo-booksy"></use>
+          </svg>
+        </a>
+        <ul class="footer-nav-list">
+          <li class="nav-item"><a href="#header">Home</a></li>
+          <li class="nav-item"><a href="#books-section">Books</a></li>
+          <li class="nav-item"><a href="#feedbacks">Feedback</a></li>
+          <li class="nav-item"><a href="#location">Location</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-form">
+        <p class="footer-title h3">Join</p>
+        <form class="footer-input-box" novalidate>
+          <label class="footer-label">
+            <input
+              type="email"
+              class="footer-input"
+              id="footer-email"
+              name="footer-email"
+              placeholder="Enter your email*"
+              required
+            />
+          </label>
+          <button type="submit" class="footer-btn">Sign Up</button>
+        </form>
+        <small class="footer-remark remark-default"></small>
+      </div>
+    </div>
+
+    <p class="footer-copyright body-sm">© 2025 Booksy. All rights reserved.</p>
+  </div>
 </footer>

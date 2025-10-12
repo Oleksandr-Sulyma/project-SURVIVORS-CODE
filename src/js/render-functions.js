@@ -1,3 +1,4 @@
+// src/js/render-functions.js
 import { HTML_ESCAPE_MAP } from './constants.js';
 
 export function escapeHtml(text) {
@@ -5,6 +6,7 @@ export function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, m => HTML_ESCAPE_MAP[m]);
 }
 
+/** Single book card */
 export function createBookCard(book, index = 0) {
   const li = document.createElement('li');
   li.className = 'book-card';
@@ -53,6 +55,7 @@ export function createCategoryItem(name, value, isActive) {
   `;
 }
 
+/** Categories renderers */
 export function renderCategories(container, categories, activeCategory = 'all') {
   if (!container) return;
   container.innerHTML = categories
@@ -73,6 +76,7 @@ export function populateDropdowns(dropdowns, categories, activeCategory = 'all')
   });
 }
 
+/** Books list renderers */
 export function renderBooks(container, books) {
   if (!container) return;
   container.innerHTML = '';
@@ -85,6 +89,7 @@ export function appendBooks(container, books) {
   books.forEach((b, i) => container.appendChild(createBookCard(b, start + i)));
 }
 
+/** UI helpers */
 export function updateBooksCounter(counter, showing, total) {
   if (counter) counter.textContent = `Showing ${showing} of ${total}`;
 }
@@ -132,3 +137,21 @@ export function updateCategoriesActiveState(container, activeCategory) {
     li.classList.toggle('active', li.dataset.category === activeCategory);
   });
 }
+
+/** Empty-state helpers */
+export function renderEmptyState(container, categoryName = 'this category') {
+  if (!container) return;
+  container.innerHTML = `
+    <li class="book-card" style="width:100%;max-width:100%;opacity:1;animation:none">
+      <div style="padding:24px;border:1px dashed #ccc;border-radius:12px;background:#fff">
+        <p style="margin:0;font-weight:600">No books in ${escapeHtml(categoryName)} yet.</p>
+        <p style="margin:8px 0 0;color:#666">Try another category.</p>
+      </div>
+    </li>
+  `;
+}
+
+export function clearContainer(el) {
+  if (el) el.innerHTML = '';
+}
+

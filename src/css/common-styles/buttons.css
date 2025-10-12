@@ -40,6 +40,10 @@
     opacity: 0.2;
     cursor: auto;
   }
+
+  svg {
+    transition: var(--transition);
+  }
 }
 
 .btn-secondary {
