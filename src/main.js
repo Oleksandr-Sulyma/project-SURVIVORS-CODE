@@ -1,5 +1,5 @@
 import 'izitoast/dist/css/iziToast.min.css';
-// import './js/slider-hero.js';
+import './js/slider-hero.js';
 import './js/books.js';
 import './js/join-form.js';
 import './js/scrolling.js';
@@ -15,6 +15,6 @@ import './js/modal-contact.js';
 import './js/pagination.js';
 import './js/refs.js';
 import './js/render-functions.js';
-// import './js/slider-feedbacks.js';
+import './js/slider-feedbacks.js';
 import './js/storage.js';
-import './js/ui-kit.js';
+import './js/scroll-top.js';

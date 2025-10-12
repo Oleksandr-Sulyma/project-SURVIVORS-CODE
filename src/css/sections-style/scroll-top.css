@@ -1,0 +1,17 @@
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 15px;
+  padding: 10px;
+}
+
+.scroll-top.hidden {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .scroll-top svg {
+    width: 20px;
+    height: 20px;
+  }
+}
