@@ -29,14 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
       nextEl: '.swiper-arrows .swiper-button-next',
       prevEl: '.swiper-arrows .swiper-button-prev',
     },
-
     pagination: {
       el: '.carousel-navigation .swiper-pagination',
       clickable: true,
-      bulletClass: 'dot',
-      bulletActiveClass: 'dot active',
     },
-
     a11y: {
       enabled: true,
     },

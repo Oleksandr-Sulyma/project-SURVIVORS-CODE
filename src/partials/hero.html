@@ -1,21 +1,67 @@
-<section class="hero" id="hero">
-  <div class="container">
-    hero
-<!-- HTML для слайдера -->
-  <div class="splide hero-slider">
-    <div class="splide__track">
-      <ul class="splide__list">
-        <li class="splide__slide">контент для першого слайду</li>
-        <li class="splide__slide">контент для другого слайду</li>
-      </ul>
-    </div>
+<section class="hero grid-container" id="hero">
+  <div class="grid-content placement-center">
+    <div class="swiper heroSwiper">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+          <div class="slide-1">
+            <h3>Get 10% off your<br />first order</h3>
+            <a href="" class="btn btn-slider">Shop Now!</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-2">
+            <h3>
+              Save 15% on<br />
+              some books
+            </h3>
+            <a href="" class="btn btn-slider">Shop Now!</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-3">
+            <h3>
+              Summer Sale!<br />
+              Up to -40% discounts
+            </h3>
+            <a href="" class="btn btn-slider">Shop Now!</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="slide-4">
+            <h3>
+              Last chance to buy our<br />
+              spring bestsellers
+            </h3>
+            <a href="#" class="btn btn-slider">Shop Now!</a>
+          </div>
+        </div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
 
-    <div class="splide__arrows">
-      <button class="splide__arrow splide__arrow--prev">Prev</button>
-      <button class="splide__arrow splide__arrow--next">Next</button>
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev">
+        <svg class="left-arrow" width="84" height="36">
+          <use
+            class="icon-left-arrow"
+            href="/img/symbol-defs.svg#icon-left-arrow-alt"
+          ></use>
+        </svg>
+      </div>
+      <div class="swiper-button-next">
+        <svg class="right-arrow" width="84" height="36">
+          <use
+            class="icon-right-arrow"
+            href="/img/symbol-defs.svg#icon-right-arrow-alt"
+          ></use>
+        </svg>
+      </div>
+
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
     </div>
+    <h1 class="hero-title">Discover Your Next Great Read Today!</h1>
   </div>
-  <!-- кінець HTML для сладера -->
-  </div>
-  
 </section>

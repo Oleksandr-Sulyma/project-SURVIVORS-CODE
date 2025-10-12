@@ -3,32 +3,72 @@
   class="books-section"
   aria-labelledby="books-heading"
 >
-  <h2 id="books-heading" class="sr-only">Trending books</h2>
-
   <div class="books-container">
     <div class="books-header">
-      <h3 class="books-title">Books</h3>
-      <div class="books-counter">
-        <span id="books-counter-text">Showing 0 of 0</span>
+      <div class="books-header-main">
+        <div class="books-header-left">
+          <h1 id="books-heading" class="books-title">Books</h1>
+          <span id="books-counter-text" class="books-counter" aria-live="polite"
+            >Showing 0 of 0</span
+          >
+        </div>
+        <div class="categories-dropdown tablet-only">
+          <select id="categories-select-tablet" class="categories-select">
+            <option value="all">Categories</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="categories-dropdown mobile-only">
+        <select id="categories-select-mobile" class="categories-select">
+          <option value="all">Categories</option>
+        </select>
+      </div>
+    </div>
+
+    <div
+      id="books-error"
+      class="books-error"
+      role="alert"
+      aria-live="assertive"
+      style="display: none"
+    >
+      <div class="error-content">
+        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+        <p class="error-message"></p>
+        <button class="retry-btn" type="button"><span>Try again</span></button>
       </div>
     </div>
 
     <div class="books-content">
-      <aside class="books-categories">
-        <ul id="categories-list" class="categories-list"></ul>
+      <aside class="books-categories desktop-categories" role="complementary">
+        <ul id="categories-list" class="categories-list" role="list"></ul>
+        <div
+          id="categories-loader"
+          class="categories-loader hidden"
+          aria-hidden="true"
+        >
+          <div class="small-spinner"></div>
+        </div>
       </aside>
 
-      <main class="books-main">
-        <div id="books-loader" class="books-loader hidden">
+      <main class="books-main" role="main">
+        <div id="books-loader" class="books-loader hidden" aria-hidden="true">
           <div class="loader-spinner"></div>
           <p>Loading books...</p>
         </div>
 
-        <ul id="books-grid" class="books-grid"></ul>
+        <ul
+          id="books-grid"
+          class="books-grid"
+          role="list"
+          aria-busy="false"
+          aria-live="polite"
+        ></ul>
 
         <div class="show-more-container">
           <button id="show-more-btn" class="show-more-button" type="button">
-            Show More
+            <span class="button-text">Show More</span>
           </button>
         </div>
       </main>
@@ -36,5 +76,3 @@
   </div>
 </section>
 
-<script src="./js/books-data.js"></script>
-<script src="./js/books.js"></script>
