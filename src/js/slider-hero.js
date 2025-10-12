@@ -1,15 +1,25 @@
-// import Swiper bundle with all modules installed
 import Swiper from 'swiper/bundle';
-
-// import styles bundle
 import 'swiper/css/bundle';
 
-// init Swiper:
-var swiper = new Swiper('.heroSwiper', {
-  cssMode: true,
+const swiper = new Swiper('.heroSwiper', {
+  spaceBetween: 5,
+  speed: 500,
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
   keyboard: true,
+});
+
+const next = document.querySelector('.button-next');
+const prev = document.querySelector('.button-prev');
+
+next.addEventListener('click', () => {
+  console.log('next');
+  swiper.slideNext();
+});
+
+prev.addEventListener('click', () => {
+  console.log('prev');
+  swiper.slidePrev();
 });
