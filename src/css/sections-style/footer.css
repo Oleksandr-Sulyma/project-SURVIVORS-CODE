@@ -21,7 +21,6 @@
 .footer-nav {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--gap-xl);
 }
 
@@ -56,10 +55,9 @@
   gap: var(--gap-md);
 }
 
-.footer-input {
-  flex: 1;
-  min-width: 0;
-  width: 100%;
+input.footer-input {
+  width: 221px;
+  height: 48px;
   box-sizing: border-box;
   background: var(--clr-orange-light);
   border: 1px solid rgba(11, 5, 0, 0.15);
@@ -71,11 +69,21 @@
     color 0.3s ease;
 }
 
-.footer-input::placeholder {
+input.footer-input.error {
+  border-color: red;
+  background-color: #ffe6e6;
+}
+
+input.footer-input.success {
+  border-color: green;
+  background-color: #e6ffe6;
+}
+
+input.footer-input::placeholder {
   color: rgba(11, 5, 0, 0.6);
 }
 
-.footer-input:focus::placeholder {
+input.footer-input:focus::placeholder {
   color: transparent;
 }
 
@@ -91,22 +99,22 @@
   color: var(--clr-dark) !important;
 }
 
-.footer-input:focus,
-.footer-input:focus-visible {
-  background-color: #eb9b67 !important;
-  border-color: #eb9b67 !important;
+input.inputfooter-input:focus,
+input.footer-input:focus-visible {
+  background-color: #eb9b67;
+  border-color: var(--clr-dark);
   outline: none;
   color: var(--clr-dark) !important;
 }
 
-.footer-input:-webkit-autofill {
+input.footer-input:-webkit-autofill {
   background-color: #eb9b67 !important;
-  border: 1px solid #eb9b67 !important;
+  border: 1px solid var(--clr-dark) !important;
   -webkit-box-shadow: 0 0 0px 1000px #eb9b67 inset !important;
   -webkit-text-fill-color: var(--clr-dark) !important;
 }
 
-.footer-input:-moz-autofill {
+input.footer-input:-moz-autofill {
   background-color: #eb9b67 !important;
   border: 1px solid #eb9b67 !important;
   color: var(--clr-dark) !important;
@@ -173,15 +181,11 @@
 /* -------768------- */
 @media screen and (min-width: 768px) {
   .footer-content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    text-align: start;
-    gap: var(--gap-xxl);
+    gap: var(--gap-xl);
   }
 
   .footer-nav {
-    align-items: flex-start;
+    align-items: center;
   }
 
   .footer-nav-list {
