@@ -1,4 +1,3 @@
-// src/js/api-service.js
 import {
   BOOKS_BASE_URL,
   REQUEST_TIMEOUT,
@@ -10,8 +9,8 @@ import {
 
 import axios from 'axios';
 
-export { fetchJSON, normalizeBook, MemoryCache };
-export const api = new BooksAPI();
+/* -------------------------- exports -------------------------- */
+export { fetchJSON, normalizeBook, api };
 
 /* -------------------------- fetch helpers -------------------------- */
 async function fetchJSON(path, options = {}) {
@@ -48,62 +47,29 @@ async function fetchJSON(path, options = {}) {
 
 /* -------------------------- normalization -------------------------- */
 function normalizeBook(book, fallbackImage = '') {
-  // trim strings, protect against null/undefined
-  const title = String(book?.title ?? '').trim();
-  const author = String(book?.author ?? '').trim();
-
   return {
-    id: b._id || 'no-id',
-    title: b.title || 'Untitled',
-    author: b.author || 'Unknown Author',
-    image: b.book_image || fallbackImage,
-    amazon_product_url: b.amazon_product_url || '#',
-    price: b.price || '',
+    id: book._id || 'no-id',
+    title: book.title || 'Untitled',
+    author: book.author || 'Unknown Author',
+    image: book.book_image || fallbackImage,
+    amazon_product_url: book.amazon_product_url || '#',
+    price: book.price || '',
   };
 }
 
-class MemoryCache {
-  constructor(maxSize = CACHE_CONFIG.maxSize, ttl = CACHE_CONFIG.ttl) {
-    this.cache = new Map();
-    this.maxSize = maxSize;
-    this.ttl = ttl;
-  }
-  set(key, value) {
-    if (this.cache.size >= this.maxSize)
-      this.cache.delete(this.cache.keys().next().value);
-    this.cache.set(key, { value, t: Date.now() });
-  }
-  get(key) {
-    const item = this.cache.get(key);
-    if (!item) return null;
-    if (Date.now() - item.t > this.ttl) {
-      this.cache.delete(key);
-      return null;
-    }
-    return item.value;
-  }
-  clear() {
-    this.cache.clear();
-  }
-}
-
+/* -------------------------- canonization -------------------------- */
 function canon(s) {
-  // lowercased, collapsed spaces, strip punctuation/diacritics
   return String(s || '')
     .toLowerCase()
     .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '') // diacritics
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .replace(/[^\p{L}\p{N}\s]/gu, '')
     .trim();
 }
 
-/**
- * Two-pass dedupe preserving order:
- *   1) by id (if present and not 'no-id')
- *   2) by (title+author) – image is ignored (часто різні посилання на те саме видання)
- */
+/* -------------------------- deduplication -------------------------- */
 function dedupeStable(list) {
   const out = [];
   const byId = new Set();
@@ -114,14 +80,12 @@ function dedupeStable(list) {
       const k = `id:${b.id}`;
       if (byId.has(k)) continue;
       byId.add(k);
-      // still run title+author pass to collapse edge cases later in the list
       const ta = `ta:${canon(b.title)}|${canon(b.author)}`;
       byTA.add(ta);
       out.push(b);
       continue;
     }
 
-    // no reliable id -> fallback to title+author
     const ta = `ta:${canon(b.title)}|${canon(b.author)}`;
     if (byTA.has(ta)) continue;
     byTA.add(ta);
@@ -187,7 +151,7 @@ class BooksAPI {
       if (!categories.length)
         categories = FALLBACK_CATEGORIES.map(n => ({ name: n, value: n }));
       const result = [{ name: 'All Categories', value: 'all' }, ...categories];
-      this.cache.set(k, result);
+      this.cache.set(key, result); // Виправлено: k на key
       return result;
     } catch {
       return [
@@ -269,6 +233,8 @@ class BooksAPI {
     }
   }
 }
+
+const api = new BooksAPI();
 
 export const getBookById = async id => {
   try {
