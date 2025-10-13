@@ -59,3 +59,8 @@ export const MESSAGES = {
   SUCCESS: 'Email saved!',
 };
 // -----footer-end-----
+
+// ----modal-book------
+export const CARTKEY = 'cart';
+export const BUYKEY = 'buy';
+export const ORDERKEY = 'order';

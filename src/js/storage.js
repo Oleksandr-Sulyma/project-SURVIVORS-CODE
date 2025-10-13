@@ -14,3 +14,10 @@ export function getEmailsFromLocal() {
   return JSON.parse(localStorage.getItem(STORAGE_KEYS.EMAILS)) || [];
 }
 // -----footer-end-----
+
+export const setLocalStorage = (key, array) =>
+  localStorage.setItem(key, JSON.stringify(array));
+
+export const getLocalStorage = key => (JSON.parse(localStorage.getItem(key)) || []);
+
+export const removeLocalStorage = key => localStorage.removeItem(key);
