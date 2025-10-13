@@ -2,9 +2,8 @@
   padding-bottom: 32px;
 }
 
-.hero .swiper-wrapper {
+.hero .swiper {
   border-radius: 8px;
-  margin-bottom: 24px;
 }
 
 .hero .swiper-slide {
@@ -16,8 +15,13 @@
   position: relative;
 }
 
+.hero-img-slide .hero-page {
+  border-radius: 8px;
+}
+
 .hero-img-content {
   position: absolute;
+
   bottom: 16px;
   left: 16px;
 }
@@ -32,19 +36,18 @@
 
 .btn-slider {
   display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 117px;
   height: 20px;
 
   padding: 4px 10px;
 
-  border: 0.52px solid var(--clr-orange);
+  border: 1px solid #e15d05;
   border-radius: 2px;
 
-  font-weight: 400;
   font-size: 8px;
-  line-height: 12px;
-
-  color: var(--clr-white);
 }
 
 .hero-title-wrapper {
@@ -57,48 +60,61 @@
   justify-content: flex-end;
   gap: 16px;
 
+  margin-top: 24px;
   margin-bottom: 24px;
 }
 
-.button-next {
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-
-  background-color: var(--clr-orange);
-}
-
-.icon-left-arrow {
-  fill: black;
-}
-
-.button-prev {
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-
-  background-color: var(--clr-orange);
-}
-
-.icon-right-arrow {
-  fill: black;
+.hero-title::after {
+  content: 'Discover Your\A Next Great Read\A Today!';
+  white-space: pre-line;
 }
 
 @media only screen and (min-width: 768px) {
   .hero-title-wrapper {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
+
+    margin-top: 24px;
+  }
+
+  .hero-title::after {
+    content: 'Discover Your Next Great\A Read Today!';
+    white-space: pre-line;
   }
 
   .hero-btn-wrapper {
     display: flex;
     justify-content: flex-end;
-    gap: 16px;
+    gap: 24px;
 
+    margin-top: 0;
     margin-bottom: 0px;
+  }
+
+  .hero-img-content {
+    bottom: 40px;
+    left: 40px;
+  }
+
+  .swiper-slide h3 {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .btn-slider {
+    width: 164px;
+    height: 32px;
+
+    border-radius: 4px;
+
+    font-size: 8px;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 
@@ -107,7 +123,27 @@
     justify-content: space-between;
   }
 
-  .hero-btn-wrapper {
-    gap: 24px;
+  .hero-title::after {
+    content: 'Discover Your Next Great Read Today!';
+    white-space: pre-line;
+  }
+
+  .hero-img-content {
+    bottom: 56px;
+    left: 56px;
+  }
+
+  .swiper-slide h3 {
+    margin-bottom: 20px;
+
+    font-size: 52px;
+    line-height: 62px;
+  }
+
+  .btn-slider {
+    width: 227px;
+    height: 40px;
+
+    font-size: 16px;
   }
 }

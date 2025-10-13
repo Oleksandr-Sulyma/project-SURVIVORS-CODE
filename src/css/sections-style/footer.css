@@ -34,6 +34,10 @@ p.footer-title {
   font-size: 16px;
 }
 
+p.footer-title {
+  font-size: 16px;
+}
+
 .nav-item a {
   font-size: 16px;
   color: var(--clr-dark);
@@ -99,20 +103,21 @@ p.footer-title {
   color: var(--clr-dark);
 }
 
-.footer-input:-webkit-autofill {
-  background-color: #eb9b67 !important;
-  border: 1px solid #eb9b67 !important;
-  -webkit-box-shadow: 0 0 0px 1000px #eb9b67 inset !important;
-  -webkit-text-fill-color: var(--clr-dark) !important;
+input.footer-input:-webkit-autofill {
+  background-color: #eb9b67;
+  -webkit-box-shadow: 0 0 0px 1000px #eb9b67 inset;
+  -webkit-text-fill-color: var(--clr-dark);
 }
 
-.footer-input:-moz-autofill {
-  background-color: #eb9b67 !important;
-  border: 1px solid #eb9b67 !important;
-  color: var(--clr-dark) !important;
+input.footer-input:-moz-autofill {
+  background-color: #eb9b67;
+  border: 1px solid #eb9b67;
+  color: var(--clr-dark);
 }
 
 .footer-btn {
+  width: 106px;
+  height: 48px;
   align-self: flex-start;
   white-space: nowrap;
   cursor: pointer;
@@ -140,8 +145,9 @@ p.footer-title {
 }
 
 .btn-success {
-  border-color: var(--clr-orange-dark);
-  background-color: #9c6037;
+  border-color: green;
+  color: green;
+  background-color: #d49d77;
 }
 
 .footer-remark {
