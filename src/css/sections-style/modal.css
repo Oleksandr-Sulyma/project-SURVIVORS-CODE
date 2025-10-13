@@ -7,9 +7,8 @@ body.modal-open {
   position: fixed;
   left: 0;
   width: 100%;
-  padding-right: 17px; 
+  padding-right: 17px;
 }
-
 
 .modal-backdrop {
   position: fixed;
@@ -36,7 +35,7 @@ body.modal-open {
 
 .modal-container {
   align-self: center;
-  min-height: 100%; 
+  min-height: 100%;
 }
 
 .modal-content {
@@ -87,13 +86,13 @@ body.modal-open {
 .modal-book-layout {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-lg); 
+  gap: var(--gap-lg);
 }
 
 .book-cover-img {
   width: 100%;
   max-width: 309px;
-  height: 466px; 
+  height: 466px;
   border-radius: 8px;
   display: block;
 }
@@ -107,17 +106,17 @@ body.modal-open {
 
 .section-header {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   margin-bottom: var(--gap-lg);
-  gap: 0; 
+  gap: 0;
 }
 
 @media screen and (min-width: 768px) {
   .modal-book-layout {
     flex-direction: row;
-    gap: var(--gap-lg); 
+    gap: var(--gap-lg);
   }
-  
+
   .book-cover-img {
     flex-shrink: 0;
     flex-basis: 309px;
@@ -132,11 +131,11 @@ body.modal-open {
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--clr-dark);
-  margin: 0; 
+  margin: 0;
 }
 
-.book-author, 
-.price-mobile { 
+.book-author,
+.price-mobile {
   font-weight: 400;
   font-size: 24px;
   line-height: 1.4;
@@ -148,8 +147,8 @@ body.modal-open {
 .quantity-control {
   display: flex;
   align-items: center;
-  gap: var(--gap-sm); 
-  margin-bottom: var(--gap-md); 
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-md);
 }
 
 .quantity-control button {
@@ -164,7 +163,6 @@ body.modal-open {
   font-size: 16px;
   font-weight: 400;
   transition: var(--transition);
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,9 +170,9 @@ body.modal-open {
 }
 
 .quantity-control button:disabled {
-  color: rgba(11, 5, 0, 0.4); 
-  border-color: rgba(11, 5, 0, 0.4); 
-  cursor: not-allowed; 
+  color: rgba(11, 5, 0, 0.4);
+  border-color: rgba(11, 5, 0, 0.4);
+  cursor: not-allowed;
 }
 
 .quantity-control button:not(:disabled):hover,
@@ -185,7 +183,7 @@ body.modal-open {
 .quantity-input {
   border: 1px solid rgba(11, 5, 0, 0.15);
   border-radius: 4px;
-  padding-block: var(--gap-sm); 
+  padding-block: var(--gap-sm);
   padding-inline: 12px;
   width: 42px;
   height: 40px;
@@ -201,10 +199,11 @@ body.modal-open {
 .quantity-input::-webkit-outer-spin-button,
 .quantity-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+
   margin: 0;
 }
 
-.quantity-input[type=number] {
+.quantity-input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -213,12 +212,12 @@ body.modal-open {
   flex-direction: column;
   gap: var(--gap-md);
   padding-top: var(--gap-sm);
-  margin-bottom: var(--gap-lg); 
+  margin-bottom: var(--gap-lg);
 }
 
 .modal-book-actions .btn {
   height: 48px;
-  width: 100%; 
+  width: 100%;
 }
 
 @media screen and (min-width: 1440px) {
@@ -243,15 +242,13 @@ body.modal-open {
   margin: 0;
   padding: 0;
   border: none;
+  border-bottom: 1px solid rgba(11, 5, 0, 0.15);
 }
 
 .ac:first-child {
   border-top: 1px solid rgba(11, 5, 0, 0.15);
 }
 
-.ac:not(:last-child) {
-  border-bottom: 1px solid rgba(11, 5, 0, 0.15);
-}
 
 .ac-header {
   display: flex;
@@ -259,32 +256,33 @@ body.modal-open {
   justify-content: space-between;
   cursor: pointer;
   background-color: #fceee6;
-  padding-top: var(--gap-md); 
-  padding-bottom: var(--gap-md); 
-  border: none; 
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border: none;
 }
 
 .ac-title {
   font-weight: 600;
   font-size: 18px;
   line-height: 1.5;
-  color: var(--clr-dark); 
-  margin: 0; 
+  color: var(--clr-dark);
+  margin: 0;
+  padding-bottom: 24px;
 }
 
 .ac-panel {
   border: none;
   background-color: #fceee6;
-  padding: 0; 
+  padding: 0;
 }
 
 .ac-text {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--clr-dark); 
-  margin: 0; 
-  padding: 0 0 var(--gap-lg) 0; 
+  color: var(--clr-dark);
+  margin: 0;
+  padding: 0 0 var(--gap-lg) 0;
 }
 
 .ac-icon {
@@ -297,7 +295,7 @@ body.modal-open {
 
 .ac .arrow-up,
 .ac .arrow-down {
-  display: inline-block; 
+  display: inline-block;
 }
 
 .ac:not(.is-active) .arrow-up {
@@ -309,6 +307,7 @@ body.modal-open {
 }
 
 .ac.is-active .arrow-up {
-  display: inline-block !important; 
-  transform: rotate(0deg); 
+  display: inline-block !important;
+
+  transform: rotate(0deg);
 }
