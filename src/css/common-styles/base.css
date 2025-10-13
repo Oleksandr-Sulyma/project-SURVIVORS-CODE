@@ -11,7 +11,8 @@
   -webkit-text-size-adjust: 100%;
 }
 
-html {
+html,
+body {
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
