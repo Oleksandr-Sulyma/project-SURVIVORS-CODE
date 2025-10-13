@@ -3,12 +3,12 @@ body.modal-open {
   overflow: hidden !important;
 }
 
-body.modal-open {
+/* body.modal-open {
   position: fixed;
   left: 0;
   width: 100%;
   padding-right: 17px;
-}
+} */
 
 .modal-backdrop {
   position: fixed;
@@ -70,7 +70,6 @@ body.modal-open {
 @media screen and (min-width: 768px) {
   .modal-content {
     width: 704px;
-    max-width: 704px;
     padding: var(--gap-xxl) var(--gap-xl);
   }
 }
