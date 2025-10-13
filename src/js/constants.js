@@ -46,3 +46,16 @@ export const DOM_ELEMENTS = {
 // для екранування
 export const HTML_ESCAPE_MAP = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' };
 
+// -----footer-----
+export const STORAGE_KEYS = {
+  EMAILS: 'emails',
+};
+
+export const TOAST_DELAY = 3000;
+
+export const MESSAGES = {
+  REQUIRED: '* Required field',
+  INVALID: 'Please enter a valid email',
+  SUCCESS: 'Email saved!',
+};
+// -----footer-end-----

@@ -1,3 +1,4 @@
+// src/js/books-data.js
 import { api } from './api-service.js';
 import { DOM_ELEMENTS, BOOKS_CONFIG } from './constants.js';
 import {
@@ -24,6 +25,54 @@ import {
   loadImage,
 } from './handlers.js';
 
+/* ----------------------------- UI-level dedupe ----------------------------- */
+function norm(s) {
+  return String(s || '')
+    .toLowerCase()
+    .replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, '')
+    .trim();
+}
+
+function keyTA(b) {
+  const t = norm(b.title);
+  const a = norm(b.author);
+  return t || a ? `ta:${t}|${a}` : `id:${b.id || 'no-id'}`;
+}
+
+function dedupeForUI(list = []) {
+  const seen = new Set();
+  const out = [];
+  for (const b of list) {
+    const k = keyTA(b);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(b);
+  }
+  return out;
+}
+
+/**
+ * Merge `existing` with `candidates` and take at most `takeCount` NEW unique items
+ * (unique by title+author). Returns { merged, newItems }.
+ */
+function mergeTakeNew(existing, candidates, takeCount) {
+  const seen = new Set(existing.map(keyTA));
+  const merged = existing.slice();
+  const newItems = [];
+  for (const b of candidates) {
+    const k = keyTA(b);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    merged.push(b);
+    newItems.push(b);
+    if (newItems.length >= takeCount) break;
+  }
+  return { merged, newItems };
+}
+
+/* --------------------------------- Class ---------------------------------- */
 class BooksSection {
   constructor() {
     this.elements = {
@@ -41,13 +90,17 @@ class BooksSection {
         DOM_ELEMENTS.categoriesSelectMobile
       ),
     };
+
     this.currentCategory = 'all';
     this.currentPage = 1;
     this.isLoading = false;
     this.hasMore = true;
     this.loadedBooks = [];
+
     this.imageObserver = null;
     this.debounceTimeout = null;
+
+    this.initialCount = this.getInitialBooksCount();
     this.init();
   }
 
@@ -150,9 +203,21 @@ class BooksSection {
       }
 
       this.setupLazyLoading();
-      this.hasMore = data.hasMore;
+
+      const total =
+        typeof data.total === 'number'
+          ? data.total
+          : dedupeForUI(this.loadedBooks).length;
+
+      // hasMore if server still has items AND we still didn't hit total
+      this.hasMore = Boolean(data.hasMore) && this.loadedBooks.length < total;
+
       this.updateShowMoreButton();
-      updateBooksCounter(this.elements.booksCounter, data.showing, data.total);
+      updateBooksCounter(
+        this.elements.booksCounter,
+        this.loadedBooks.length,
+        total
+      );
     } catch (e) {
       console.error('Load books error:', e);
       showError(
@@ -173,9 +238,11 @@ class BooksSection {
 
   async filterByCategory(category) {
     if (category === this.currentCategory) return;
+
     this.currentCategory = category;
     this.currentPage = 1;
     this.loadedBooks = [];
+
     updateCategoriesActiveState(this.elements.categoriesUL, category);
     if (this.elements.categoriesSelectTablet)
       this.elements.categoriesSelectTablet.value = category;

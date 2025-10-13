@@ -82,3 +82,62 @@ export function loadImage(img, observer) {
   };
   t.src = src;
 }
+
+// -----footer-----
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+import { refs } from './refs.js';
+import { validateEmail } from './helpers.js';
+import { TOAST_DELAY, MESSAGES } from './constants.js';
+import { saveEmailToLocal } from './storage.js';
+
+function showToast(type, title, message) {
+  iziToast[type]({
+    title,
+    message,
+    position: 'topRight',
+  });
+}
+
+export function onFooterSubmit(e) {
+  e.preventDefault();
+
+  const email = refs.footerInput.value.trim();
+
+  refs.footerBtn.classList.remove('btn-error', 'btn-success');
+  refs.footerRemark.classList.remove('remark-error', 'remark-success');
+
+  if (!email) {
+    refs.footerRemark.textContent = MESSAGES.REQUIRED;
+    refs.footerRemark.classList.add('remark-error');
+    showToast('warning', 'Caution', MESSAGES.REQUIRED);
+    setTimeout(clearFormState, TOAST_DELAY);
+    return;
+  }
+
+  if (!validateEmail(email)) {
+    refs.footerRemark.textContent = MESSAGES.INVALID;
+    refs.footerRemark.classList.add('remark-error');
+    refs.footerBtn.classList.add('btn-error');
+    showToast('error', 'Error', MESSAGES.INVALID);
+    setTimeout(clearFormState, TOAST_DELAY);
+    return;
+  }
+
+  refs.footerRemark.textContent = '✅ ' + MESSAGES.SUCCESS;
+  refs.footerRemark.classList.add('remark-success');
+  refs.footerBtn.classList.add('btn-success');
+  showToast('success', 'OK', MESSAGES.SUCCESS);
+
+  saveEmailToLocal(email);
+
+  setTimeout(clearFormState, TOAST_DELAY);
+  refs.footerForm.reset();
+}
+
+function clearFormState() {
+  refs.footerRemark.textContent = '';
+  refs.footerRemark.classList.remove('remark-error', 'remark-success');
+  refs.footerBtn.classList.remove('btn-error', 'btn-success');
+}
+// -----footer-end-----

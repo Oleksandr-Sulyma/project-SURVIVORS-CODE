@@ -1,3 +1,4 @@
+// src/js/api-service.js
 import {
   BOOKS_BASE_URL,
   REQUEST_TIMEOUT,
@@ -7,6 +8,12 @@ import {
   CACHE_CONFIG,
 } from './constants.js';
 
+import axios from 'axios';
+
+export { fetchJSON, normalizeBook, MemoryCache };
+export const api = new BooksAPI();
+
+/* -------------------------- fetch helpers -------------------------- */
 async function fetchJSON(path, options = {}) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
@@ -23,6 +30,7 @@ async function fetchJSON(path, options = {}) {
         ...options,
       });
       clearTimeout(timeoutId);
+
       if (!res.ok) {
         const txt = await res.text().catch(() => '');
         throw new Error(`API ${res.status}: ${res.statusText}. ${txt}`);
@@ -38,15 +46,19 @@ async function fetchJSON(path, options = {}) {
   }
 }
 
-function normalizeBook(b, fallbackImage = '') {
+/* -------------------------- normalization -------------------------- */
+function normalizeBook(book, fallbackImage = '') {
+  // trim strings, protect against null/undefined
+  const title = String(book?.title ?? '').trim();
+  const author = String(book?.author ?? '').trim();
+
   return {
-    id:  b._id || b.primary_isbn13 || b.primary_isbn10 || b.title || 'no-id',
+    id: b._id || 'no-id',
     title: b.title || 'Untitled',
     author: b.author || 'Unknown Author',
     image: b.book_image || fallbackImage,
     amazon_product_url: b.amazon_product_url || '#',
     price: b.price || '',
-
   };
 }
 
@@ -75,18 +87,93 @@ class MemoryCache {
   }
 }
 
+function canon(s) {
+  // lowercased, collapsed spaces, strip punctuation/diacritics
+  return String(s || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '') // diacritics
+    .replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, '')
+    .trim();
+}
+
+/**
+ * Two-pass dedupe preserving order:
+ *   1) by id (if present and not 'no-id')
+ *   2) by (title+author) – image is ignored (часто різні посилання на те саме видання)
+ */
+function dedupeStable(list) {
+  const out = [];
+  const byId = new Set();
+  const byTA = new Set();
+
+  for (const b of list) {
+    if (b?.id && b.id !== 'no-id') {
+      const k = `id:${b.id}`;
+      if (byId.has(k)) continue;
+      byId.add(k);
+      // still run title+author pass to collapse edge cases later in the list
+      const ta = `ta:${canon(b.title)}|${canon(b.author)}`;
+      byTA.add(ta);
+      out.push(b);
+      continue;
+    }
+
+    // no reliable id -> fallback to title+author
+    const ta = `ta:${canon(b.title)}|${canon(b.author)}`;
+    if (byTA.has(ta)) continue;
+    byTA.add(ta);
+    out.push(b);
+  }
+
+  return out;
+}
+
+/* ------------------------------ cache ------------------------------ */
+class MemoryCache {
+  constructor(maxSize = CACHE_CONFIG.maxSize, ttl = CACHE_CONFIG.ttl) {
+    this.cache = new Map();
+    this.maxSize = maxSize;
+    this.ttl = ttl;
+  }
+  set(key, value) {
+    if (this.cache.size >= this.maxSize) {
+      const first = this.cache.keys().next().value;
+      this.cache.delete(first);
+    }
+    this.cache.set(key, { value, ts: Date.now() });
+  }
+  get(key) {
+    const item = this.cache.get(key);
+    if (!item) return null;
+    if (Date.now() - item.ts > this.ttl) {
+      this.cache.delete(key);
+      return null;
+    }
+    return item.value;
+  }
+  clear() {
+    this.cache.clear();
+  }
+}
+
+/* ------------------------------- API -------------------------------- */
 class BooksAPI {
   constructor() {
     this.cache = new MemoryCache();
   }
 
   async getCategories() {
-    const k = 'categories';
-    const cached = this.cache.get(k);
+    const key = 'categories';
+    const cached = this.cache.get(key);
     if (cached) return cached;
+
     try {
       const data = await fetchJSON('/books/category-list');
       let categories = [];
+
       if (data && Array.isArray(data.results)) {
         categories = data.results
           .map(c => {
@@ -110,85 +197,78 @@ class BooksAPI {
     }
   }
 
-async getBooks(category = 'all', page = 1, limit) {
-  // Встановлюємо ліміт по ширині екрану, якщо не передано
-  if (!limit) {
-    limit = window.innerWidth <= 768 ? 10 : 24;
-  }
-
-  const k = `books_${category}_${page}_${limit}`;
-  const cached = this.cache.get(k);
-  if (cached) return cached;
-
-  try {
-    let endpoint = '/books/top-books';
-    if (category !== 'all') {
-      endpoint = `/books/category?category=${encodeURIComponent(category)}`;
+  async getBooks(category = 'all', page = 1, limit) {
+    if (!limit) {
+      limit = window.innerWidth <= 768 ? 10 : 24;
     }
 
-    const data = await fetchJSON(endpoint);
-    const allBooks = [];
-    const seen = new Set();
+    const k = `books_${category}_${page}_${limit}`;
+    const cached = this.cache.get(k);
+    if (cached) return cached;
 
-    if (category === 'all') {
-      // API повертає масив списків для "all"
-      if (Array.isArray(data)) {
-        data.forEach(list => {
-          if (Array.isArray(list.books)) {
-            list.books.forEach(b => {
-              const book = normalizeBook(b);
-              const key = `${book.title}__${book.image}`;
-              if (!seen.has(key)) {
-                seen.add(key);
-                allBooks.push(book);
-              }
-            });
+    try {
+      let endpoint = '/books/top-books';
+      if (category !== 'all') {
+        endpoint = `/books/category?category=${encodeURIComponent(category)}`;
+      }
+
+      const data = await fetchJSON(endpoint);
+      const allBooks = [];
+      const seen = new Set();
+
+      if (category === 'all') {
+        if (Array.isArray(data)) {
+          data.forEach(list => {
+            if (Array.isArray(list.books)) {
+              list.books.forEach(b => {
+                const book = normalizeBook(b);
+                const key = `${book.title}__${book.image}`;
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  allBooks.push(book);
+                }
+              });
+            }
+          });
+        }
+      } else {
+        const booksArray = data?.results?.length
+          ? data.results
+          : Array.isArray(data)
+          ? data
+          : [];
+        booksArray.forEach(b => {
+          const book = normalizeBook(b);
+          const key = `${book.title}__${book.image}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            allBooks.push(book);
           }
         });
       }
-    } else {
-      // Для конкретної категорії API повертає {results: [...]}
-      const booksArray = data?.results?.length ? data.results : (Array.isArray(data) ? data : []);
-      booksArray.forEach(b => {
-        const book = normalizeBook(b);
-        const key = `${book.title}__${book.image}`;
-        if (!seen.has(key)) {
-          seen.add(key);
-          allBooks.push(book);
-        }
-      });
+
+      if (!allBooks.length) {
+        console.log(`У категорії "${category}" немає книг.`);
+      }
+
+      const start = (page - 1) * limit;
+      const end = start + limit;
+
+      const result = {
+        books: allBooks.slice(start, end),
+        total: allBooks.length,
+        showing: Math.min(end, allBooks.length),
+        hasMore: end < allBooks.length,
+        currentPage: page,
+      };
+
+      this.cache.set(k, result);
+      return result;
+    } catch (e) {
+      throw new Error(`Failed to load books: ${e.message}`);
     }
-
-    if (!allBooks.length) {
-      console.log(`У категорії "${category}" немає книг.`);
-    }
-
-    const start = (page - 1) * limit;
-    const end = start + limit;
-
-    const result = {
-      books: allBooks.slice(start, end),
-      total: allBooks.length,
-      showing: Math.min(end, allBooks.length),
-      hasMore: end < allBooks.length,
-      currentPage: page,
-    };
-
-    this.cache.set(k, result);
-    return result;
-  } catch (e) {
-    throw new Error(`Failed to load books: ${e.message}`);
   }
 }
-}
-
-
-
-export { fetchJSON, normalizeBook, MemoryCache };
-export const api = new BooksAPI();
-
-
-import axios from 'axios';
 
 export const getBookById = async id => {
   try {
@@ -198,9 +278,3 @@ export const getBookById = async id => {
     throw error;
   }
 };
-
-
-const bookId = "68680e31ac8a51f74dd6a25b"; // приклад
-getBookById(bookId).then(book => {
-  console.log("Book object from API:", book);
-});

@@ -1,3 +1,4 @@
+// src/js/render-functions.js
 import { HTML_ESCAPE_MAP } from './constants.js';
 import refs from './refs';
 
@@ -6,6 +7,7 @@ export function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, m => HTML_ESCAPE_MAP[m]);
 }
 
+/** Single book card */
 export function createBookCard(book, index = 0) {
   const li = document.createElement('li');
   li.className = 'book-card';
@@ -92,6 +94,7 @@ export function populateDropdowns(
   });
 }
 
+/** Books list renderers */
 export function renderBooks(container, books) {
   if (!container) return;
   container.innerHTML = '';
@@ -114,6 +117,7 @@ export function appendBooks(container, books) {
   });
 }
 
+/** UI helpers */
 export function updateBooksCounter(counter, showing, total) {
   if (counter) counter.textContent = `Showing ${showing} of ${total}`;
 }
@@ -163,43 +167,46 @@ export function updateCategoriesActiveState(container, activeCategory) {
 }
 
 export function createBookModalCard(book) {
-    const bookCard = document.createElement('div');
-    bookCard.className = 'modal-book-layout';
+  const bookCard = document.createElement('div');
+  bookCard.className = 'modal-book-layout';
 
-    const priceDisplay = (book.price && book.price !== '0.00') 
-        ? book.price 
-        : '0.00'; 
-    
-    const description = book.description && book.description.trim() !== '' ? book.description : null;
-    
-    const publisherText = book.publisher 
-        ? `<br>Publisher: <b>${book.publisher}</b>.`
-        : null;
+  const priceDisplay =
+    book.price && book.price !== '0.00' ? book.price : '0.00';
 
-    const weeksCount = book.weeks_on_list;
-    const weeksText = weeksCount === 1 ? 'week' : 'weeks';
-    
-    const rankText = (book.rank && book.rank > 0 && weeksCount && weeksCount > 0)
-        ? `<br>This book is ranked <b>#${book.rank}</b> on the bestseller list, having been on it for <b>${weeksCount}</b> ${weeksText}.`
-        : null;
+  const description =
+    book.description && book.description.trim() !== ''
+      ? book.description
+      : null;
 
-    let detailsContent = description || '';
+  const publisherText = book.publisher
+    ? `<br>Publisher: <b>${book.publisher}</b>.`
+    : null;
 
-    if (description) {
-        let additionalInfo = '';
-        if (publisherText) additionalInfo += publisherText;
-        if (rankText) additionalInfo += rankText;
-        
-        if (additionalInfo) {
-            detailsContent += additionalInfo;
-        }
+  const weeksCount = book.weeks_on_list;
+  const weeksText = weeksCount === 1 ? 'week' : 'weeks';
+
+  const rankText =
+    book.rank && book.rank > 0 && weeksCount && weeksCount > 0
+      ? `<br>This book is ranked <b>#${book.rank}</b> on the bestseller list, having been on it for <b>${weeksCount}</b> ${weeksText}.`
+      : null;
+
+  let detailsContent = description || '';
+
+  if (description) {
+    let additionalInfo = '';
+    if (publisherText) additionalInfo += publisherText;
+    if (rankText) additionalInfo += rankText;
+
+    if (additionalInfo) {
+      detailsContent += additionalInfo;
     }
+  }
 
-    if (!detailsContent) {
-        detailsContent = 'No description available for this book.';
-    }
-  
-    bookCard.innerHTML = `
+  if (!detailsContent) {
+    detailsContent = 'No description available for this book.';
+  }
+
+  bookCard.innerHTML = `
         <img
             class="book-cover-img"
             src="${book.book_image || ''}"
@@ -281,5 +288,5 @@ export function createBookModalCard(book) {
             </div>
         </div>
     `;
-    return bookCard;
+  return bookCard;
 }
