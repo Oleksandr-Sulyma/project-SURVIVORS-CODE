@@ -1,4 +1,4 @@
-import refs from './refs';
+import { refs } from './refs.js';
 import { getBookById } from './api-service';
 import { openBookModal } from './modal-book';
 
