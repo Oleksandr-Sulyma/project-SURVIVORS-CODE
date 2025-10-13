@@ -18,6 +18,17 @@ body.no-scroll {
   justify-content: space-between;
 }
 
+.header-burger-icon {
+  transition: var(--transition);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.2);
+    transition: var(--transition);
+    fill: var(--clr-orange);
+  }
+}
+
 .header-nav-list {
   display: none;
 }
@@ -44,7 +55,7 @@ body.no-scroll {
   z-index: 10;
 
   width: 100%;
-  height: 433px;
+  height: 100%;
 
   opacity: 0;
   visibility: hidden;
@@ -92,9 +103,25 @@ body.no-scroll {
 }
 
 .navbar-nav-list {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 }
 
-.navbar-nav-item:not(:last-child) {
-  margin-bottom: 40px;
+.navbar-nav-link:hover,
+.navbar-nav-link:focus {
+  transition: var(--transition);
+  color: var(--clr-orange);
+}
+
+.navbar-close-icon {
+  transition: var(--transition);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.2);
+    fill: var(--clr-orange);
+    transition: var(--transition);
+  }
 }
