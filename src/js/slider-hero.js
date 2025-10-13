@@ -2,7 +2,7 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
 const swiper = new Swiper('.heroSwiper', {
-  spaceBetween: 5,
+  cssMode: true,
   speed: 500,
   navigation: {
     nextEl: '.swiper-button-next',
