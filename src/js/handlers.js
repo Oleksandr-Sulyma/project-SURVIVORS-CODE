@@ -68,10 +68,12 @@ export function onFooterSubmit(e) {
 
   refs.footerBtn.classList.remove('btn-error', 'btn-success');
   refs.footerRemark.classList.remove('remark-error', 'remark-success');
+  refs.footerInput.classList.remove('error', 'success');
 
   if (!email) {
     refs.footerRemark.textContent = MESSAGES.REQUIRED;
     refs.footerRemark.classList.add('remark-error');
+    refs.footerInput.classList.add('error');
     showToast('warning', 'Caution', MESSAGES.REQUIRED);
     setTimeout(clearFormState, TOAST_DELAY);
     return;
@@ -81,6 +83,7 @@ export function onFooterSubmit(e) {
     refs.footerRemark.textContent = MESSAGES.INVALID;
     refs.footerRemark.classList.add('remark-error');
     refs.footerBtn.classList.add('btn-error');
+    refs.footerInput.classList.add('error');
     showToast('error', 'Error', MESSAGES.INVALID);
     setTimeout(clearFormState, TOAST_DELAY);
     return;
@@ -89,6 +92,7 @@ export function onFooterSubmit(e) {
   refs.footerRemark.textContent = '✅ ' + MESSAGES.SUCCESS;
   refs.footerRemark.classList.add('remark-success');
   refs.footerBtn.classList.add('btn-success');
+  refs.footerInput.classList.add('success');
   showToast('success', 'OK', MESSAGES.SUCCESS);
 
   saveEmailToLocal(email);
@@ -101,5 +105,6 @@ function clearFormState() {
   refs.footerRemark.textContent = '';
   refs.footerRemark.classList.remove('remark-error', 'remark-success');
   refs.footerBtn.classList.remove('btn-error', 'btn-success');
+  refs.footerInput.classList.remove('error', 'success');
 }
 // -----footer-end-----
