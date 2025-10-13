@@ -1,37 +1,32 @@
-/* ========================================================= */
-/* 1. Блокування скролу та Backdrop */
-/* ========================================================= */
-
-/* Блокування скролу сторінки при відкритій модалці */
 html.modal-open,
 body.modal-open {
-  overflow: hidden !important; 
+  overflow: hidden !important;
 }
 
-/* Фіксація body, щоб сторінка не рухалася */
 body.modal-open {
   position: fixed;
-  top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; 
+  padding-right: 17px; 
 }
 
-/* Backdrop: фіксований фон */
+
 .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(11, 5, 0, 0.5); /* --clr-dark з прозорістю */
+  background-color: rgba(11, 5, 0, 0.5);
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
   transition: var(--transition);
-  overflow-y: auto; /* Дозволяємо скролити вміст модалки, якщо він великий */
+  overflow-y: auto;
   display: flex;
   justify-content: center;
+  padding-top: var(--gap-lg);
+  padding-bottom: var(--gap-lg);
 }
 
 .modal-backdrop.active {
@@ -39,38 +34,26 @@ body.modal-open {
   visibility: visible;
 }
 
-/* Контейнер: для вертикального центрування */
 .modal-container {
   align-self: center;
-  padding: var(--gap-md) 0; 
   min-height: 100%; 
 }
 
-/* ========================================================= */
-/* 2. Контент Модального Вікна (.modal-content) */
-/* ========================================================= */
-
 .modal-content {
-  /* Мобільна верстка: Гумова від 320px */
-  width: calc(100% - var(--gap-xl)); 
-  max-width: 343px; /* Адаптивна верстка на 375px */
-
+  width: calc(100% - var(--gap-xl));
+  max-width: 343px;
   margin: 0 auto;
-  
-  background-color: #fceee6; 
+  background-color: #fceee6;
   border-radius: 4px;
-  position: relative; 
+  position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-
-  /* ПАДІНГИ: Мобілка: 64px (T/B) / 16px (L/R) */
-  padding: var(--gap-xxl) var(--gap-md); 
+  padding: var(--gap-xxl) var(--gap-md);
 }
 
-/* Кнопка закриття */
 .modal-close-btn {
   position: absolute;
-  top: var(--gap-sm); 
-  right: var(--gap-sm); 
+  top: var(--gap-md);
+  right: var(--gap-md);
   width: 32px;
   height: 32px;
   display: flex;
@@ -85,135 +68,247 @@ body.modal-open {
   color: var(--clr-orange);
 }
 
-/* ========================================================= */
-/* 3. Макет та Елементи Контенту (Мобільний/За замовчуванням) */
-/* ========================================================= */
+@media screen and (min-width: 768px) {
+  .modal-content {
+    width: 704px;
+    max-width: 704px;
+    padding: var(--gap-xxl) var(--gap-xl);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .modal-content {
+    width: 1300px;
+    max-width: 1300px;
+    padding: var(--gap-xxl) 104px;
+  }
+}
 
 .modal-book-layout {
-    display: flex; 
-    flex-direction: column; /* За замовчуванням один стовпчик */
-    gap: var(--gap-xl); 
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg); 
 }
 
 .book-cover-img {
-    max-width: 100%; 
-    height: auto;
-    width: auto;
+  width: 100%;
+  max-width: 309px;
+  height: 466px; 
+  border-radius: 8px;
+  display: block;
 }
 
 .mobile-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-xl); 
-    flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+  flex-grow: 1;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column; 
+  margin-bottom: var(--gap-lg);
+  gap: 0; 
+}
+
+@media screen and (min-width: 768px) {
+  .modal-book-layout {
+    flex-direction: row;
+    gap: var(--gap-lg); 
+  }
+  
+  .book-cover-img {
+    flex-shrink: 0;
+    flex-basis: 309px;
+    width: 309px;
+    max-width: 309px;
+  }
+}
+
+.book-title-mobile {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--clr-dark);
+  margin: 0; 
+}
+
+.book-author, 
+.price-mobile { 
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--clr-dark);
+  margin-bottom: 0;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm); 
+  margin-bottom: var(--gap-md); 
+}
+
+.quantity-control button {
+  border: 1px solid var(--clr-dark);
+  border-radius: 4px;
+  width: 32px;
+  height: 40px;
+  background-color: transparent;
+  color: var(--clr-dark);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 400;
+  transition: var(--transition);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.quantity-control button:disabled {
+  color: rgba(11, 5, 0, 0.4); 
+  border-color: rgba(11, 5, 0, 0.4); 
+  cursor: not-allowed; 
+}
+
+.quantity-control button:not(:disabled):hover,
+.quantity-control button:not(:disabled):focus {
+  background-color: rgba(11, 5, 0, 0.05);
+}
+
+.quantity-input {
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  border-radius: 4px;
+  padding-block: var(--gap-sm); 
+  padding-inline: 12px;
+  width: 42px;
+  height: 40px;
+  background: rgba(11, 5, 0, 0.05);
+  text-align: center;
+  color: var(--clr-dark);
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity-input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .modal-book-actions {
   display: flex;
-  flex-direction: column; /* Мобілка: кнопки одна під одною */
-  gap: var(--gap-md); 
-  padding-top: var(--gap-sm); 
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding-top: var(--gap-sm);
+  margin-bottom: var(--gap-lg); 
 }
 
-
-/* ========================================================= */
-/* 4. СТИЛІ ACCORDION (для Accordion.js) */
-/* ========================================================= */
-
-/* Панель контенту: забезпечення анімації висоти */
-.ac-panel {
-    /* ВИМОГА 1: Приховує контент, коли height = 0 */
-    overflow: hidden; 
-
-    /* ВИМОГА 2: Плавний перехід для властивості height */
-    transition: height var(--transition) ease; 
+.modal-book-actions .btn {
+  height: 48px;
+  width: 100%; 
 }
 
-/* Стилізація заголовка та кнопки (trigger) */
-.ac-header {
-    display: flex;
-    align-items: center;
-}
-
-.ac-trigger {
-    position: relative;
-    width: 100%; 
-    padding: var(--gap-md) 30px var(--gap-md) 0; /* Додаємо місце для іконки */
-    text-align: left; 
-    font-weight: 600; 
-    color: var(--clr-dark);
-    margin: 0;
-    border-bottom: 1px solid var(--clr-neutral);
-}
-
-/* Створення анімованого індикатора (+/-) */
-.ac-trigger::after {
-    content: '+'; 
-    position: absolute;
-    right: 0;
-    font-size: 24px;
-    font-weight: 600;
-    transition: transform var(--transition);
-    color: var(--clr-orange); 
-}
-
-/* Зміна індикатора, коли аккордеон активний */
-.ac.is-active .ac-trigger::after {
-    content: '−'; /* Змінюємо + на - */
-    transform: rotate(0deg); 
-}
-
-.ac-panel .ac-text {
-    padding: 0 0 var(--gap-md) 0; /* Відступ знизу від контенту */
-}
-
-/* ========================================================= */
-/* 5. Media Queries (Адаптивність) */
-/* ========================================================= */
-
-/* Планшет та Десктоп (від 768px): ДВА СТОВПЧИКИ */
-@media screen and (min-width: 768px) {
-  /* Ширина модалки для планшета */
-  .modal-content {
-    width: 704px; 
-    max-width: 704px; 
-    /* ПАДІНГИ: 64px (T/B) / 32px (L/R) */
-    padding: var(--gap-xxl) var(--gap-xl); 
-  }
-
-  /* АКТИВАЦІЯ ДВОХ КОЛОНОК */
-  .modal-book-layout {
-    flex-direction: row; 
-    gap: var(--gap-xl); 
-  }
-  
-  /* ФІКСОВАНА ШИРИНА ДЛЯ ФОТО (309px) */
-  .book-cover-img {
-    flex-shrink: 0; 
-    flex-basis: 309px; 
-    width: 309px; 
-    max-width: 309px;
-  }
-  
-  /* КОНТЕНТ ЗАЙМАЄ ВЕСЬ ЗАЛИШОК ПРОСТОРУ */
-  .mobile-content {
-    flex-grow: 1; 
-  }
-
-  /* Кнопки дій в рядок */
-  .modal-book-actions {
-    flex-direction: row; 
-  }
-}
-
-/* Десктоп (від 1440px) */
 @media screen and (min-width: 1440px) {
-  /* Ширина модалки для десктопа */
-  .modal-content {
-    width: 1300px; 
-    max-width: 1300px;
-    
-    /* ПАДІНГИ: 64px (T/B) / 104px (L/R) */
-    padding: var(--gap-xxl) 104px; 
+  .modal-book-actions {
+    flex-direction: row;
+    gap: var(--gap-lg);
   }
+
+  .modal-book-actions .btn {
+    width: 309px;
+  }
+}
+
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ac {
+  background-color: #fceee6;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.ac:first-child {
+  border-top: 1px solid rgba(11, 5, 0, 0.15);
+}
+
+.ac:not(:last-child) {
+  border-bottom: 1px solid rgba(11, 5, 0, 0.15);
+}
+
+.ac-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #fceee6;
+  padding-top: var(--gap-md); 
+  padding-bottom: var(--gap-md); 
+  border: none; 
+}
+
+.ac-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--clr-dark); 
+  margin: 0; 
+}
+
+.ac-panel {
+  border: none;
+  background-color: #fceee6;
+  padding: 0; 
+}
+
+.ac-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--clr-dark); 
+  margin: 0; 
+  padding: 0 0 var(--gap-lg) 0; 
+}
+
+.ac-icon {
+  fill: var(--clr-dark);
+  flex-shrink: 0;
+  transition: var(--transition);
+  width: 24px;
+  height: 24px;
+}
+
+.ac .arrow-up,
+.ac .arrow-down {
+  display: inline-block; 
+}
+
+.ac:not(.is-active) .arrow-up {
+  display: none !important;
+}
+
+.ac.is-active .arrow-down {
+  display: none !important;
+}
+
+.ac.is-active .arrow-up {
+  display: inline-block !important; 
+  transform: rotate(0deg); 
 }

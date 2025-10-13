@@ -1,4 +1,4 @@
 export default {
-  elBtnOpenModal: document.getElementById('open-modal-btn'), 
-}; 
-
+  elBookModal: document.querySelector('#book-modal'),
+  elModalContent: modal.querySelector('.modal-content')
+};

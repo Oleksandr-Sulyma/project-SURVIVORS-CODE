@@ -1,102 +1,92 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Отримання посилань на елементи
-    const modal = document.getElementById('book-modal');
-    // Примітка: modal.querySelector('.modal-close-btn') шукає кнопку всередині backdrop/modal
-    const closeBtn = modal ? modal.querySelector('.modal-close-btn') : null;
+import Accordion from 'accordion-js';
+import 'accordion-js/dist/accordion.min.css';
 
-    if (!modal || !closeBtn) {
-        // Якщо модалка не знайдена, виходимо
-        console.warn("Modal or Close Button not found. Modal script not initialized.");
-        return;
+import refs from './refs.js';
+import { createBookModalCard } from './render-functions.js';
+
+export async function openBookModal(book) {
+    const modal = refs.elBookModal;
+    
+    refs.elModalContent.querySelectorAll('.modal-book-layout').forEach(el => el.remove()); 
+    const bookCard = createBookModalCard(book);
+    refs.elModalContent.appendChild(bookCard);
+
+    modal.classList.add('active', 'is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    
+    document.body.classList.add('modal-open');
+    document.documentElement.classList.add('modal-open'); 
+
+    refs.elBookModal.addEventListener('click', handleBookModal);
+    window.addEventListener('keydown', handleEsc, { once: true });
+
+    const accordions = Array.from(refs.elModalContent.querySelectorAll(".accordion-container"));
+    if (accordions.length > 0) {
+        new Accordion(accordions, {
+            duration: 300,
+            showMultiple: true,
+            triggerClass: 'ac-header',
+        });
+    }
+}
+
+
+export function closeBookModal() {
+    const modal = refs.elBookModal;
+
+    document.body.focus(); 
+    
+    refs.elBookModal.removeEventListener('click', handleBookModal);
+    
+    modal.classList.remove('active', 'is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    
+    refs.elModalContent.querySelectorAll('.modal-book-layout').forEach(el => el.remove());
+
+    const otherModalsOpen =
+        document.querySelectorAll('.modal-backdrop.is-open').length > 0;
+        
+    if (!otherModalsOpen) {
+        document.body.classList.remove('modal-open');
+        document.documentElement.classList.remove('modal-open');
+    }
+}
+
+export function handleBookModal(e) {
+    if (e.target.closest('.modal-close-btn')) {
+        return closeBookModal();
+    }
+    if (e.target === refs.elBookModal) {
+        return closeBookModal();
     }
 
-    // 2. Функція перемикання стану модалки
-    const toggleModal = () => {
-        modal.classList.toggle('active');
-        
-        // Блокування скролу: додаємо/видаляємо клас до <body> та <html>
-        document.body.classList.toggle('modal-open'); 
-        document.documentElement.classList.toggle('modal-open'); 
-        
-        // Керування доступністю (Accessibility)
-        const isModalOpen = modal.classList.contains('active');
-        modal.setAttribute('aria-hidden', !isModalOpen);
-        
-        if (isModalOpen) {
-            // При відкритті: фокус на кнопку закриття або перший інтерактивний елемент
-            closeBtn.focus();
-        } else {
-            // При закритті: повертаємо фокус на елемент, який відкрив модалку (ця логіка має бути реалізована там, де ви відкриваєте модалку)
-        }
-    };
-
-    // 3. Обробники подій для закриття
-
-    // Закриття по кліку на кнопку
-    closeBtn.addEventListener('click', toggleModal);
-    
-    // Закриття по кліку на фон (backdrop)
-    modal.addEventListener('click', (e) => {
-        // Перевіряємо, чи клік був саме на елементі .modal-backdrop
-        if (e.target.classList.contains('modal-backdrop')) {
-            toggleModal();
-        }
-    });
-
-    // Закриття по натисканню клавіші Esc
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            toggleModal();
-        }
-    });
-
-    // --- Додаткова логіка: Quantity Control (для повноти) ---
-    
-    // Функція для оновлення кнопок кількості
-    const updateQuantityButtons = (quantityControl) => {
+    const targetBtn = e.target.closest('.decrease-btn') || e.target.closest('.increase-btn');
+    if (targetBtn) {
+        const quantityControl = targetBtn.closest('.quantity-control');
         const input = quantityControl.querySelector('.quantity-input');
-        const decreaseBtn = quantityControl.querySelector('.decrease-btn');
-        const value = parseInt(input.value);
-        const min = parseInt(input.min);
-
-        decreaseBtn.disabled = value <= min;
-    };
-
-    // Обробка кліків на кнопки + і -
-    const quantityControl = modal.querySelector('.quantity-control');
-    if (quantityControl) {
-        const input = quantityControl.querySelector('.quantity-input');
-        const increaseBtn = quantityControl.querySelector('.increase-btn');
-        const decreaseBtn = quantityControl.querySelector('.decrease-btn');
+        
+        let value = parseInt(input.value);
         const min = parseInt(input.min) || 1;
         const max = parseInt(input.max) || 99;
 
-        updateQuantityButtons(quantityControl); // Ініціалізуємо стан
+        if (targetBtn.classList.contains('increase-btn') && value < max) {
+            input.value = value + 1;
+        } else if (targetBtn.classList.contains('decrease-btn') && value > min) {
+            input.value = value - 1;
+        }
 
-        increaseBtn.addEventListener('click', () => {
-            let value = parseInt(input.value);
-            if (value < max) {
-                input.value = value + 1;
-            }
-            updateQuantityButtons(quantityControl);
-        });
-
-        decreaseBtn.addEventListener('click', () => {
-            let value = parseInt(input.value);
-            if (value > min) {
-                input.value = value - 1;
-            }
-            updateQuantityButtons(quantityControl);
-        });
-
-        input.addEventListener('input', () => {
-            let value = parseInt(input.value);
-            if (isNaN(value) || value < min) {
-                input.value = min;
-            } else if (value > max) {
-                input.value = max;
-            }
-            updateQuantityButtons(quantityControl);
-        });
+        quantityControl.querySelector('.decrease-btn').disabled = parseInt(input.value) <= min;
+        
+        return;
     }
-});
+
+     
+
+
+}
+
+export function handleEsc(e) {
+    if (e.key === 'Escape') {
+        return closeBookModal();
+    }
+}
