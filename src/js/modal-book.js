@@ -4,7 +4,12 @@ import 'accordion-js/dist/accordion.min.css';
 import refs from './refs.js';
 import { createBookModalCard } from './render-functions.js';
 
+let lastFocusedElement = null;
+
 export async function openBookModal(book) {
+    if (!book || typeof book !== 'object') return; 
+
+    lastFocusedElement = document.activeElement;
     const modal = refs.elBookModal;
     
     refs.elModalContent.querySelectorAll('.modal-book-layout').forEach(el => el.remove()); 
@@ -16,6 +21,8 @@ export async function openBookModal(book) {
     
     document.body.classList.add('modal-open');
     document.documentElement.classList.add('modal-open'); 
+
+    refs.elModalCloseBtn.focus();
 
     refs.elBookModal.addEventListener('click', handleBookModal);
     window.addEventListener('keydown', handleEsc, { once: true });
@@ -30,11 +37,8 @@ export async function openBookModal(book) {
     }
 }
 
-
 export function closeBookModal() {
     const modal = refs.elBookModal;
-
-    document.body.focus(); 
     
     refs.elBookModal.removeEventListener('click', handleBookModal);
     
@@ -49,6 +53,11 @@ export function closeBookModal() {
     if (!otherModalsOpen) {
         document.body.classList.remove('modal-open');
         document.documentElement.classList.remove('modal-open');
+    }
+    
+    if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
     }
 }
 
@@ -79,10 +88,6 @@ export function handleBookModal(e) {
         
         return;
     }
-
-     
-
-
 }
 
 export function handleEsc(e) {

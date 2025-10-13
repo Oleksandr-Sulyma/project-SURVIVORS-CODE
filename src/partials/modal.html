@@ -30,39 +30,3 @@
   </div>
 </div>
 
-<svg class="ac-icon arrow-down" width="24" height="25">
-  <use href="../img/javascript.svg"></use>
-</svg>
-<svg class="ac-icon arrow-up" width="24" height="25">
-  <use href="./img/symbol-defs.svg#arrow-up"></use>
-</svg>
-
-
-
-<script>
-  const modal = document.getElementById('book-modal');
-  const closeBtn = modal.querySelector('.modal-close-btn');
-
-  const toggleModal = () => {
-    modal.classList.toggle('active');
-    // Додаємо клас modal-open на <html> та <body> для блокування скролу
-    document.body.classList.toggle('modal-open');
-    document.documentElement.classList.toggle('modal-open');
-  };
-
-  closeBtn.addEventListener('click', toggleModal);
-
-  modal.addEventListener('click', e => {
-    // Закрити при кліку на backdrop
-    if (e.target.classList.contains('modal-backdrop')) {
-      toggleModal();
-    }
-  });
-
-  document.addEventListener('keydown', e => {
-    // Закрити по Esc
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      toggleModal();
-    }
-  });
-</script>
