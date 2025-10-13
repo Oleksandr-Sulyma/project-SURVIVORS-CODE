@@ -1,6 +1,15 @@
 import refs from './refs';
 import { getBookById } from './api-service';
 import { openBookModal } from './modal-book';
+
+
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+import { validateEmail } from './helpers.js';
+import { TOAST_DELAY, MESSAGES } from './constants.js';
+import { saveEmailToLocal } from './storage.js';
+
+
 export function createShowMoreHandler(section) {
   return () => section.loadMore();
 }
@@ -84,13 +93,6 @@ export function loadImage(img, observer) {
 }
 
 // -----footer-----
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
-import { refs } from './refs.js';
-import { validateEmail } from './helpers.js';
-import { TOAST_DELAY, MESSAGES } from './constants.js';
-import { saveEmailToLocal } from './storage.js';
-
 function showToast(type, title, message) {
   iziToast[type]({
     title,
