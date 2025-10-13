@@ -2,24 +2,48 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
 const swiper = new Swiper('.heroSwiper', {
-  cssMode: true,
+  // cssMode: true,
+  slidesPerView: 1,
   speed: 500,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
   keyboard: true,
+  on: {
+    init: () => {
+      document.querySelector('.heroSwiper').style.visibility = 'visible';
+    },
+  },
 });
 
-const next = document.querySelector('.button-next');
-const prev = document.querySelector('.button-prev');
+swiper.init();
 
-next.addEventListener('click', () => {
-  console.log('next');
+const nextBtn = document.querySelector('.button-next');
+const prevBtn = document.querySelector('.button-prev');
+
+function updateButtons() {
+  if (swiper.isBeginning) {
+    prevBtn.disabled = true;
+    prevBtn.classList.add('disabled');
+  } else {
+    prevBtn.disabled = false;
+    prevBtn.classList.remove('disabled');
+  }
+
+  if (swiper.isEnd) {
+    nextBtn.disabled = true;
+    nextBtn.classList.add('disabled');
+  } else {
+    nextBtn.disabled = false;
+    nextBtn.classList.remove('disabled');
+  }
+}
+
+updateButtons();
+
+swiper.on('slideChange', updateButtons);
+
+nextBtn.addEventListener('click', () => {
   swiper.slideNext();
 });
 
-prev.addEventListener('click', () => {
-  console.log('prev');
+prevBtn.addEventListener('click', () => {
   swiper.slidePrev();
 });
