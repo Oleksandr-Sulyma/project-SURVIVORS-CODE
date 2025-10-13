@@ -1,35 +1,15 @@
-<div class="modal container">
-
-
-
-  
-  <!-- HTML для аккордеону -->
-  <div class="accordion-container">
-    <div class="ac">
-      <h2 class="ac-header">
-        <button type="button" class="ac-trigger">Details</button>
-      </h2>
-      <div class="ac-panel">
-        <p class="ac-text">Тут інформація про книгу.</p>
-      </div>
+<div class="modal-backdrop" id="book-modal" aria-hidden="true">
+  <div class="modal-container">
+    <div class="modal-content">
+      <button
+        type="button"
+        class="modal-close-btn"
+        aria-label="Закрити модальне вікно"
+      >
+        <svg width="24" height="24">
+          <use href="./img/symbol-defs.svg#icon-x"></use>
+        </svg>
+      </button>
     </div>
   </div>
-  <!-- кінець HTML для аккордеону -->
 </div>
-
-<div class="modal container" id="modal-1" aria-hidden="true">
-    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-        <header class="modal__header">
-          <h2 class="modal__title" id="modal-1-title">Привіт!</h2>
-          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-        </header>
-        <main class="modal__content" id="modal-1-content">
-          Тут твій контент модалки.
-        </main>
-        <footer class="modal__footer">
-          <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Закрити</button>
-        </footer>
-      </div>
-    </div>
-  </div>
