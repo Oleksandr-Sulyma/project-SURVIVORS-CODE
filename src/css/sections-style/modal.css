@@ -241,8 +241,9 @@ body.modal-open {
   background-color: #fceee6;
   margin: 0;
   padding: 0;
-  border: none;
-  border-bottom: 1px solid rgba(11, 5, 0, 0.15);
+  /* border: none; */
+  /* border-bottom: 1px solid rgba(11, 5, 0, 0.15); */
+  border-bottom: 1px solid black;
 }
 
 .ac:first-child {
