@@ -88,7 +88,7 @@ input.footer-input::placeholder {
   color: rgba(11, 5, 0, 0.6);
 }
 
-input.footer-input:focus::placeholder {
+.footer-input:focus::placeholder {
   color: transparent;
 }
 
