@@ -1,3 +1,110 @@
-<section class="grid-container events" id="events">
-  <div class="grid-content section-content">events</div>
+<section class="events-section" id="events">
+          <p class="section-content">Events</p>
+                <h2 class="Events-h2title">Upcoming Events at Booksy</h2>
+                <p class="Events-paragraph">Discover readings, workshops, and bookish gatherings — online and offline. Everyone's welcome.</p>
+              </div>
+                <ul class="events-list" role="list">
+                  <li class="events-li">
+
+                <picture>
+            <source media="(min-width: 1440px)" srcset="./src/img/webp/desktop/des-event-card-1.webp 1x, ./src/img/webp/desktop/des-event-card2x-1.webp 2x" />
+            <source media="(min-width: 768px)" srcset="./src/img/webp/tablet/tab-event-card-1.webp 1x, ./src/img/webp/tablet/tab-event-card2x-1.webp 2x" />
+           <source media="(max-width: 767px)" srcset="./src/img/webp/mobile/mob-event-card-1.webp 1x, ./src/img/webp/mobile/mob-event-card2x.webp 2x" />
+            <img class="img" src="./src/img/webp/mobile/mob-event-card-1.webp" alt="Workshop with designers"
+                           loading="lazy" width="360" height="278" />
+          </picture>
+                      <div class="container">
+                        <h3 class="cozy-book">Cozy Book Club — "The Midnight Library"</h3>
+                        <p class="meta">In-store | June 5, 6:30 PM</p>
+                        <p class="desc">Join us for an evening of tea, thoughtful conversation, and shared reflections as we dive into
+                          Matt Haig's bestseller.</p>
+                        <button class="sec-one-button open-modal-btn" type="button" data-modal-open>Register</button>
+                      </div>
+                  </li>
+    
+                  <li class="events-li">
+                    <picture>
+                      <source media="(min-width: 1440px)"
+                        srcset="./src/img/webp/desktop/des-event-card-2.webp 1x, ./src/img/webp/desktop/des-event-card2x-2.webp 2x" />
+                      <source media="(min-width: 768px)"
+                        srcset="./src/img/webp/tablet/tab-event-card-2.webp 1x, ./src/img/webp/tablet/tab-event-card2x-2.webp 2x" />
+                      <source media="(max-width: 767px)"
+                        srcset="./src/img/webp/mobile/tab-event-card-2.webp 1x, ./src/img/webp/mobile/tab-event-card2x-2.webp 2x" />
+                      <img class="img" src="./src/img/webp/tablet/tab-event-card-2.webp" alt="Design workshop with laptops and sketches" loading="lazy"
+                        width="360" height="278" />
+                    </picture>
+                      <div class="container">
+                        <h3 class="cozy-book">Book Cover Design Workshop</h3>
+                        <p class="meta">Online | June 12, 7:00 PM</p>
+                        <p class="desc">A hands-on session for aspiring designers and curious readers. Learn what makes a cover stand
+                         out — from concept to print.</p>
+                              <button class="sec-one-button" type="button" data-modal-open>Register</button>
+          
+                    
+               
+                      </div>
+                  </li>
+    
+                  <li class="events-li">
+                    <picture>
+                      <source media="(min-width: 1440px)"
+                        srcset="./src/img/webp/desktop/des-event-card-3.webp 1x, ./src/img/webp/desktop/des-event-card-3.webp 2x" />
+                     <source media="(min-width: 768px)"
+                        srcset="./src/img/webp/tablet/des-event-card-3.webp 1x, ./src/img/webp/tablet/des-event-card-3.webp 2x" />
+                     <source media="(max-width: 767px)"
+                        srcset="./src/img/webp/mobile/des-event-card-3.webp 1x, ./src/img/webp/mobile/des-event-card-3.webp 2x" />
+                     <img class="img" src="./src/img/webp/desktop/avatar-1.webp
+                      " alt="Story hour for children in a bookstore"
+                        loading="lazy" width="360" height="278" />
+                    </picture>
+                      <div class="container">
+                        <h3 class="cozy-book">Children's Story Hour</h3>
+                        <p class="meta">In-store | June 15, 11:00 AM</p>
+                        <p class="desc">A magical morning of stories, games, and imagination for our youngest book lovers (ages 4-8).
+                        </p>
+                            <button class="sec-one-button" type="button" data-modal-open>Register</button>
+                      </div>
+                  </li>
+                </ul>
 </section>
+
+<!-- BACKDROP -->
+
+    <div class="modal-backdrop" id="modal">
+
+      <!-- MODAL -->
+      <div class="modal">
+
+        <button class="close-modal">&times;</button>
+        <h2>Register</h2>
+        <p class="event-title">Cozy Book Club — “The Midnight Library”</p>
+    
+        <form class="register-form">
+          <label>
+            Name*
+            <input type="text" name="name" placeholder="Enter your name" required />
+          </label>
+    
+          <label>
+            Email*
+            <input type="email" name="email" placeholder="Enter your email" required />
+          </label>
+    
+          <label>
+            Message
+            <textarea name="message" placeholder="Type your message..."></textarea>
+          </label>
+    
+          <button type="submit" class="btn-primary">Register</button>
+        </form>
+      </div>
+    </div>
+    
+
+    <script src="/src/js/events.js"></script>
+
+  </div>
+
+      </div>
+
+    </div>
