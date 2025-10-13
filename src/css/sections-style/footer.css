@@ -21,7 +21,6 @@
 .footer-nav {
   display: flex;
   flex-direction: column;
-  align-items: start;
   gap: var(--gap-xl);
 }
 
@@ -59,7 +58,7 @@ p.footer-title {
   gap: var(--gap-md);
 }
 
-.footer-input {
+input.footer-input {
   width: 221px;
   height: 48px;
   box-sizing: border-box;
@@ -73,40 +72,52 @@ p.footer-title {
     color 0.3s ease;
 }
 
-.footer-input.error {
+input.footer-input.error {
   border-color: red;
   background-color: #ffe6e6;
 }
 
-.footer-input.success {
+input.footer-input.success {
   border-color: green;
   background-color: #e6ffe6;
 }
 
-.footer-input::placeholder {
+input.footer-input::placeholder {
   color: rgba(11, 5, 0, 0.6);
 }
 
-.footer-input:focus::placeholder {
+input.footer-input:focus::placeholder {
   color: transparent;
 }
 
-.footer-input:focus,
-.footer-input:focus-visible {
+.footer-input:invalid:not(:placeholder-shown) {
+  border-color: var(--clr-error) !important;
+  color: var(--clr-error) !important;
+  background-color: var(--clr-orange-light) !important;
+}
+
+.footer-input:valid {
+  background-color: #eb9b67 !important;
+  border-color: #eb9b67 !important;
+  color: var(--clr-dark) !important;
+}
+
+input.inputfooter-input:focus,
+input.footer-input:focus-visible {
   background-color: #eb9b67;
-  border-color: #eb9b67;
+  border-color: var(--clr-dark);
   outline: none;
   color: var(--clr-dark);
 }
 
-.footer-input:-webkit-autofill {
+input.footer-input:-webkit-autofill {
   background-color: #eb9b67 !important;
-  border: 1px solid #eb9b67 !important;
+  border: 1px solid var(--clr-dark) !important;
   -webkit-box-shadow: 0 0 0px 1000px #eb9b67 inset !important;
   -webkit-text-fill-color: var(--clr-dark) !important;
 }
 
-.footer-input:-moz-autofill {
+input.footer-input:-moz-autofill {
   background-color: #eb9b67 !important;
   border: 1px solid #eb9b67 !important;
   color: var(--clr-dark) !important;
@@ -177,6 +188,10 @@ p.footer-title {
     gap: var(--gap-xl);
   }
 
+  .footer-nav {
+    align-items: center;
+  }
+
   .footer-nav-list {
     flex-direction: row;
     gap: var(--gap-xl);
@@ -198,12 +213,11 @@ p.footer-title {
 /* -------1440------- */
 
 @media screen and (min-width: 1440px) {
-  .footer-content { 
-  flex-direction: row;
-  justify-content: space-between;
-  } 
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .footer-nav {
-  align-items: start;
+    align-items: start;
+  }
 }
-}
-
