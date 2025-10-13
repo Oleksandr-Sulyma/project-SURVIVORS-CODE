@@ -8,6 +8,11 @@ import {
   CACHE_CONFIG,
 } from './constants.js';
 
+import axios from 'axios';
+
+export { fetchJSON, normalizeBook, MemoryCache };
+export const api = new BooksAPI();
+
 /* -------------------------- fetch helpers -------------------------- */
 async function fetchJSON(path, options = {}) {
   const controller = new AbortController();
@@ -18,7 +23,10 @@ async function fetchJSON(path, options = {}) {
     try {
       const res = await fetch(`${BOOKS_BASE_URL}${path}`, {
         signal: controller.signal,
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
         ...options,
       });
       clearTimeout(timeoutId);
@@ -30,7 +38,8 @@ async function fetchJSON(path, options = {}) {
       return await res.json();
     } catch (err) {
       lastError = err;
-      if (err.name === 'AbortError') throw new Error('Request timeout. Please check your connection.');
+      if (err.name === 'AbortError')
+        throw new Error('Request timeout. Please check your connection.');
       if (attempt === RETRY_ATTEMPTS) throw lastError;
       await new Promise(r => setTimeout(r, RETRY_DELAY * attempt));
     }
@@ -40,17 +49,42 @@ async function fetchJSON(path, options = {}) {
 /* -------------------------- normalization -------------------------- */
 function normalizeBook(book, fallbackImage = '') {
   // trim strings, protect against null/undefined
-  const title  = String(book?.title ?? '').trim();
+  const title = String(book?.title ?? '').trim();
   const author = String(book?.author ?? '').trim();
 
   return {
-    id: book?._id || 'no-id',
-    title: title || 'Untitled',
-    author: author || 'Unknown Author',
-    image: book?.book_image || fallbackImage,
-    amazon_product_url: book?.amazon_product_url || '#',
-    price: book?.price || '',
+    id: b._id || 'no-id',
+    title: b.title || 'Untitled',
+    author: b.author || 'Unknown Author',
+    image: b.book_image || fallbackImage,
+    amazon_product_url: b.amazon_product_url || '#',
+    price: b.price || '',
   };
+}
+
+class MemoryCache {
+  constructor(maxSize = CACHE_CONFIG.maxSize, ttl = CACHE_CONFIG.ttl) {
+    this.cache = new Map();
+    this.maxSize = maxSize;
+    this.ttl = ttl;
+  }
+  set(key, value) {
+    if (this.cache.size >= this.maxSize)
+      this.cache.delete(this.cache.keys().next().value);
+    this.cache.set(key, { value, t: Date.now() });
+  }
+  get(key) {
+    const item = this.cache.get(key);
+    if (!item) return null;
+    if (Date.now() - item.t > this.ttl) {
+      this.cache.delete(key);
+      return null;
+    }
+    return item.value;
+  }
+  clear() {
+    this.cache.clear();
+  }
 }
 
 function canon(s) {
@@ -58,7 +92,7 @@ function canon(s) {
   return String(s || '')
     .toLowerCase()
     .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')       // diacritics
+    .replace(/[\u0300-\u036f]/g, '') // diacritics
     .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .replace(/[^\p{L}\p{N}\s]/gu, '')
@@ -143,111 +177,104 @@ class BooksAPI {
       if (data && Array.isArray(data.results)) {
         categories = data.results
           .map(c => {
-            if (typeof c === 'object' && c.list_name) return { name: c.list_name, value: c.list_name };
+            if (typeof c === 'object' && c.list_name)
+              return { name: c.list_name, value: c.list_name };
             if (typeof c === 'string') return { name: c, value: c };
             return null;
           })
           .filter(Boolean);
       }
-
-      if (!categories.length) {
+      if (!categories.length)
         categories = FALLBACK_CATEGORIES.map(n => ({ name: n, value: n }));
-      }
-
       const result = [{ name: 'All Categories', value: 'all' }, ...categories];
-      this.cache.set(key, result);
+      this.cache.set(k, result);
       return result;
     } catch {
-      return [{ name: 'All Categories', value: 'all' }, ...FALLBACK_CATEGORIES.map(n => ({ name: n, value: n }))];
+      return [
+        { name: 'All Categories', value: 'all' },
+        ...FALLBACK_CATEGORIES.map(n => ({ name: n, value: n })),
+      ];
     }
   }
 
-  /**
-   * Paginated slice from full list.
-   * category==='all'  -> flatten /books/top-books (each item has books[])
-   * category!=='all'  -> /books/category?category=...
-   * ALWAYS de-dupes aggressively.
-   */
-  async getBooks(category = 'all', page = 1, limit = 20) {
-    const key = `books_${category}_${page}_${limit}`;
-    const cached = this.cache.get(key);
+  async getBooks(category = 'all', page = 1, limit) {
+    if (!limit) {
+      limit = window.innerWidth <= 768 ? 10 : 24;
+    }
+
+    const k = `books_${category}_${page}_${limit}`;
+    const cached = this.cache.get(k);
     if (cached) return cached;
 
     try {
       let endpoint = '/books/top-books';
-      if (category && category !== 'all') {
+      if (category !== 'all') {
         endpoint = `/books/category?category=${encodeURIComponent(category)}`;
       }
 
       const data = await fetchJSON(endpoint);
-      let full = [];
+      const allBooks = [];
+      const seen = new Set();
 
       if (category === 'all') {
-        // [{ list_name, books: [...] }, ...]
         if (Array.isArray(data)) {
-          full = data.flatMap(item =>
-            Array.isArray(item?.books) ? item.books.map(normalizeBook) : []
-          );
+          data.forEach(list => {
+            if (Array.isArray(list.books)) {
+              list.books.forEach(b => {
+                const book = normalizeBook(b);
+                const key = `${book.title}__${book.image}`;
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  allBooks.push(book);
+                }
+              });
+            }
+          });
         }
       } else {
-        // array or { results: [] }
-        if (Array.isArray(data)) full = data.map(normalizeBook);
-        else if (Array.isArray(data?.results)) full = data.results.map(normalizeBook);
+        const booksArray = data?.results?.length
+          ? data.results
+          : Array.isArray(data)
+          ? data
+          : [];
+        booksArray.forEach(b => {
+          const book = normalizeBook(b);
+          const key = `${book.title}__${book.image}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            allBooks.push(book);
+          }
+        });
       }
 
-      // one, consistent, strong de-dup pass for ANY source
-      full = dedupeStable(full);
+      if (!allBooks.length) {
+        console.log(`У категорії "${category}" немає книг.`);
+      }
 
       const start = (page - 1) * limit;
       const end = start + limit;
 
       const result = {
-        books: full.slice(start, end),
-        total: full.length,
-        showing: Math.min(end, full.length),
-        hasMore: end < full.length,
+        books: allBooks.slice(start, end),
+        total: allBooks.length,
+        showing: Math.min(end, allBooks.length),
+        hasMore: end < allBooks.length,
         currentPage: page,
       };
 
-      this.cache.set(key, result);
+      this.cache.set(k, result);
       return result;
     } catch (e) {
       throw new Error(`Failed to load books: ${e.message}`);
     }
   }
+}
 
-  /** Single book by id with cache fallback scan */
-  async getBookById(id) {
-    if (!id) throw new Error('No book id');
-    const key = `book_${id}`;
-    const cached = this.cache.get(key);
-    if (cached) return cached;
-
-    try {
-      const data = await fetchJSON(`/books/${encodeURIComponent(id)}`);
-      const n = normalizeBook(data);
-      this.cache.set(key, n);
-      return n;
-    } catch (e) {
-      for (const [k, v] of this.cache.cache.entries()) {
-        if (k.startsWith('books_') && v?.value?.books) {
-          const found = v.value.books.find(b => b.id === id);
-          if (found) return found;
-        }
-      }
-      throw e;
-    }
+export const getBookById = async id => {
+  try {
+    const { data } = await axios.get(`${BOOKS_BASE_URL}/books/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
   }
-}
-
-export { fetchJSON, normalizeBook, MemoryCache };
-export const api = new BooksAPI();
-export const getBookById = (...args) => api.getBookById(...args);
-
-// expose for dev/build
-if (typeof window !== 'undefined') {
-  window.__booksApi = api;
-  console.log('[books] window.__booksApi ready');
-}
-
-
+};

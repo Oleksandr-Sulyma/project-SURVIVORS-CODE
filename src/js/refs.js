@@ -1,6 +1,8 @@
 export default {
-  elBtnOpenModal: document.getElementById('open-modal-btn'), 
-}; 
+  elBookModal: document.querySelector('#book-modal'),
+  elModalContent: modal.querySelector('.modal-content'),
+  elBtnOpenModal: document.getElementById('open-modal-btn'),
+};
 
 // -----footer-----
 export const refs = {
@@ -10,4 +12,3 @@ export const refs = {
   footerBtn: document.querySelector('.footer-btn'),
 };
 // -----footer-end-----
-

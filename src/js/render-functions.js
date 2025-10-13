@@ -1,5 +1,6 @@
 // src/js/render-functions.js
 import { HTML_ESCAPE_MAP } from './constants.js';
+import refs from './refs';
 
 export function escapeHtml(text) {
   if (!text) return '';
@@ -27,7 +28,11 @@ export function createBookCard(book, index = 0) {
     <div class="book-info">
       <div class="book-title-row">
         <h3 class="book-title">${escapeHtml(book.title)}</h3>
-        ${priceText ? `<span class="book-price">${escapeHtml(priceText)}</span>` : ''}
+        ${
+          priceText
+            ? `<span class="book-price">${escapeHtml(priceText)}</span>`
+            : ''
+        }
       </div>
       <p class="book-author">${escapeHtml(book.author)}</p>
     </div>
@@ -47,28 +52,41 @@ export function createBookCard(book, index = 0) {
 
 export function createCategoryItem(name, value, isActive) {
   return `
-    <li class="category-item ${isActive ? 'active' : ''}" data-category="${escapeHtml(value)}">
-      <button class="category-button" type="button" data-category="${escapeHtml(value)}">
+    <li class="category-item ${
+      isActive ? 'active' : ''
+    }" data-category="${escapeHtml(value)}">
+      <button class="category-button" type="button" data-category="${escapeHtml(
+        value
+      )}">
         ${escapeHtml(name)}
       </button>
     </li>
   `;
 }
 
-/** Categories renderers */
-export function renderCategories(container, categories, activeCategory = 'all') {
+export function renderCategories(
+  container,
+  categories,
+  activeCategory = 'all'
+) {
   if (!container) return;
   container.innerHTML = categories
     .map(c => createCategoryItem(c.name, c.value, c.value === activeCategory))
     .join('');
 }
 
-export function populateDropdowns(dropdowns, categories, activeCategory = 'all') {
+export function populateDropdowns(
+  dropdowns,
+  categories,
+  activeCategory = 'all'
+) {
   dropdowns.forEach(select => {
     if (!select) return;
     select.innerHTML = categories
       .map(
-        c => `<option value="${escapeHtml(c.value)}" ${c.value === activeCategory ? 'selected' : ''}>
+        c => `<option value="${escapeHtml(c.value)}" ${
+          c.value === activeCategory ? 'selected' : ''
+        }>
           ${escapeHtml(c.name)}
         </option>`
       )
@@ -80,13 +98,23 @@ export function populateDropdowns(dropdowns, categories, activeCategory = 'all')
 export function renderBooks(container, books) {
   if (!container) return;
   container.innerHTML = '';
-  books?.forEach((b, i) => container.appendChild(createBookCard(b, i)));
+  if (!books || books.length === 0) {
+    container.innerHTML = `<li class="no-books">No books found</li>`;
+    return;
+  }
+  books.forEach((b, i) => {
+    const card = createBookCard(b, i);
+    container.appendChild(card);
+  });
 }
 
 export function appendBooks(container, books) {
   if (!container || !books?.length) return;
   const start = container.children.length;
-  books.forEach((b, i) => container.appendChild(createBookCard(b, start + i)));
+  books.forEach((b, i) => {
+    const card = createBookCard(b, start + i);
+    container.appendChild(card);
+  });
 }
 
 /** UI helpers */
@@ -138,20 +166,127 @@ export function updateCategoriesActiveState(container, activeCategory) {
   });
 }
 
-/** Empty-state helpers */
-export function renderEmptyState(container, categoryName = 'this category') {
-  if (!container) return;
-  container.innerHTML = `
-    <li class="book-card" style="width:100%;max-width:100%;opacity:1;animation:none">
-      <div style="padding:24px;border:1px dashed #ccc;border-radius:12px;background:#fff">
-        <p style="margin:0;font-weight:600">No books in ${escapeHtml(categoryName)} yet.</p>
-        <p style="margin:8px 0 0;color:#666">Try another category.</p>
-      </div>
-    </li>
-  `;
-}
+export function createBookModalCard(book) {
+  const bookCard = document.createElement('div');
+  bookCard.className = 'modal-book-layout';
 
-export function clearContainer(el) {
-  if (el) el.innerHTML = '';
-}
+  const priceDisplay =
+    book.price && book.price !== '0.00' ? book.price : '0.00';
 
+  const description =
+    book.description && book.description.trim() !== ''
+      ? book.description
+      : null;
+
+  const publisherText = book.publisher
+    ? `<br>Publisher: <b>${book.publisher}</b>.`
+    : null;
+
+  const weeksCount = book.weeks_on_list;
+  const weeksText = weeksCount === 1 ? 'week' : 'weeks';
+
+  const rankText =
+    book.rank && book.rank > 0 && weeksCount && weeksCount > 0
+      ? `<br>This book is ranked <b>#${book.rank}</b> on the bestseller list, having been on it for <b>${weeksCount}</b> ${weeksText}.`
+      : null;
+
+  let detailsContent = description || '';
+
+  if (description) {
+    let additionalInfo = '';
+    if (publisherText) additionalInfo += publisherText;
+    if (rankText) additionalInfo += rankText;
+
+    if (additionalInfo) {
+      detailsContent += additionalInfo;
+    }
+  }
+
+  if (!detailsContent) {
+    detailsContent = 'No description available for this book.';
+  }
+
+  bookCard.innerHTML = `
+        <img
+            class="book-cover-img"
+            src="${book.book_image || ''}"
+            alt="Book cover for '${book.title}' by ${book.author}"
+            width="309"
+            height="467"
+        />
+
+        <div class="mobile-content">
+            <div class="section-header">
+                <h2 class="book-title-mobile">${book.title}</h2>
+                <p class="book-author">${book.author}</p>
+                <p class="price-mobile">$${priceDisplay}</p>
+            </div>
+
+            <div class="quantity-control" data-item-id="${book._id}">
+                <button type="button" class="decrease-btn" aria-label="Decrease quantity" disabled>-</button>
+                <input type="number" class="quantity-input" value="1" min="1" max="99" aria-label="Book quantity"/>
+                <button type="button" class="increase-btn" aria-label="Increase quantity">+</button>
+            </div>
+
+            <div class="modal-book-actions">
+                <button class="btn add-to-cart-btn" type="button" data-action="add-to-cart">Add to Cart</button>
+                <button class="btn buy-now-btn btn-secondary" type="button" data-action="buy-now">Buy Now</button>
+            </div>
+            
+            <div class="accordion-container">
+                <div class="ac">
+                    <div class="ac-header">
+                        <h4 class="ac-title">Details</h4>
+                        <svg class="ac-icon arrow-down" width="24" height="25">
+                            <use href="/img/symbol-defs.svg#icon-chevron-down"></use>
+                        </svg>
+                        <svg class="ac-icon arrow-up" width="24" height="25">
+                            <use href="/img/symbol-defs.svg#icon-chevron-up"></use>
+                        </svg>
+                    </div>
+                    <div class="ac-panel">
+                        <p class="ac-text">${detailsContent}</p>
+                    </div>
+                </div>
+
+                <div class="ac">
+                    <div class="ac-header">
+                        <h4 class="ac-title">Shipping</h4> 
+                        <svg class="ac-icon arrow-down" width="24" height="25">
+                            <use href="/img/symbol-defs.svg#icon-chevron-down"></use>
+                        </svg>
+                        <svg class="ac-icon arrow-up" width="24" height="25">
+                            <use href="/img/symbol-defs.svg#icon-chevron-up"></use>
+                        </svg>
+                    </div>
+                    <div class="ac-panel">
+                        <p class="ac-text">
+                            We ship across the United States within 2-6 business days. All
+                            orders are processed through USPS or a reliable courier service. Enjoy free standard shipping on orders over $50.
+                        </p>
+                    </div>
+                </div>
+            
+                <div class="ac">
+                    <div class="ac-header">
+                        <h4 class="ac-title">Returns</h4> 
+                        <svg class="ac-icon arrow-down" width="24" height="25">
+                            <use href="/img/symbol-defs.svg#icon-chevron-down"></use>
+                        </svg>
+                        <svg class="ac-icon arrow-up" width="24" height="25">
+                            <use href="/img/symbol-defs.svg#icon-chevron-up"></use>
+                        </svg>
+                    </div>
+                    <div class="ac-panel">
+                        <p class="ac-text">
+                            You can return an item within 14 days of receiving your order,
+                            provided it hasn't been used and is in its original condition.
+                            To start a return, please contact our support team — we'll guide you through the process quickly and hassle-free.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+  return bookCard;
+}
