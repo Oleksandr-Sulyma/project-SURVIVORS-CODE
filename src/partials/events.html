@@ -20,7 +20,9 @@
               <p class="meta">In-store | June 5, 6:30 PM</p>
               <p class="desc">Join us for an evening of tea, thoughtful conversation, and shared reflections as we dive into
                                                                                                         Matt Haig's bestseller.</p>
-              <button class="sec-one-button open-modal-btn" type="button" data-modal-open>Register</button>
+              <button class="sec-one-button open-modal-btn" type="button" data-event-title='Cozy Book Club — "The Midnight Library"' data-modal-open>Register<svg class="right-arrow" width="24" height="24">
+          <use class="icon-right-arrow" href="/img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg></button>
             </div>
           </div>
         </li>
@@ -37,7 +39,9 @@
               <p class="meta">Online | June 12, 7:00 PM</p>
               <p class="desc">A hands-on session for aspiring designers and curious readers. Learn what makes a cover stand out — from concept to print.
               </p>
-              <button class="sec-one-button open-modal-btn" type="button" data-modal-open>Register</button>
+              <button class="sec-one-button open-modal-btn" type="button" data-event-title="Book Cover Design Workshop" data-modal-open>Register<svg class="right-arrow" width="24" height="24">
+          <use class="icon-right-arrow" href="/img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg></button>
             </div>
           </div>
         </li>
@@ -54,7 +58,9 @@
               <p class="meta">In-store | June 15, 11:00 AM</p>
               <p class="desc">A magical morning of stories, games, and imagination for our youngest book lovers (ages 4-8).
               </p>
-              <button class="sec-one-button open-modal-btn" type="button" data-modal-open>Register</button>
+              <button class="sec-one-button open-modal-btn" type="button" data-event-title="Children's Story Hour" data-modal-open>Register<svg class="right-arrow" width="24" height="24">
+          <use class="icon-right-arrow" href="/img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg></button>
             </div>
           </div>
         </li>
@@ -88,22 +94,22 @@
           <use href="/img/symbol-defs.svg#icon-x">
         </svg>
       </button>
-      <h2>Register</h2>
-      <h3 class="modal-event-title">Cozy Book Club — "The Midnight Library"</h3>
+      <h2 class="modal-register">Register</h2>
+      <h3 class="modal-event-title" id="modal-event-title">Cozy Book Club — "The Midnight Library"</h3>
       <form class="register-form">
-        <label>
+        <label class="modal-contact-label">
           Name*
           <input type="text" name="name" placeholder="Enter your name" required/>
         </label>
-        <label>
+        <label class="modal-contact-label">
           Email*
           <input type="email" name="email" placeholder="Enter your email" required/>
         </label>
-        <label>
+        <label class="modal-contact-label modal-contact-textarea">
           Message
           <textarea name="message" placeholder="Type your message..."></textarea>
         </label>
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn submit-reg-form">Register</button>
       </form>
     </div>
   </div>
