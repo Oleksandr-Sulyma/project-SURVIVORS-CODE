@@ -15,6 +15,8 @@ export function getEmailsFromLocal() {
 }
 // -----footer-end-----
 
+
+// --- modal-book-----
 export const setLocalStorage = (key, array) =>
   localStorage.setItem(key, JSON.stringify(array));
 
