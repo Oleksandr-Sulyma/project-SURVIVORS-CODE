@@ -23,6 +23,7 @@
     var(--flap)
     var(--content)
     var(--flap);
+  padding: var(--gap-xxl) 0;
 }
 
 .grid-content {
