@@ -1,15 +1,53 @@
-// import Swiper bundle with all modules installed
 import Swiper from 'swiper/bundle';
-
-// import styles bundle
 import 'swiper/css/bundle';
 
-// init Swiper:
-var swiper = new Swiper('.heroSwiper', {
-  cssMode: true,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+const swiper = new Swiper('.heroSwiper', {
+  spaceBetween: 2,
+  slidesPerView: 1,
+  speed: 1000,
+  keyboard: {
+    enabled: true,
   },
-  keyboard: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+  on: {
+    init: () => {
+      document.querySelector('.heroSwiper').style.visibility = 'visible';
+    },
+  },
+});
+
+const nextBtn = document.querySelector('.button-next');
+const prevBtn = document.querySelector('.button-prev');
+
+function updateButtons() {
+  if (swiper.isBeginning) {
+    prevBtn.disabled = true;
+    prevBtn.classList.add('disabled');
+  } else {
+    prevBtn.disabled = false;
+    prevBtn.classList.remove('disabled');
+  }
+
+  if (swiper.isEnd) {
+    nextBtn.disabled = true;
+    nextBtn.classList.add('disabled');
+  } else {
+    nextBtn.disabled = false;
+    nextBtn.classList.remove('disabled');
+  }
+}
+
+updateButtons();
+
+swiper.on('slideChange', updateButtons);
+
+nextBtn.addEventListener('click', () => {
+  swiper.slideNext();
+});
+
+prevBtn.addEventListener('click', () => {
+  swiper.slidePrev();
 });

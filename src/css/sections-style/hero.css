@@ -1,111 +1,42 @@
-.hero-title {
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: -0.01em;
+.heroSwiper {
+  opacity: 0;
+  transition: var(--transition);
+}
+.heroSwiper.swiper-initialized {
+  opacity: 1;
+}
+
+.hero {
+  padding-bottom: 32px;
 }
 
 .hero .swiper {
-  width: 343px;
-  height: 295px;
-}
-
-.hero .swiper-horizontal > .swiper-button-next {
-  top: 247px;
-
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-
-  background-color: var(--clr-orange);
-}
-
-.icon-left-arrow {
-  fill: black;
-}
-
-.hero .swiper-horizontal > .swiper-button-prev {
-  top: 247px;
-  left: 230px;
-
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-
-  background-color: var(--clr-orange);
-}
-
-.icon-right-arrow {
-  fill: black;
-}
-
-.swiper-scrollbar {
-  display: none;
-}
-
-.swiper-pagination {
-  display: none;
-}
-
-.slide-1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-
-  padding: 16px;
-
-  height: 199px;
-  width: 343px;
-
-  background-image: url(/img/webp/mobile/mob-banner-1.webp);
-  background-repeat: no-repeat;
   border-radius: 8px;
 }
 
-.slide-2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.hero .swiper-slide {
+  width: 100%;
+  height: 100%;
+}
 
-  padding: 16px;
+.slide {
+  position: relative;
+}
 
-  height: 199px;
-  width: 343px;
+.hero-page {
+  width: 100%;
+  height: auto;
+}
 
-  background-image: url(/img/webp/mobile/mob-banner-2.webp);
-  background-repeat: no-repeat;
+.hero-img-slide .hero-page {
   border-radius: 8px;
 }
 
-.slide-3 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.hero-img-content {
+  position: absolute;
 
-  padding: 16px;
-
-  height: 199px;
-  width: 343px;
-
-  background-image: url(/img/webp/mobile/mob-banner-3.webp);
-  background-repeat: no-repeat;
-  border-radius: 8px;
-}
-
-.slide-4 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-
-  padding: 16px;
-
-  height: 199px;
-  width: 343px;
-
-  background-image: url(/img/webp/mobile/mob-banner-4.webp);
-  background-repeat: no-repeat;
-  border-radius: 8px;
+  bottom: 16px;
+  left: 16px;
 }
 
 .swiper-slide h3 {
@@ -117,17 +48,115 @@
 }
 
 .btn-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 117px;
   height: 20px;
 
   padding: 4px 10px;
 
-  border: 0.52px solid var(--clr-orange);
+  border: 1px solid #e15d05;
   border-radius: 2px;
 
-  font-weight: 400;
   font-size: 8px;
-  line-height: 12px;
+}
 
-  color: var(--clr-white);
+.hero-title-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.hero-title::after {
+  content: 'Discover Your\A Next Great Read\A Today!';
+  white-space: pre-line;
+}
+
+@media only screen and (min-width: 768px) {
+  .hero-title-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 24px;
+  }
+
+  .hero-title::after {
+    content: 'Discover Your Next Great\A Read Today!';
+    white-space: pre-line;
+  }
+
+  .hero-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+
+    margin-top: 0;
+    margin-bottom: 0px;
+  }
+
+  .hero-img-content {
+    bottom: 40px;
+    left: 40px;
+  }
+
+  .swiper-slide h3 {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .btn-slider {
+    width: 164px;
+    height: 32px;
+
+    border-radius: 4px;
+
+    font-size: 8px;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .hero-title-wrapper {
+    justify-content: space-between;
+  }
+
+  .hero-title::after {
+    content: 'Discover Your Next Great Read Today!';
+    white-space: pre-line;
+  }
+
+  .hero-img-content {
+    bottom: 56px;
+    left: 56px;
+  }
+
+  .swiper-slide h3 {
+    margin-bottom: 20px;
+
+    font-size: 52px;
+    line-height: 62px;
+  }
+
+  .btn-slider {
+    width: 227px;
+    height: 40px;
+
+    font-size: 16px;
+  }
 }

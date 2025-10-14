@@ -1,0 +1,61 @@
+name: Export Merged PRs By All Authors
+
+on:
+  workflow_dispatch: # ручний запуск з GitHub UI
+
+jobs:
+  export-prs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install -y jq curl
+
+      - name: Fetch all merged PRs and group by authors
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: hog-seruj
+          REPO: project-SURVIVORS-CODE
+        run: |
+          echo "Fetching merged PRs from $OWNER/$REPO..."
+
+          PAGE=1
+          PER_PAGE=100
+          mkdir merged-prs
+
+          while true; do
+            echo "Fetching page $PAGE..."
+            RESPONSE=$(curl -s -H "Accept: application/vnd.github+json" \
+                            -H "Authorization: Bearer $GH_TOKEN" \
+                            "https://api.github.com/repos/$OWNER/$REPO/pulls?state=closed&per_page=$PER_PAGE&page=$PAGE")
+
+            COUNT=$(echo "$RESPONSE" | jq length)
+            if [ "$COUNT" -eq 0 ]; then
+              break
+            fi
+
+            echo "$RESPONSE" | jq -r '
+              .[] |
+              select(.merged_at != null) |
+              "\(.user.login)|\(.html_url)"
+            ' >> merged-prs/all-prs.txt
+
+            PAGE=$((PAGE + 1))
+          done
+
+          echo "Розділення за авторами..."
+
+          cat merged-prs/all-prs.txt | while IFS="|" read AUTHOR URL; do
+            echo "$URL" >> "merged-prs/pullrequests-list-$AUTHOR.txt"
+          done
+
+          ls merged-prs/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged-prs-by-author
+          path: merged-prs/

@@ -45,7 +45,7 @@
   letter-spacing: -0.01em;
 }
 
-.map .section-content {
+.map {
   padding-top: var(--gap-md);
 }
 

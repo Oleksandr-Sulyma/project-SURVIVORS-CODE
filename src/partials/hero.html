@@ -1,67 +1,239 @@
-<section class="hero grid-container" id="hero">
+<section
+  class="hero grid-container"
+  id="hero"
+  aria-labelledby="hero-heading"
+  role="region"
+>
   <div class="grid-content placement-center">
-    <div class="swiper heroSwiper">
-      <!-- Additional required wrapper -->
-      <div class="swiper-wrapper">
-        <!-- Slides -->
-        <div class="swiper-slide">
-          <div class="slide-1">
-            <h3>Get 10% off your<br />first order</h3>
-            <a href="" class="btn btn-slider">Shop Now!</a>
+    <div class="swiper heroSwiper" aria-label="Promotional slides" role="group">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide" role="group" aria-label="Slide 1 of 4">
+          <div class="slide">
+            <picture class="hero-img-slide">
+              <source
+                srcset="
+                  /img/webp/desktop/des-banner-1.webp   1x,
+                  /img/webp/desktop/des-banner2x-1.webp 2x
+                "
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="
+                  /img/webp/tablet/tab-banner-1.webp   1x,
+                  /img/webp/tablet/tab-banner2x-1.webp 2x
+                "
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="
+                  /img/webp/mobile/mob-banner-1.webp   1x,
+                  /img/webp/mobile/mob-banner2x-1.webp 2x
+                "
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/img/webp/desktop/des-banner-1.webp"
+                alt="Bright leather bag with 10% off promotion"
+                width="1312"
+                height="395"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </picture>
+            <div class="hero-img-content">
+              <h3>Get 10% off your<br />first order</h3>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop books with 10 percent discount"
+                >Shop Now!</a
+              >
+            </div>
           </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="slide-2">
-            <h3>
-              Save 15% on<br />
-              some books
-            </h3>
-            <a href="" class="btn btn-slider">Shop Now!</a>
+        </li>
+        <li class="swiper-slide" role="group" aria-label="Slide 2 of 4">
+          <div class="slide">
+            <picture class="hero-img-slide">
+              <source
+                srcset="
+                  /img/webp/desktop/des-banner-2.webp   1x,
+                  /img/webp/desktop/des-banner2x-2.webp 2x
+                "
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="
+                  /img/webp/tablet/tab-banner-2.webp   1x,
+                  /img/webp/tablet/tab-banner2x-2.webp 2x
+                "
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="
+                  /img/webp/mobile/mob-banner-2.webp   1x,
+                  /img/webp/mobile/mob-banner2x-2.webp 2x
+                "
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/img/webp/desktop/des-banner-2.webp"
+                alt="Stack of books with 15% discount promotion"
+                loading="lazy"
+                width="1312"
+                height="395"
+              />
+            </picture>
+            <div class="hero-img-content">
+              <h3>
+                Save 15% on<br />
+                some books
+              </h3>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop books with 15 percent discount"
+                >Shop Now!</a
+              >
+            </div>
           </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="slide-3">
-            <h3>
-              Summer Sale!<br />
-              Up to -40% discounts
-            </h3>
-            <a href="" class="btn btn-slider">Shop Now!</a>
+        </li>
+        <li class="swiper-slide" role="group" aria-label="Slide 3 of 4">
+          <div class="slide">
+            <picture class="hero-img-slide">
+              <source
+                srcset="
+                  /img/webp/desktop/des-banner-3.webp   1x,
+                  /img/webp/desktop/des-banner2x-3.webp 2x
+                "
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="
+                  /img/webp/tablet/tab-banner-3.webp   1x,
+                  /img/webp/tablet/tab-banner2x-3.webp 2x
+                "
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="
+                  /img/webp/mobile/mob-banner-3.webp   1x,
+                  /img/webp/mobile/mob-banner2x-3.webp 2x
+                "
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/img/webp/desktop/des-banner-3.webp"
+                alt="Summer sale banner with books and discounts up to 40%"
+                loading="lazy"
+                width="1312"
+                height="395"
+              />
+            </picture>
+            <div class="hero-img-content">
+              <h3>
+                Summer Sale!<br />
+                Up to -40% discounts
+              </h3>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop summer sale books up to 40 percent off"
+                >Shop Now!</a
+              >
+            </div>
           </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="slide-4">
-            <h3>
-              Last chance to buy our<br />
-              spring bestsellers
-            </h3>
-            <a href="#" class="btn btn-slider">Shop Now!</a>
+        </li>
+        <li class="swiper-slide" role="group" aria-label="Slide 4 of 4">
+          <div class="slide">
+            <picture class="hero-img-slide">
+              <source
+                class="img-sld"
+                srcset="
+                  /img/webp/desktop/des-banner-4.webp   1x,
+                  /img/webp/desktop/des-banner2x-4.webp 2x
+                "
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="
+                  /img/webp/tablet/tab-banner-4.webp   1x,
+                  /img/webp/tablet/tab-banner2x-4.webp 2x
+                "
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="
+                  /img/webp/mobile/mob-banner-4.webp   1x,
+                  /img/webp/mobile/mob-banner2x-4.webp 2x
+                "
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/img/webp/desktop/des-banner-4.webp"
+                alt="Spring bestsellers promotion - last chance to buy"
+                loading="lazy"
+                width="1312"
+                height="395"
+              />
+            </picture>
+            <div class="hero-img-content">
+              <h3>
+                Last chance to buy our<br />
+                spring bestsellers
+              </h3>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop spring bestsellers before sale ends"
+                >Shop Now!</a
+              >
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- If we need pagination -->
-      <div class="swiper-pagination"></div>
-
-      <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev">
-        <svg class="left-arrow" width="84" height="36">
-          <use
-            class="icon-left-arrow"
-            href="/img/symbol-defs.svg#icon-left-arrow-alt"
-          ></use>
-        </svg>
-      </div>
-      <div class="swiper-button-next">
-        <svg class="right-arrow" width="84" height="36">
-          <use
-            class="icon-right-arrow"
-            href="/img/symbol-defs.svg#icon-right-arrow-alt"
-          ></use>
-        </svg>
-      </div>
-
-      <!-- If we need scrollbar -->
-      <div class="swiper-scrollbar"></div>
+        </li>
+      </ul>
     </div>
-    <h1 class="hero-title">Discover Your Next Great Read Today!</h1>
+
+    <div class="hero-title-wrapper">
+      <div
+        class="hero-btn-wrapper"
+        role="group"
+        aria-label="Slide navigation controls"
+      >
+        <button
+          class="button-prev btn btn-square"
+          type="button"
+          aria-label="Previous slide"
+        >
+          <svg class="left-arrow" width="24" height="24" aria-hidden="true">
+            <use
+              class="icon-left-arrow"
+              href="/img/symbol-defs.svg#icon-left-arrow-alt"
+            ></use>
+          </svg>
+        </button>
+
+        <button
+          class="button-next btn btn-square"
+          type="button"
+          aria-label="Next slide"
+        >
+          <svg class="right-arrow" width="24" height="24" aria-hidden="true">
+            <use
+              class="icon-right-arrow"
+              href="/img/symbol-defs.svg#icon-right-arrow-alt"
+            ></use>
+          </svg>
+        </button>
+      </div>
+      <h1 class="hero-title" id="hero-heading">
+        <span class="visually-hidden">
+          Discover Your Next Great Read Today!
+        </span>
+      </h1>
+    </div>
   </div>
 </section>

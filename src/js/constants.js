@@ -8,7 +8,8 @@ export const RETRY_DELAY = 1000;
 export const BOOKS_CONFIG = {
   initialPerPageMobile: 10,
   initialPerPageDesktop: 24,
-  perLoadMore: 4,
+  perLoadMoreDesktop: 24,
+  perLoadMoreMobile: 10,
   mobileBreakpoint: 768,
   tabletBreakpoint: 1024,
 };
@@ -58,3 +59,8 @@ export const MESSAGES = {
   SUCCESS: 'Email saved!',
 };
 // -----footer-end-----
+
+// ----modal-book------
+export const CARTKEY = 'cart';
+export const BUYKEY = 'buy';
+export const ORDERKEY = 'order';
