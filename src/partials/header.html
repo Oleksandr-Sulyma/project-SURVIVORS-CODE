@@ -1,8 +1,8 @@
 <header class="header grid-container" id="header">
   <div class="grid-content placement-center">
-    <nav class="header-nav">
-      <a class="header-logo" href="./index.html"
-        ><svg class="" width="84" height="36">
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-logo" href="./index.html" aria-label="Go to homepage"
+        ><svg class="" width="84" height="36" aria-hidden="true">
           <use href="/img/symbol-defs.svg#icon-logo"></use></svg
       ></a>
       <ul class="header-nav-list">
@@ -22,8 +22,20 @@
           <a class="header-nav-link" href="#location">Location</a>
         </li>
       </ul>
-      <button class="header-burger-btn" type="button" data-navbar-open>
-        <svg class="header-burger-icon" width="24" height="24">
+      <button
+        class="header-burger-btn"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-controls="mobile-navigation"
+        aria-expanded="false"
+        data-navbar-open
+      >
+        <svg
+          class="header-burger-icon"
+          width="24"
+          height="24"
+          aria-hidden="true"
+        >
           <use href="/img/symbol-defs.svg#burger-menu"></use>
         </svg>
       </button>
@@ -36,13 +48,27 @@
         ><svg class="navbar-logo-icon" width="84" height="36">
           <use href="/img/symbol-defs.svg#icon-logo"></use></svg
       ></a>
-      <button type="button" class="navbar-close" data-navbar-close>
-        <svg class="navbar-close-icon" width="24" height="24">
+      <button
+        type="button"
+        class="navbar-close"
+        aria-label="Close navigation menu"
+        data-navbar-close
+      >
+        <svg
+          class="navbar-close-icon"
+          width="24"
+          height="24"
+          aria-hidden="true"
+        >
           <use href="/img/symbol-defs.svg#icon-x"></use>
         </svg>
       </button>
     </div>
-    <nav class="navbar-nav">
+    <nav
+      class="navbar-nav"
+      id="mobile-navigation"
+      aria-label="Mobile navigation"
+    >
       <ul class="navbar-nav-list">
         <li class="navbar-nav-item">
           <a class="navbar-nav-link" href="#hero">Home</a>

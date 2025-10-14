@@ -18,6 +18,12 @@ body.no-scroll {
   justify-content: space-between;
 }
 
+.header-nav-link:hover,
+.header-nav-link:focus {
+  transition: var(--transition);
+  color: var(--clr-orange);
+}
+
 .header-burger-icon {
   transition: var(--transition);
 

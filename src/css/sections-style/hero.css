@@ -23,6 +23,11 @@
   position: relative;
 }
 
+.hero-page {
+  width: 100%;
+  height: auto;
+}
+
 .hero-img-slide .hero-page {
   border-radius: 8px;
 }
