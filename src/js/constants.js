@@ -1,4 +1,3 @@
-
 export const BOOKS_BASE_URL = 'https://books-backend.p.goit.global';
 export const REQUEST_TIMEOUT = 10000;
 export const RETRY_ATTEMPTS = 3;
@@ -8,8 +7,8 @@ export const RETRY_DELAY = 1000;
 export const BOOKS_CONFIG = {
   initialPerPageMobile: 10,
   initialPerPageDesktop: 24,
-  perLoadMoreDesktop: 24,
-  perLoadMoreMobile: 10,
+  perLoadMoreDesktop: 4,
+  perLoadMoreMobile: 4,
   mobileBreakpoint: 768,
   tabletBreakpoint: 1024,
 };
@@ -22,12 +21,28 @@ export const CACHE_CONFIG = {
 
 // Фолбек-категорії
 export const FALLBACK_CATEGORIES = [
-  'Hardcover Fiction','Hardcover Nonfiction','Trade Fiction Paperback','Mass Market Monthly',
-  'Paperback Trade Fiction','Paperback Nonfiction','E-Book Fiction','E-Book Nonfiction',
-  'Hardcover Advice','Paperback Advice','Advice How-To and Miscellaneous',
-  "Children's Middle Grade Hardcover",'Picture Books','Series Books','Young Adult Hardcover',
-  'Audio Fiction','Audio Nonfiction','Business Books','Graphic Books and Manga',
-  'Mass Market','Middle Grade Paperback','Young Adult Paperback',
+  'Hardcover Fiction',
+  'Hardcover Nonfiction',
+  'Trade Fiction Paperback',
+  'Mass Market Monthly',
+  'Paperback Trade Fiction',
+  'Paperback Nonfiction',
+  'E-Book Fiction',
+  'E-Book Nonfiction',
+  'Hardcover Advice',
+  'Paperback Advice',
+  'Advice How-To and Miscellaneous',
+  "Children's Middle Grade Hardcover",
+  'Picture Books',
+  'Series Books',
+  'Young Adult Hardcover',
+  'Audio Fiction',
+  'Audio Nonfiction',
+  'Business Books',
+  'Graphic Books and Manga',
+  'Mass Market',
+  'Middle Grade Paperback',
+  'Young Adult Paperback',
 ];
 
 // ID елементів у DOM
@@ -44,7 +59,13 @@ export const DOM_ELEMENTS = {
 };
 
 // для екранування
-export const HTML_ESCAPE_MAP = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' };
+export const HTML_ESCAPE_MAP = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#039;',
+};
 
 // -----footer-----
 export const STORAGE_KEYS = {
