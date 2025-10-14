@@ -1,10 +1,12 @@
 const modalBackdrop = document.getElementById('modal');
-const modal = modalBackdrop.querySelector('.modal');
+const modal = modalBackdrop.querySelector('.modal-content');
 const modalEventTitle = document.getElementById('modal-event-title');
 const openButtons = document.querySelectorAll('.open-modal-btn, #open-contact');
 const closeButtons = modalBackdrop.querySelectorAll('.modal-close-btn');
 const form = document.querySelector('.register-form');
 let lastFocusedEl = null;
+
+//     POTENTIAL PROBLEM
 
 function openModal(eventTitle, opener) {
   lastFocusedEl = opener || document.activeElement;
@@ -86,10 +88,12 @@ form.addEventListener('submit', e => {
   const name = form.name.value;
   const email = form.email.value;
   console.log('Submitted:', { name, email, message: form.message.value });
-
-  // Set current year in footer
-  document.getElementById('year').textContent = new Date().getFullYear();
-  alert('Thank you for registering! We will contact you soon.');
-  form.reset();
   closeModal();
+  alert(`Thank you for registering, ${name}! We will contact you at ${email}.`);
+  form.reset();
 });
+  
+  // Set current year in footer
+  // document.getElementById('year').textContent = new Date().getFullYear();
+  
+

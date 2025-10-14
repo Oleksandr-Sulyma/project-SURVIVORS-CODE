@@ -29,6 +29,13 @@
   flex-direction: column;
   gap: var(--gap-lg);
 }
+p.footer-title {
+  font-size: 16px;
+}
+
+p.footer-title {
+  font-size: 16px;
+}
 
 p.footer-title {
   font-size: 16px;
@@ -86,6 +93,7 @@ input.footer-input.success {
 input.footer-input::placeholder {
   color: rgba(11, 5, 0, 0.6);
 }
+
 
 .footer-input:focus::placeholder {
   color: transparent;
