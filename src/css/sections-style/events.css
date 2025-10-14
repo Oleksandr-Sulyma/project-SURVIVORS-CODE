@@ -149,9 +149,9 @@
   margin-bottom: 24px;
 } */
 
-section.events-section div.modal-content {
-  width: 343px !important;
-  min-height: 794px !important;
+section.events-section div.mcontentwidth {
+  min-width: 343px;
+  min-height: 794px ;
 }
 
 .modal-contact-textarea textarea{
@@ -174,7 +174,7 @@ section.events-section div.modal-content {
     background: #e15d05;
 }
 
-.modal-content {
+.mcontentwidth {
   min-width: 343px;
   padding: 16px;
   border-radius: 16px !important;
