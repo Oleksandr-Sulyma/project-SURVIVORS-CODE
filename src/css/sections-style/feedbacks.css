@@ -5,8 +5,7 @@
   font-weight: 400;
   background-color: #fceee6;
   color: #0b0500;
-  padding: 64px 0px;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 .feedbacks .section-content {
   display: block !important;
@@ -87,6 +86,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 32px;
 }
 .swiper-pagination.dots {
   position: static;
