@@ -8,3 +8,4 @@ import './js/helpers.js';
 import './js/modal-contact.js';
 import './js/slider-events.js';
 import './js/join-form.js';
+import './js/scroll-top';
