@@ -40,7 +40,7 @@
 .feedback-card {
   border: 1px solid rgba(11, 5, 0, 0.15);
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -88,13 +88,13 @@
   align-items: center;
   margin-top: 32px;
 }
-.swiper-pagination.dots {
+.feedbacks-pagination.dots {
   position: static;
   display: flex;
   gap: 8px;
   width: auto;
 }
-.swiper-pagination-bullet {
+.feedbacks-pagination .swiper-pagination-bullet {
   background: #d1c1b7;
   opacity: 1;
   border-radius: 50%;
@@ -104,20 +104,20 @@
   height: 7px;
   transition: background-color 0.2s;
 }
-.swiper-pagination-bullet-active {
+.feedbacks-pagination .swiper-pagination-bullet-active {
   background: #0b0500 !important;
 }
-.swiper-arrows {
+.feedbacks-arrows {
   display: flex;
   gap: 16px;
 }
-.swiper-button-prev::after,
-.swiper-button-next::after {
+.feedbacks-arrows .swiper-button-prev::after,
+.feedbacks-arrows .swiper-button-next::after {
   content: '' !important;
   font-size: 0 !important;
 }
-.swiper-button-prev,
-.swiper-button-next {
+.feedbacks-arrows .swiper-button-prev,
+.feedbacks-arrows .swiper-button-next {
   background-color: #e15d05;
   border: none;
   width: 48px;
@@ -135,17 +135,17 @@
   justify-content: center;
   line-height: 0;
 }
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
+.feedbacks-arrows .swiper-button-prev:hover,
+.feedbacks-arrows .swiper-button-next:hover {
   background-color: #fceee6;
   color: #0b0500 !important;
 }
-.swiper-button-prev:active,
-.swiper-button-next:active {
+.feedbacks-arrows .swiper-button-prev:active,
+.feedbacks-arrows .swiper-button-next:active {
   background-color: #5a2502;
   color: #fff !important;
 }
-.swiper-button-disabled {
+.feedbacks-arrows .swiper-button-disabled {
   background-color: #e15d05;
   opacity: 0.2;
   pointer-events: none;
@@ -153,7 +153,11 @@
 }
 /* TABLET: min-width: 768px */
 @media screen and (min-width: 768px) {
+  .feedback-card {
+    padding: 32px;
+  }
 }
+
 /* DESKTOP: min-width: 1440px */
 @media screen and (min-width: 1440px) {
   .feedbacks-header-capture {
