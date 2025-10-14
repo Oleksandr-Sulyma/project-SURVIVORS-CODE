@@ -156,3 +156,17 @@ export function showSuccess(message) {
     messageSize: '16',
   });
 }
+
+export function showRegistrationSuccess(name, email) {
+  return iziToast.success({
+    title: '🎉 Registration Successful!',
+    message: `Thank you for registering, ${name}! We will contact you at ${email}.`,
+    position: 'topRight',
+    timeout: 5000,
+    backgroundColor: '#28a745',
+    titleColor: '#fff',
+    messageColor: '#fff',
+    maxWidth: 480,
+    messageSize: '16',
+  });
+}
