@@ -18,7 +18,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: hog-seruj
-          REPO: project-AgeTeam01
+          REPO: project-SURVIVORS-CODE
         run: |
           echo "Fetching merged PRs from $OWNER/$REPO..."
 
