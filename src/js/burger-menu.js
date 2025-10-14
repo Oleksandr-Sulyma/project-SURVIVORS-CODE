@@ -8,12 +8,14 @@ const refs = {
 refs.burgerOpen.addEventListener('click', () => {
   refs.navbar.classList.remove('is-close');
   refs.navbar.classList.add('is-open');
+  refs.burgerOpen.setAttribute('aria-expanded', 'true');
   document.body.classList.add('no-scroll');
 });
 
 function closeNavbar() {
   refs.navbar.classList.replace('is-open', 'is-close');
   document.body.classList.remove('no-scroll');
+  refs.burgerOpen.setAttribute('aria-expanded', 'false');
 }
 
 refs.burgerClose.addEventListener('click', () => {

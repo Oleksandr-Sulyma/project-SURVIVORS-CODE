@@ -19,8 +19,6 @@ const swiper = new Swiper('.heroSwiper', {
   },
 });
 
-swiper.init();
-
 const nextBtn = document.querySelector('.button-next');
 const prevBtn = document.querySelector('.button-prev');
 
