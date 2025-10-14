@@ -12,14 +12,14 @@
     <script type="module" crossorigin src="/project-SURVIVORS-CODE/index.js"></script>
     <link rel="modulepreload" crossorigin href="/project-SURVIVORS-CODE/assets/vendor-meq73eZj.js">
     <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/vendor-CDLEv_be.css">
-    <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/styles-DSvIYXsp.css">
+    <link rel="stylesheet" crossorigin href="/project-SURVIVORS-CODE/assets/styles-CXf7Vlm-.css">
   </head>
   <body>
     <header class="header grid-container" id="header">
   <div class="grid-content placement-center">
-    <nav class="header-nav">
-      <a class="header-logo" href="./index.html"
-        ><svg class="" width="84" height="36">
+    <nav class="header-nav" aria-label="Main navigation">
+      <a class="header-logo" href="./index.html" aria-label="Go to homepage"
+        ><svg class="" width="84" height="36" aria-hidden="true">
           <use href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-logo"></use></svg
       ></a>
       <ul class="header-nav-list">
@@ -39,8 +39,20 @@
           <a class="header-nav-link" href="#location">Location</a>
         </li>
       </ul>
-      <button class="header-burger-btn" type="button" data-navbar-open>
-        <svg class="header-burger-icon" width="24" height="24">
+      <button
+        class="header-burger-btn"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-controls="mobile-navigation"
+        aria-expanded="false"
+        data-navbar-open
+      >
+        <svg
+          class="header-burger-icon"
+          width="24"
+          height="24"
+          aria-hidden="true"
+        >
           <use href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#burger-menu"></use>
         </svg>
       </button>
@@ -53,13 +65,27 @@
         ><svg class="navbar-logo-icon" width="84" height="36">
           <use href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-logo"></use></svg
       ></a>
-      <button type="button" class="navbar-close" data-navbar-close>
-        <svg class="navbar-close-icon" width="24" height="24">
+      <button
+        type="button"
+        class="navbar-close"
+        aria-label="Close navigation menu"
+        data-navbar-close
+      >
+        <svg
+          class="navbar-close-icon"
+          width="24"
+          height="24"
+          aria-hidden="true"
+        >
           <use href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-x"></use>
         </svg>
       </button>
     </div>
-    <nav class="navbar-nav">
+    <nav
+      class="navbar-nav"
+      id="mobile-navigation"
+      aria-label="Mobile navigation"
+    >
       <ul class="navbar-nav-list">
         <li class="navbar-nav-item">
           <a class="navbar-nav-link" href="#hero">Home</a>
@@ -82,91 +108,206 @@
 </header>
 
     <main>
-      <section class="hero grid-container" id="hero">
+      <section
+  class="hero grid-container"
+  id="hero"
+  aria-labelledby="hero-heading"
+  role="region"
+>
   <div class="grid-content placement-center">
-    <div class="swiper heroSwiper">
+    <div class="swiper heroSwiper" aria-label="Promotional slides" role="group">
       <ul class="swiper-wrapper">
-        <li class="swiper-slide">
+        <li class="swiper-slide" role="group" aria-label="Slide 1 of 4">
           <div class="slide">
             <picture class="hero-img-slide">
-              <source srcset="/project-SURVIVORS-CODE/assets/des-banner-1-B7gwIFqJ.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-1-By0z-CUE.webp 2x" media="(min-width: 1440px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/tab-banner-1-BeyXPGm-.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-1-DpobUZXb.webp 2x" media="(min-width: 768px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/mob-banner-1-BwQBhYyz.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-1-BgIwMnrF.webp 2x" media="(max-width: 768px)"/>
-              <img class="hero-page" src="/project-SURVIVORS-CODE/assets/des-banner-1-B7gwIFqJ.webp" alt="bag" width="1312"/>
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/des-banner-1-B7gwIFqJ.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-1-By0z-CUE.webp 2x"
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/tab-banner-1-BeyXPGm-.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-1-DpobUZXb.webp 2x"
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/mob-banner-1-BwQBhYyz.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-1-BgIwMnrF.webp 2x"
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/project-SURVIVORS-CODE/assets/des-banner-1-B7gwIFqJ.webp"
+                alt="Bright leather bag with 10% off promotion"
+                width="1312"
+                height="395"
+                loading="eager"
+                fetchpriority="high"
+              />
             </picture>
             <div class="hero-img-content">
               <h3>Get 10% off your<br />first order</h3>
-              <a href="#books-section" class="btn btn-slider">Shop Now!</a>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop books with 10 percent discount"
+                >Shop Now!</a
+              >
             </div>
           </div>
         </li>
-        <li class="swiper-slide">
+        <li class="swiper-slide" role="group" aria-label="Slide 2 of 4">
           <div class="slide">
             <picture class="hero-img-slide">
-              <source srcset="/project-SURVIVORS-CODE/assets/des-banner-2-_VViRkzG.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-2-DgUDZRN-.webp 2x" media="(min-width: 1440px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/tab-banner-2-CmKjiOHz.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-2-Dughwyxe.webp 2x" media="(min-width: 768px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/mob-banner-2-BsRTrRXv.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-2-BjatZyLl.webp 2x" media="(max-width: 768px)"/>
-              <img class="hero-page" src="/project-SURVIVORS-CODE/assets/des-banner-2-_VViRkzG.webp" alt="bag" width="1312"/>
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/des-banner-2-_VViRkzG.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-2-DgUDZRN-.webp 2x"
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/tab-banner-2-CmKjiOHz.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-2-Dughwyxe.webp 2x"
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/mob-banner-2-BsRTrRXv.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-2-BjatZyLl.webp 2x"
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/project-SURVIVORS-CODE/assets/des-banner-2-_VViRkzG.webp"
+                alt="Stack of books with 15% discount promotion"
+                loading="lazy"
+                width="1312"
+                height="395"
+              />
             </picture>
             <div class="hero-img-content">
               <h3>
-                Save 15% on<br/>
+                Save 15% on<br />
                 some books
               </h3>
-              <a href="#books-section" class="btn btn-slider">Shop Now!</a>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop books with 15 percent discount"
+                >Shop Now!</a
+              >
             </div>
           </div>
         </li>
-        <li class="swiper-slide">
+        <li class="swiper-slide" role="group" aria-label="Slide 3 of 4">
           <div class="slide">
             <picture class="hero-img-slide">
-              <source srcset="/project-SURVIVORS-CODE/assets/des-banner-3-m7T6DMK7.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-3-Cwtsc-us.webp 2x" media="(min-width: 1440px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/tab-banner-3-DYSQMFm8.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-3-DrPFdkOp.webp 2x" media="(min-width: 768px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/mob-banner-3-CMS79idA.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-3-CRdaOLb3.webp 2x" media="(max-width: 768px)"/>
-              <img class="hero-page" src="/img/webp/desktop/des-banner-3.web4" alt="bag" width="1312"/>
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/des-banner-3-m7T6DMK7.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-3-Cwtsc-us.webp 2x"
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/tab-banner-3-DYSQMFm8.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-3-DrPFdkOp.webp 2x"
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/mob-banner-3-CMS79idA.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-3-CRdaOLb3.webp 2x"
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/project-SURVIVORS-CODE/assets/des-banner-3-m7T6DMK7.webp"
+                alt="Summer sale banner with books and discounts up to 40%"
+                loading="lazy"
+                width="1312"
+                height="395"
+              />
             </picture>
             <div class="hero-img-content">
               <h3>
-                Summer Sale!<br/>
+                Summer Sale!<br />
                 Up to -40% discounts
               </h3>
-              <a href="#books-section" class="btn btn-slider">Shop Now!</a>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop summer sale books up to 40 percent off"
+                >Shop Now!</a
+              >
             </div>
           </div>
         </li>
-        <li class="swiper-slide">
+        <li class="swiper-slide" role="group" aria-label="Slide 4 of 4">
           <div class="slide">
             <picture class="hero-img-slide">
-              <source class="img-sld" srcset="/project-SURVIVORS-CODE/assets/des-banner-4-CIIVTgsh.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-4-CrJ5ZYFh.webp 2x" media="(min-width: 1440px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/tab-banner-4-BaW64u3v.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-4-CaK31S_f.webp 2x" media="(min-width: 768px)"/>
-              <source srcset="/project-SURVIVORS-CODE/assets/mob-banner-4-BIpg0FYt.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-4-BGDrCqQp.webp 2x" media="(max-width: 768px)"/>
-              <img class="hero-page" src="/project-SURVIVORS-CODE/assets/des-banner-4-CIIVTgsh.webp" alt="bag" width="1312"/>
+              <source
+                class="img-sld"
+                srcset="/project-SURVIVORS-CODE/assets/des-banner-4-CIIVTgsh.webp 1x, /project-SURVIVORS-CODE/assets/des-banner2x-4-CrJ5ZYFh.webp 2x"
+                media="(min-width: 1440px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/tab-banner-4-BaW64u3v.webp 1x, /project-SURVIVORS-CODE/assets/tab-banner2x-4-CaK31S_f.webp 2x"
+                media="(min-width: 768px)"
+              />
+              <source
+                srcset="/project-SURVIVORS-CODE/assets/mob-banner-4-BIpg0FYt.webp 1x, /project-SURVIVORS-CODE/assets/mob-banner2x-4-BGDrCqQp.webp 2x"
+                media="(max-width: 768px)"
+              />
+              <img
+                class="hero-page"
+                src="/project-SURVIVORS-CODE/assets/des-banner-4-CIIVTgsh.webp"
+                alt="Spring bestsellers promotion - last chance to buy"
+                loading="lazy"
+                width="1312"
+                height="395"
+              />
             </picture>
             <div class="hero-img-content">
               <h3>
-                Last chance to buy our<br/>
+                Last chance to buy our<br />
                 spring bestsellers
               </h3>
-              <a href="#books-section" class="btn btn-slider">Shop Now!</a>
+              <a
+                href="#books-section"
+                class="btn btn-slider"
+                aria-label="Shop spring bestsellers before sale ends"
+                >Shop Now!</a
+              >
             </div>
           </div>
         </li>
       </ul>
     </div>
+
     <div class="hero-title-wrapper">
-      <div class="hero-btn-wrapper">
-        <button class="button-prev btn btn-square" type="button">
-          <svg class="left-arrow" width="24" height="24">
-            <use class="icon-left-arrow" href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-left-arrow-alt"></use>
+      <div
+        class="hero-btn-wrapper"
+        role="group"
+        aria-label="Slide navigation controls"
+      >
+        <button
+          class="button-prev btn btn-square"
+          type="button"
+          aria-label="Previous slide"
+        >
+          <svg class="left-arrow" width="24" height="24" aria-hidden="true">
+            <use
+              class="icon-left-arrow"
+              href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-left-arrow-alt"
+            ></use>
           </svg>
         </button>
-        <button class="button-next btn btn-square" type="button">
-          <svg class="right-arrow" width="24" height="24">
-            <use class="icon-right-arrow" href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-right-arrow-alt"></use>
+
+        <button
+          class="button-next btn btn-square"
+          type="button"
+          aria-label="Next slide"
+        >
+          <svg class="right-arrow" width="24" height="24" aria-hidden="true">
+            <use
+              class="icon-right-arrow"
+              href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-right-arrow-alt"
+            ></use>
           </svg>
         </button>
       </div>
-      <h1 class="hero-title"></h1>
+      <h1 class="hero-title" id="hero-heading">
+        <span class="visually-hidden">
+          Discover Your Next Great Read Today!
+        </span>
+      </h1>
     </div>
   </div>
 </section>
@@ -539,7 +680,10 @@
         type="button"
       >
         <svg class="left-arrow" width="24" height="24">
-          <use class="icon-left-arrow" href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-left-arrow-alt" />
+          <use
+            class="icon-left-arrow"
+            href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-left-arrow-alt"
+          />
         </svg>
       </button>
       <button
@@ -547,7 +691,10 @@
         type="button"
       >
         <svg class="right-arrow" width="24" height="24">
-          <use class="icon-right-arrow" href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-right-arrow-alt" />
+          <use
+            class="icon-right-arrow"
+            href="/project-SURVIVORS-CODE/assets/symbol-defs-DOPJ-j2i.svg#icon-right-arrow-alt"
+          />
         </svg>
       </button>
     </div>
