@@ -60,6 +60,7 @@ export const MESSAGES = {
 };
 // -----footer-end-----
 
-//-----modal-book
+// ----modal-book------
 export const CARTKEY = 'cart';
-export const BUYKEY ='buy';
+export const BUYKEY = 'buy';
+export const ORDERKEY = 'order';

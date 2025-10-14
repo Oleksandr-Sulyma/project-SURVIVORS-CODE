@@ -82,7 +82,7 @@ export function handleBookModal(e) {
 }
 
 export function handleEsc(e) {
-    if (e.key === 'Escape') {
-        return closeBookModal();
-    }
+ if (e.key === 'Escape') {
+  return closeBookModal();
+ }
 }

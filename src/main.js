@@ -5,3 +5,5 @@ import './js/books.js';
 import './js/modal-book';
 import './js/handlers.js';
 import './js/helpers.js';
+import './js/modal-contact.js';
+import './js/slider-events.js';

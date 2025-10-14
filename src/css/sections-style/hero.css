@@ -1,3 +1,11 @@
+.heroSwiper {
+  opacity: 0;
+  transition: var(--transition);
+}
+.heroSwiper.swiper-initialized {
+  opacity: 1;
+}
+
 .hero {
   padding-bottom: 32px;
 }
