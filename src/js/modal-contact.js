@@ -31,6 +31,7 @@ function closeModal() {
 openButtons.forEach(btn => {
   btn.addEventListener('click', e => {
     const title = btn.dataset.eventTitle;
+    modalEventTitle.textContent = title;
     btn.getAttribute('data-event-title');
     openModal(title, btn);
   });
