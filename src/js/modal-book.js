@@ -3,6 +3,7 @@ import 'accordion-js/dist/accordion.min.css';
 import refs from './refs.js'; 
 import { createBookModalCard } from './render-functions.js';
 import { CARTKEY, BUYKEY } from './constants.js'; 
+import {showWarning, showError, showGreeting} from './cart.js'
 
 let lastFocusedElement = null;
 let scrollPosition = 0;
@@ -116,9 +117,7 @@ export function handleBookModal(e) {
   const bookPrice = currentBook.price || 0; 
   
   if (bookPrice <= 0) {
-   console.log(
-    `Unfortunately, the book "${currentBook.title}" is currently out of stock. We will notify you when it becomes available.`
-   );
+   showError (`Unfortunately, the book "${currentBook.title}" is currently out of stock. We will notify you when it becomes available.`)
    return; 
   }
   
@@ -143,12 +142,10 @@ export function handleBookModal(e) {
    const totalItems = cartArr.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
    const totalAmount = cartArr.reduce((sum, item) => sum + (Number(item.quantity) || 0) * (Number(item.price) || 0), 0);
    
-   console.log(
-    `✅ You have added ${quantity} books "${currentBook.title}" to the cart for $${itemTotalPrice.toFixed(2)}.`
-   );
-   console.log(
-    `🛒 Total items in cart: ${totalItems} positions for a total of $${totalAmount.toFixed(2)}.`
-   );
+   showWarning(
+  `✅ You have added ${quantity} books "${currentBook.title}" to the cart for $${itemTotalPrice.toFixed(2)}.<br><br>
+  🛒 Total items in cart: ${totalItems} positions for a total of $${totalAmount.toFixed(2)}.`
+);
    
   } else if (action === 'buy-now') {
    let cartArr = getLocalStorage(CARTKEY); 
@@ -175,8 +172,8 @@ export function handleBookModal(e) {
    const totalItems = itemsToPurchase.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
    const totalAmount = itemsToPurchase.reduce((sum, item) => sum + (Number(item.quantity) || 0) * (Number(item.price) || 0), 0);
 
-   console.log(
-    `🎉 PURCHASE SUCCESSFUL: You have purchased ${totalUniqueItems} unique items (total ${totalItems} books) for a total of $${totalAmount.toFixed(2)}. Thank you for your purchase!`
+   showGreeting(
+    `${totalUniqueItems} unique items (total ${totalItems} books) for a total of $${totalAmount.toFixed(2)}. Thank you for your purchase!`
    );
    
    removeLocalStorage(CARTKEY); 
