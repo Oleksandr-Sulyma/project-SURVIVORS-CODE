@@ -2,10 +2,16 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
 const swiper = new Swiper('.heroSwiper', {
-  // cssMode: true,
+  spaceBetween: 2,
   slidesPerView: 1,
-  speed: 500,
-  keyboard: true,
+  speed: 1000,
+  keyboard: {
+    enabled: true,
+  },
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
   on: {
     init: () => {
       document.querySelector('.heroSwiper').style.visibility = 'visible';
