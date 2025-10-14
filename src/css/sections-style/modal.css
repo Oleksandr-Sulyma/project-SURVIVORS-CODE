@@ -31,7 +31,7 @@ body.modal-open {
   height: max-content;
 }
 
-.modal-content {
+/* .modal-content {
   width: calc(100% - var(--gap-xl));
   max-width: 343px;
   height: 87vh;
@@ -42,7 +42,27 @@ body.modal-open {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   padding: var(--gap-xxl) var(--gap-md);
   overflow: auto;
+} */
+.modal-content {
+  width: calc(100% - var(--gap-xl));
+  max-width: 343px;
+  height: auto; /* по контенту */
+  max-height: 90vh; /* обмеження по екрану */
+  margin: 0 auto;
+  background-color: #fceee6;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: var(--gap-xxl) var(--gap-md);
+  overflow: auto;
 }
+.modal-book-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+
 
 .modal-close-btn {
   position: absolute;
