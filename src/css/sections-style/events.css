@@ -30,6 +30,7 @@
     font-size: 16px;
     line-height: 1.5;
     color: #0b0500;
+    margin-bottom: 8px;
   }
 
   .desc {
@@ -38,6 +39,7 @@
     font-size: 16px;
     line-height: 1.5;
     color: #0b0500;
+    margin-bottom: 16px;
   }
 }
 
@@ -47,4 +49,65 @@
   font-size: 16px;
   line-height: 1.5;
   color: #0b0500;
+}
+
+.eventsp {
+  margin-bottom: 16px;
+}
+
+.eventsh2 {
+  margin-bottom: 16px;
+}
+
+/* .discover-p {
+  margin-bottom: 32px;
+} */
+
+.picture-main-slide {
+  margin-bottom: 24px;
+}
+
+.cozy-margin {
+  margin-bottom: 0 !important;
+}
+
+
+
+.event-arrows {
+  align-items: center !important;
+  justify-content: center !important;
+  
+      background-color: #e15d05;
+      border: none;
+      width: 48px !important;
+      height: 48px !important;
+      padding: 12px;
+      border: 1px solid rgba(11, 5, 0, 0.15);
+      color: #fff !important;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      position: static !important;
+      margin: 0 !important;
+      display: flex;
+      line-height: 0;
+    
+}
+.event-arrows:hover {
+  background-color: #fceee6;
+    color: #0b0500 !important;
+}
+.event-arrows:active {
+  background-color: #5a2502;
+    color: #fff !important;
+}
+.event-arrows::after {
+  content: '' !important;
+  font-size: 0 !important;
+}
+.event-arrows:disabled {
+  background-color: #e15d05;
+    opacity: 0.2;
+    pointer-events: none;
+    cursor: default;
 }
