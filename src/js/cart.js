@@ -3,11 +3,14 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 import refs from './refs.js';
 import { CARTKEY } from './constants.js';
-import { getLocalStorage, setLocalStorage, removeLocalStorage } from './storage.js';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  removeLocalStorage,
+} from './storage.js';
 
 let wasAddedToCart = false;
 
-// === КОНТРОЛЬ КІЛЬКОСТІ ===
 export function handleQuantityChange(targetBtn) {
   const quantityControl = targetBtn.closest('.quantity-control');
   const input = quantityControl.querySelector('.quantity-input');
@@ -26,7 +29,6 @@ export function handleQuantityChange(targetBtn) {
     parseInt(input.value) <= min;
 }
 
-// === ОБРОБКА КНОПОК "ADD TO CART" ТА "BUY NOW" ===
 export function handleCartAction(action, currentBook) {
   const quantityInput = refs.elModalContent.querySelector('.quantity-input');
   const quantity = parseInt(quantityInput.value) || 1;
@@ -67,9 +69,9 @@ export function handleCartAction(action, currentBook) {
     );
 
     showInfo(
-      `✅ You added <b>${quantity}</b> copies of "<b>${currentBook.title}</b>" to your cart for <b>$${itemTotalPrice.toFixed(
-        2
-      )}</b>.<br><br>
+      `✅ You added <b>${quantity}</b> copies of "<b>${
+        currentBook.title
+      }</b>" to your cart for <b>$${itemTotalPrice.toFixed(2)}</b>.<br><br>
        🛒 Cart total: <b>${totalItems}</b> items worth <b>$${totalAmount.toFixed(
         2
       )}</b>.`
@@ -94,9 +96,7 @@ export function handleCartAction(action, currentBook) {
       itemsToPurchase = [...cartArr, currentItem];
     }
 
-    const totalUniqueItems = new Set(
-      itemsToPurchase.map(item => item.id)
-    ).size;
+    const totalUniqueItems = new Set(itemsToPurchase.map(item => item.id)).size;
     const totalItems = itemsToPurchase.reduce(
       (sum, item) => sum + (Number(item.quantity) || 0),
       0
@@ -150,6 +150,20 @@ export function showSuccess(message) {
     position: 'topRight',
     timeout: 5000,
     backgroundColor: '#8a2be2',
+    titleColor: '#fff',
+    messageColor: '#fff',
+    maxWidth: 480,
+    messageSize: '16',
+  });
+}
+
+export function showRegistrationSuccess(name, email) {
+  return iziToast.success({
+    title: '🎉 Registration Successful!',
+    message: `Thank you for registering, ${name}! We will contact you at ${email}.`,
+    position: 'topRight',
+    timeout: 5000,
+    backgroundColor: '#28a745',
     titleColor: '#fff',
     messageColor: '#fff',
     maxWidth: 480,

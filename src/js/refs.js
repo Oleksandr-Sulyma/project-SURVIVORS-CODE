@@ -1,6 +1,6 @@
 export default {
   elBookModal: document.querySelector('#book-modal'),
-  elModalContent: document.querySelector('.modal-content'),
+  elModalContent: document.querySelector('.modal-book-container'),
   elBtnOpenModal: document.getElementById('open-modal-btn'),
   footerForm: document.querySelector('.footer-input-box'),
   footerInput: document.querySelector('.footer-input'),

@@ -86,3 +86,20 @@ export function handleEsc(e) {
   return closeBookModal();
  }
 }
+
+
+
+window.refs = refs;
+window.createBookModalCard = createBookModalCard;
+
+const book = {
+  _id: '6867c877ac8a51f74dd67b11',
+  title: "JUJUTSU KAISEN, VOL. 26",
+  price: 15.99,
+  amazon_product_url: "https://www.amazon.com/dp/1339005107?tag=thenewyorktim-20",
+  cover_image: "https://static01.nyt.com/bestsellers/images/9781974754977.jpg"
+};
+
+// const card = createBookModalCard(book);
+// refs.elModalContent.appendChild(card);
+// console.log('Book card created:', card);

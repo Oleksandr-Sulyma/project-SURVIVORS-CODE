@@ -1,3 +1,4 @@
+import {showRegistrationSuccess} from './cart'
 const modalBackdrop = document.getElementById('modal');
 const modal = modalBackdrop.querySelector('.modal-content');
 const modalEventTitle = document.getElementById('modal-event-title');
@@ -11,8 +12,7 @@ let lastFocusedEl = null;
 function openModal(eventTitle, opener) {
   lastFocusedEl = opener || document.activeElement;
   modalBackdrop.classList.add('active');
-  document.body.style.overflow = 'hidden'; // не даємо сторінці скролитись
-  // focus management
+  document.body.style.overflow = 'hidden'; 
   const firstInput = modal.querySelector('input, textarea, button');
   firstInput && firstInput.focus();
   // add key listener
@@ -31,6 +31,7 @@ function closeModal() {
 openButtons.forEach(btn => {
   btn.addEventListener('click', e => {
     const title = btn.dataset.eventTitle;
+    modalEventTitle.textContent = title;
     btn.getAttribute('data-event-title');
     openModal(title, btn);
   });
@@ -89,7 +90,7 @@ form.addEventListener('submit', e => {
   const email = form.email.value;
   console.log('Submitted:', { name, email, message: form.message.value });
   closeModal();
-  alert(`Thank you for registering, ${name}! We will contact you at ${email}.`);
+  showRegistrationSuccess(`Thank you for registering, ${name}! We will contact you at ${email}.`);
   form.reset();
 });
   
