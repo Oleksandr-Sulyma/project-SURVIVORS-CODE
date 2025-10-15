@@ -19,11 +19,11 @@ const eventSlider = new Swiper(swiperElement, {
   watchOverflow: true,
 
   navigation: {
-    nextEl: '.events-section .swiper-arrows .swiper-button-next',
-    prevEl: '.events-section .swiper-arrows .swiper-button-prev',
+    nextEl: '.events-section .swiper-button-next',
+    prevEl: '.events-section .swiper-button-prev',
   },
   pagination: {
-    el: '.events-section .carousel-navigation .swiper-pagination',
+    el: '.events-section .swiper-pagination',
     clickable: true,
   },
   a11y: {

@@ -7,12 +7,15 @@
   color: #0b0500;
   overflow-x: hidden;
 }
+
 .feedbacks .section-content {
-  display: block !important;
+  display: block;
 }
+
 .feedbacks-header {
   margin-bottom: 80px;
 }
+
 .feedbacks-header-capture {
   font-weight: 600;
   font-size: 36px;

@@ -1,26 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Rubik', sans-serif;
-  background-color: #fceee6;
-  min-height: 100vh;
-}
-
-.books-section {
-  padding: 40px 0;
-  background-color: #fceee6;
-  min-height: 100vh;
-}
-
-/* Desktop container */
 .books-container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 308px auto;
+  gap: var(--gap-lg);
 }
 
 .books-header {
@@ -41,18 +22,13 @@ body {
 }
 
 .books-title {
-  font-family: 'Rubik', sans-serif;
   font-weight: 600;
   font-size: 20px;
-  color: #000;
   margin: 0;
 }
 
 .books-counter {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 400;
   font-size: 14px;
-  color: #000;
 }
 
 /* Hide mobile categories by default */
@@ -125,7 +101,6 @@ body {
 .books-categories {
   background: transparent;
   padding: 0;
-  width: 308px;
   min-height: 430px;
 }
 
@@ -181,6 +156,7 @@ body {
 /* Categories dropdown styles */
 .categories-dropdown {
   position: relative;
+  display: none;
 }
 
 .categories-select {
@@ -250,7 +226,6 @@ body {
 }
 
 .book-card {
-  width: 227px;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -476,11 +451,9 @@ body {
 }
 
 /* Планшетна версія (769px - 1024px) - контейнер 702px */
-@media (max-width: 1440px) and (min-width: 769px) {
+@media screen and (min-width: 768px) {
   .books-container {
-    max-width: 702px;
-    margin: 0 auto;
-    padding: 0 20px;
+    grid-template-columns: 1fr;
   }
 
   /* Show tablet categories on the right */
@@ -523,7 +496,6 @@ body {
 
   .book-card {
     width: 100%;
-    max-width: 337px;
   }
 
   .book-media {
@@ -545,11 +517,13 @@ body {
 }
 
 /* Мобільна версія (до 768px) - контейнер 343px */
-@media (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .books-container {
-    max-width: 343px;
-    margin: 0 auto;
-    padding: 0 16px;
+    grid-template-columns: 1fr;
+  }
+
+  .categories-dropdown {
+    display: block;
   }
 
   .books-header {
@@ -600,7 +574,6 @@ body {
 
   .book-card {
     width: 100%;
-    max-width: 311px;
     margin: 0 auto;
   }
 
