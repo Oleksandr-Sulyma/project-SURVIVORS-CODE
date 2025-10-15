@@ -30,7 +30,7 @@ export default defineConfig(({ command }) => {
             if (assetInfo.name && assetInfo.name.endsWith('.html')) {
               return '[name].[ext]';
             }
-            return 'assets/[name]-[hash][extname]';
+            return 'assets/[name][extname]';
           },
         },
       },
