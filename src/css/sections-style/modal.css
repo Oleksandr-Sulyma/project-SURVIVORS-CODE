@@ -98,7 +98,7 @@ body.modal-open {
   }
 }
 
-.modal-content .modal-book-layout {
+.modal-book-layout {
   display: flex;
   flex-direction: column;
   gap: var(--gap-lg);

@@ -39,7 +39,7 @@
 .feedback-card {
   border: 1px solid rgba(11, 5, 0, 0.15);
   border-radius: 16px;
-  padding: 24px;
+  padding: 32px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -150,12 +150,6 @@
   opacity: 0.2;
   pointer-events: none;
   cursor: default;
-}
-/* TABLET: min-width: 768px */
-@media screen and (min-width: 768px) {
-  .feedback-card {
-    padding: 32px;
-  }
 }
 
 /* DESKTOP: min-width: 1440px */
