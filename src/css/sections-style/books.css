@@ -1,179 +1,623 @@
-Ось повний, фінальний CSS-код для вашої секції книг (#books-section), який включає всі виправлення та дотримання вимог: Mobile First, використання min-width, коректні розміри карток, відступи та логіка відображення елементів на всіх трьох точках перелому (768px та 1440px).
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-💾 Повний CSS-код для секції книг
-CSS
-
-/* ======================================================= */
-/* БАЗОВІ СТИЛІ (Mobile First - Мобільний)                */
-/* Верстка гумова від 320px. Max ширина картки: 343px.    */
-/* Розміри: 343px x 604px. Вертикальний відступ: 40px.    */
-/* ======================================================= */
+body {
+  font-family: 'Rubik', sans-serif;
+  background-color: #fceee6;
+  min-height: 100vh;
+}
 
 .books-section {
-    margin-bottom: 24px;
-    padding-top: 0;
-} 
+  padding: 40px 0;
+  background-color: #fceee6;
+  min-height: 100vh;
+}
 
+/* Desktop container */
 .books-container {
-    /* Додано горизонтальні відступи для гумової верстки (наприклад, 16px) */
-    display: block; 
-    padding: 32px 16px; 
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
-.books-sidebar {
-    display: block; 
-    margin-bottom: 24px; 
+.books-header {
+  margin-bottom: 24px;
 }
 
-.book-nav {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap; 
+/* Main header with Books, Showing, and tablet categories */
+.books-header-main {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
-/* ... (Інші стилі заголовків, кнопок і т.д. залишаються без змін) ... */
-
-/* Логіка видимості категорій: Мобільний випадаючий список */
-.desktop-categories,
-.tablet-only {
-    display: none;
+.books-header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
+
+.books-title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #000;
+  margin: 0;
+}
+
+.books-counter {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+}
+
+/* Hide mobile categories by default */
 .mobile-only {
-    display: block; 
-    margin-top: 16px; 
+  display: none;
 }
 
-/* Стилі сітки та карток для мобільного */
+/* Hide tablet categories on desktop */
+.tablet-only {
+  display: none;
+}
+
+.books-error {
+  background: linear-gradient(135deg, #fee 0%, #fdd 100%);
+  border: 2px solid #f87171;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  display: none;
+  animation: slideIn 0.3s ease-out;
+}
+
+.books-error .error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.books-error .fa-exclamation-triangle {
+  color: #dc2626;
+  font-size: 2rem;
+  animation: pulse 2s infinite;
+}
+
+.books-error .error-message {
+  color: #dc2626;
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.retry-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  min-height: 44px;
+}
+
+.retry-btn:hover {
+  background: #b91c1c;
+}
+
+.books-content {
+  display: grid;
+  grid-template-columns: 308px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.books-categories {
+  background: transparent;
+  padding: 0;
+  width: 308px;
+  min-height: 430px;
+}
+
+.categories-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.category-item {
+  margin-bottom: 8px;
+}
+
+.category-button {
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-button:hover {
+  color: #4a90e2;
+}
+
+.category-item.active .category-button {
+  font-weight: 600;
+  color: #4a90e2;
+}
+
+.categories-loader {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.small-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+/* Categories dropdown styles */
+.categories-dropdown {
+  position: relative;
+}
+
+.categories-select {
+  width: 100%;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+.books-main {
+  position: relative;
+  width: 980px;
+  margin-top: 8px;
+  /* 24px + 8px = 32px total spacing */
+}
+
+.books-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+.books-loader p {
+  color: #666;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
 .books-grid {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid; 
-    grid-template-columns: 1fr; /* Одна колонка на всю доступну ширину */
-    column-gap: 0;
-    row-gap: 40px; /* Вертикальний відступ 40px */
-    justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 227px);
+  column-gap: 24px;
+  row-gap: 40px;
+  justify-content: start;
 }
 
 .book-card {
-    /* Гумова ширина (100% від 1fr), обмежена max-width, щоб не вилазити на маленьких екранах */
-    width: 100%; 
-    max-width: 343px; 
-    margin: 0 auto; /* Центрування картки */
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    animation: fadeInUp 0.6s ease forwards;
+  width: 227px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
 }
 
 .book-media {
-    /* Ширина 100% від батька, фіксована висота згідно макету мобільного */
-    width: 100%; 
-    max-width: 343px; 
-    height: 604px; /* Висота зображення */
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 16px;
+  width: 227px;
+  height: 323px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.book-cover.loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.book-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.book-title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #000;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.book-price {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 150%;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.book-author {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+  margin: 0 0 16px 0;
+}
+
+.book-footer {
+  margin-top: auto;
+}
+
+.learn-more-btn {
+  width: 227px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: #fceee6;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.learn-more-btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.show-more-button {
+  position: relative;
+  padding: 12px 36px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  background: #ee6f3d;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+  min-width: 200px;
+}
+
+.show-more-button:hover {
+  background: #d45b2a;
+  transform: translateY(-2px);
+}
+
+.show-more-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.book-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.book-card:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.book-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.book-card:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.book-card:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.book-card:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+.book-card:nth-child(7) {
+  animation-delay: 0.4s;
+}
+
+.book-card:nth-child(8) {
+  animation-delay: 0.45s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Планшетна версія (769px - 1024px) - контейнер 702px */
+@media (max-width: 1440px) and (min-width: 769px) {
+  .books-container {
+    max-width: 702px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Show tablet categories on the right */
+  .books-header-main {
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+  }
+
+  .tablet-only {
     display: block;
+  }
+
+  .tablet-only .categories-select {
+    width: 160px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  /* Hide desktop categories sidebar */
+  .desktop-categories {
+    display: none;
+  }
+
+  .books-content {
+    display: block;
+  }
+
+  .books-main {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    justify-content: start;
+    width: 100%;
+    max-width: none;
+  }
+
+  .book-card {
+    width: 100%;
+    max-width: 337px;
+  }
+
+  .book-media {
+    width: 100%;
+    height: 380px;
+  }
+
+  .learn-more-btn {
+    width: 100%;
+  }
+
+  .show-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 60px;
+  }
 }
 
+/* Мобільна версія (до 768px) - контейнер 343px */
+@media (max-width: 768px) {
+  .books-container {
+    max-width: 343px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
 
-/* ======================================================= */
-/* ПЛАНШЕТНА ВЕРСІЯ (@media min-width: 768px)             */
-/* Розміри: 340px x 600px. Відступи: 24px/40px. 2 колонки. */
-/* ======================================================= */
-@media (min-width: 768px) {
-    /* Видаляємо горизонтальний паддінг з контейнера, оскільки сітка тепер центрована */
-    .books-container {
-        padding: 32px 0;
-    }
+  .books-header {
+    margin-bottom: 24px;
+  }
 
-    /* Логіка видимості категорій: Планшетний випадаючий список */
-    .mobile-only {
-        display: none;
-    }
-    .tablet-only {
-        display: block;
-    }
-    
-    .books-grid {
-        /* Дві картки фіксованої ширини по 340px */
-        grid-template-columns: repeat(2, 340px);
-        justify-content: center;
-        column-gap: 24px; /* Горизонтальний відступ 24px */
-        row-gap: 40px; 
-    }
+  /* Hide tablet categories, show mobile */
+  .tablet-only {
+    display: none;
+  }
 
-    .book-card {
-        width: 340px;
-        max-width: 340px; 
-        margin: 0; /* Вимикаємо авто-маржини */
-    }
+  .mobile-only {
+    display: block;
+    margin-top: 24px;
+  }
 
-    .book-media {
-        width: 340px; 
-        max-width: 340px;
-        height: 600px; /* Висота зображення */
-    }
-}
+  .mobile-only .categories-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-size: 20px;
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
 
+  /* Hide desktop categories sidebar */
+  .desktop-categories {
+    display: none;
+  }
 
-/* ======================================================= */
-/* ДЕСКТОПНА ВЕРСІЯ (@media min-width: 1440px)            */
-/* Розміри: 227px x 439px. Відступи: 24px/40px. 4 колонки. */
-/* ======================================================= */
-@media (min-width: 1440px) {
-    
-    .books-container {
-        /* Десктопний grid: 308px для сайдбару та 1fr для зони книг */
-        display: grid;
-        grid-template-columns: 308px 1fr;
-        gap: 40px;
-        align-items: start;
-        padding: 32px 0;
-    }
+  .books-content {
+    display: block;
+  }
 
-    .books-sidebar {
-        /* Вертикальне розміщення елементів у сайдбарі */
-        display: flex;
-        flex-direction: column;
-        gap: 24px; 
-    }
+  .books-main {
+    width: 100%;
+    margin-top: 8px;
+  }
 
-    /* Логіка видимості категорій: Текстовий список */
-    .mobile-only,
-    .tablet-only {
-        display: none;
-    }
-    .desktop-categories {
-        display: block;
-    }
+  .books-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+  }
 
-    /* Стилі сітки для десктопа */
-    .books-grid {
-        /* 4 колонки, що займають 1fr простору, з відступом 24px */
-        grid-template-columns: repeat(4, 1fr); 
-        column-gap: 24px;
-        row-gap: 40px;
-        justify-content: start;
-    }
-    
-    .book-card {
-        /* Ширина 100% від 1fr, обмежена 227px */
-        width: 100%;
-        max-width: 227px;
-    }
+  .book-card {
+    width: 100%;
+    max-width: 311px;
+    margin: 0 auto;
+  }
 
-    .book-media {
-        /* Ширина 100% від 1fr, фіксована висота */
-        width: 100%; 
-        max-width: 227px;
-        height: 439px; /* Висота зображення */
-    }
+  .book-media {
+    width: 100%;
+    height: 380px;
+  }
+
+  .learn-more-btn {
+    width: 100%;
+  }
+
+  .show-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 60px;
+  }
 }
