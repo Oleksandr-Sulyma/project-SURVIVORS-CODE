@@ -94,7 +94,6 @@ input.footer-input::placeholder {
   color: rgba(11, 5, 0, 0.6);
 }
 
-
 .footer-input:focus::placeholder {
   color: transparent;
 }
@@ -212,12 +211,11 @@ input.footer-input:-moz-autofill {
 /* -------1440------- */
 
 @media screen and (min-width: 1440px) {
-  .footer-content { 
-  flex-direction: row;
-  justify-content: space-between;
-  } 
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .footer-nav {
-  align-items: start;
+    align-items: start;
   }
 }
-
