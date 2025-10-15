@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       prevEl: '.feedbacks-arrows .swiper-button-prev',
     },
     pagination: {
-      el: '.carousel-navigation .feedbacks-pagination',
+      el: '.feedbacks .carousel-navigation .feedbacks-pagination',
       clickable: true,
     },
     a11y: {

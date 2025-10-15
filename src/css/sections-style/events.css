@@ -1,20 +1,3 @@
-.events-type {
-  margin-bottom: 16px;
-}
-
-.events-title {
-  margin-bottom: 16px;
-}
-
-.swiper-wrapper {
-  display: flex;
-  align-items: stretch;
-}
-
-.events-slider {
-  width: 100%;
-}
-
 .events-li {
   display: flex;
   flex-direction: column;
@@ -27,16 +10,15 @@
 .picture-main-slide {
   display: block;
   width: 100%;
-  height: 277px; /* або будь-яка інша фіксована висота */
+  height: 277px;
   overflow: hidden;
-  border-radius: 12px; /* якщо хочеш округлення */
+  border-radius: 12px;
 }
 
 .picture-main-slide .img {
-  width: 100%;
   height: 100%;
-  object-fit: cover; /* обрізає зайве, але зберігає пропорції */
-  object-position: center; /* центрує зображення */
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -62,10 +44,6 @@
   margin-bottom: 8px;
 }
 
-.carousel-navigation {
-  margin-top: 56px;
-}
-
 .open-modal-btn {
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
@@ -86,50 +64,54 @@
   margin-bottom: 0 !important;
 }
 
-.event-arrows {
-  align-items: center !important;
-  justify-content: center !important;
+.events-section {
+  .carousel-navigation {
+    margin-top: var(--gap-xl);
+  }
 
-  background-color: #e15d05;
-  border: none;
-  width: 48px !important;
-  height: 48px !important;
-  padding: 12px;
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  color: #fff !important;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  position: static !important;
-  margin: 0 !important;
-  display: flex;
-  line-height: 0;
-}
+  .event-arrows {
+    align-items: center;
+    justify-content: center;
+    background-color: #e15d05;
+    border: none;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border: 1px solid rgba(11, 5, 0, 0.15);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: static;
+    margin: 0;
+    display: flex;
+    line-height: 0;
+  }
 
-.event-arrows:hover {
-  background-color: #fceee6;
-  color: #0b0500 !important;
-}
+  .event-arrows:hover {
+    background-color: #fceee6;
+    color: #0b0500;
+  }
 
-.event-arrows:active {
-  background-color: #5a2502;
-  color: #fff !important;
-}
+  .event-arrows:active {
+    background-color: #5a2502;
+    color: #fff;
+  }
 
-.event-arrows::after {
-  content: '' !important;
-  font-size: 0 !important;
-}
+  .event-arrows::after {
+    content: '';
+    font-size: 0;
+  }
 
-.event-arrows:disabled {
-  background-color: #e15d05;
-  opacity: 0.2;
-  pointer-events: none;
-  cursor: default;
+  .event-arrows:disabled {
+    background-color: #e15d05;
+    opacity: 0.2;
+    pointer-events: none;
+    cursor: default;
+  }
 }
 
 /*! MODAL */
-
 .modal-register {
   font-family: 'Rubik', sans-serif;
   font-weight: 600;
@@ -186,16 +168,16 @@ section.events-section div.mcontentwidth {
   .eventsh2 {
     max-width: 768px;
   }
+
   .discover-p {
     max-width: 560px;
   }
-  /* section.events-section li.swiper-slide {
-    margin-right: 24px !important;
-  } */
+
   .submit-reg-form {
     max-width: 342px;
     align-self: center;
   }
+
   section.events-section div.modal-content {
     width: 704px !important;
     min-height: 760px !important;
@@ -203,15 +185,13 @@ section.events-section div.mcontentwidth {
 }
 
 @media screen and (min-width: 1440px) {
-  
-  
-    section.events-section li.swiper-slide {
-      margin-right: 24px !important;
-    }
-        section.events-section div.modal-content {
-          width: 866px !important;
-          
-        }
+  section.events-section li.swiper-slide {
+    margin-right: 24px !important;
+  }
+
+  section.events-section div.modal-content {
+    width: 866px !important;
+  }
 }
 
 .events-li {
