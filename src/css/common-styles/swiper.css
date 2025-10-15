@@ -35,5 +35,9 @@
   .swiper-arrows {
     display: flex;
     gap: var(--gap-md);
+
+    .swiper-button-lock {
+      display: none;
+    }
   }
 }
