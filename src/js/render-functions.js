@@ -1,6 +1,6 @@
 // src/js/render-functions.js
 import { HTML_ESCAPE_MAP } from './constants.js';
-import refs from './refs';
+import { showErrorMessage } from './cart';
 
 export function escapeHtml(text) {
   if (!text) return '';
@@ -99,7 +99,8 @@ export function renderBooks(container, books) {
   if (!container) return;
   container.innerHTML = '';
   if (!books || books.length === 0) {
-    container.innerHTML = `<li class="no-books">No books found</li>`;
+    showErrorMessage ("Unfortunately, there are no books in this category right now");
+    // container.innerHTML = `<li class="no-books"><h3 class ="text-no-books">Unfortunately, there are no books in this category right now</h3></li>`;
     return;
   }
   books.forEach((b, i) => {
@@ -238,10 +239,10 @@ export function createBookModalCard(book) {
                     <div class="ac-header">
                         <h4 class="ac-title">Details</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-down"></use>
+                            <use href="/img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-up"></use>
+                            <use href="/img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">
@@ -253,10 +254,10 @@ export function createBookModalCard(book) {
                     <div class="ac-header">
                         <h4 class="ac-title">Shipping</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-down"></use>
+                            <use href="/img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-up"></use>
+                            <use href="/img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">
@@ -271,10 +272,10 @@ export function createBookModalCard(book) {
                     <div class="ac-header">
                         <h4 class="ac-title">Returns</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-down"></use>
+                            <use href="/img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-up"></use>
+                            <use href="/img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">

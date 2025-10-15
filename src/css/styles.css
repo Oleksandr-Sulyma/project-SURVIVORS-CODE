@@ -20,6 +20,9 @@
 @import url('./common-styles/form.css');
 @import url('./common-styles/headings.css');
 
+/* Libraries */
+@import url('./common-styles/swiper.css');
+
 /* Sections style */
 @import url('./sections-style/header.css');
 @import url('./sections-style/feedbacks.css');

@@ -5,29 +5,66 @@ const modalEventTitle = document.getElementById('modal-event-title');
 const openButtons = document.querySelectorAll('.open-modal-btn, #open-contact');
 const closeButtons = modalBackdrop.querySelectorAll('.modal-close-btn');
 const form = document.querySelector('.register-form');
+
+
 let lastFocusedEl = null;
 
-//     POTENTIAL PROBLEM
+
+const htmlElement = document.documentElement;
+let handleKeydownRef = null;     
+let handleBackdropClickRef = null;
+
+//   POTENTIAL PROBLEM
 
 function openModal(eventTitle, opener) {
   lastFocusedEl = opener || document.activeElement;
   modalBackdrop.classList.add('active');
-  document.body.style.overflow = 'hidden'; 
+  
+  document.body.classList.add('modal-open');
+  htmlElement.classList.add('modal-open'); 
+
   const firstInput = modal.querySelector('input, textarea, button');
   firstInput && firstInput.focus();
-  // add key listener
-  document.addEventListener('keydown', handleKeydown);
+
+  handleKeydownRef = function(e) {
+      if (e.key === 'Escape') {
+          closeModal();
+      }
+    
+      if (e.key === 'Tab') {
+          trapTabKey(e);
+      }
+  }
+
+  handleBackdropClickRef = function(e) {
+      if (e.target === modalBackdrop) {
+          closeModal();
+      }
+  }
+  
+  document.addEventListener('keydown', handleKeydownRef);
+  modalBackdrop.addEventListener('click', handleBackdropClickRef);
 }
 
 function closeModal() {
   modalBackdrop.classList.remove('active');
-  document.body.style.overflow = '';
-  // повертаємо фокус
+
+  if (handleKeydownRef) {
+      document.removeEventListener('keydown', handleKeydownRef);
+  }
+  if (handleBackdropClickRef) {
+      modalBackdrop.removeEventListener('click', handleBackdropClickRef);
+  }
+
+  document.body.classList.remove('modal-open');
+  htmlElement.classList.remove('modal-open'); 
+
   lastFocusedEl && lastFocusedEl.focus();
-  document.removeEventListener('keydown', handleKeydown);
+  
+  handleKeydownRef = null;
+  handleBackdropClickRef = null;
 }
 
-// Open buttons attach
 openButtons.forEach(btn => {
   btn.addEventListener('click', e => {
     const title = btn.dataset.eventTitle;
@@ -37,28 +74,10 @@ openButtons.forEach(btn => {
   });
 });
 
-// Close by clicking backdrop (але не по модалці)
-modalBackdrop.addEventListener('click', e => {
-  if (e.target === modalBackdrop) {
-    closeModal();
-  }
-});
 
-// Close buttons
+
 closeButtons.forEach(b => b.addEventListener('click', closeModal));
 
-// Key handling (Escape)
-function handleKeydown(e) {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
-  // Simple focus trap: keep focus inside modal for Tab
-  if (e.key === 'Tab') {
-    trapTabKey(e);
-  }
-}
-
-// Very small focus trap
 function trapTabKey(e) {
   const focusable = modal.querySelectorAll(
     'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
@@ -75,17 +94,15 @@ function trapTabKey(e) {
   }
 }
 
-// Simple form handling (client-side validation shown)
 form.addEventListener('submit', e => {
   e.preventDefault();
   if (!form.checkValidity()) {
-    // Find first invalid element and focus
+   
     const invalid = form.querySelector(':invalid');
     if (invalid) invalid.focus();
     return;
   }
 
-  // Simulate successful submission
   const name = form.name.value;
   const email = form.email.value;
   console.log('Submitted:', { name, email, message: form.message.value });
@@ -93,8 +110,4 @@ form.addEventListener('submit', e => {
   showRegistrationSuccess(`Thank you for registering, ${name}! We will contact you at ${email}.`);
   form.reset();
 });
-  
-  // Set current year in footer
-  // document.getElementById('year').textContent = new Date().getFullYear();
-  
-
+ 

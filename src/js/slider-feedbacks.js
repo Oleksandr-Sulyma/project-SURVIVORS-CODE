@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
     watchOverflow: true,
 
     navigation: {
-      nextEl: '.swiper-arrows .swiper-button-next',
-      prevEl: '.swiper-arrows .swiper-button-prev',
+      nextEl: '.feedbacks-arrows .swiper-button-next',
+      prevEl: '.feedbacks-arrows .swiper-button-prev',
     },
     pagination: {
-      el: '.carousel-navigation .swiper-pagination',
+      el: '.feedbacks .carousel-navigation .feedbacks-pagination',
       clickable: true,
     },
     a11y: {

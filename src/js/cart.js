@@ -35,7 +35,7 @@ export function handleCartAction(action, currentBook) {
   const bookPrice = Number(currentBook.price) || 0;
 
   if (bookPrice <= 0) {
-    return showError(
+    return showErrorMessage(
       `"${currentBook.title}" isn’t available right now.<br>Check back soon — we’ll restock it ASAP!`
     );
   }
@@ -118,11 +118,11 @@ export function handleCartAction(action, currentBook) {
 }
 
 // === SPICY TOAST FUNCTIONS ===
-export function showError(message) {
+export function showErrorMessage(message) {
   return iziToast.error({
     title: '😔 Oops!',
     message,
-    position: 'topRight',
+    position: 'center',
     timeout: 5000,
     progressBarColor: '#ff6666',
     maxWidth: 480,

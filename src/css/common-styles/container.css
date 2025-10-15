@@ -15,23 +15,21 @@
 }
 
 .grid-container {
-  --flap: minmax(var(--space), 1fr);
-  --content: minmax(var(--min-width), var(--max-width));
-
-  display: grid;
-  grid-template-columns:
-    var(--flap)
-    var(--content)
-    var(--flap);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: var(--gap-xxl) 0;
 }
 
 .grid-content {
-  grid-column: 2 / 3;
+  width: 100%;
+  max-width: var(--max-width);
+  padding-left: var(--space);
+  padding-right: var(--space);
 }
 
 .grid-content-full {
-  grid-column: 1 / -1;
+  max-width: 100%;
 }
 
 .placement-center {
