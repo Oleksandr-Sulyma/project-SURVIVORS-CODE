@@ -1,9 +1,13 @@
 .events-li {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .events-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   margin-top: 24px;
 }
 
@@ -15,7 +19,8 @@
   border-radius: 12px;
 }
 
-.picture-main-slide .img {
+.events-img {
+  width-max: 422px;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -24,7 +29,10 @@
 
 .events-title-book {
   font-weight: 400;
-  line-height: 34px;
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: #0b0500;
 }
 
 .desc {
@@ -33,6 +41,8 @@
   font-size: 16px;
   line-height: 1.5;
   color: #0b0500;
+  margin-bottom: 16px;
+  flex-grow: 1;
 }
 
 .meta {
@@ -50,6 +60,17 @@
   font-size: 16px;
   line-height: 1.5;
   color: #0b0500;
+  margin-top: 0;
+  align-self: flex-start;
+}
+
+.swiper-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.swiper {
+  overflow: visible;
 }
 
 .sec-one-button {
@@ -182,30 +203,45 @@ section.events-section div.mcontentwidth {
     width: 704px !important;
     min-height: 760px !important;
   }
+
+  .events-img {
+  max-width: 340px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
   section.events-section li.swiper-slide {
     margin-right: 24px !important;
+
+    height: auto;
   }
 
-  section.events-section div.modal-content {
-    width: 866px !important;
+  .carousel-navigation {
+    display: none !important;
   }
 }
 
-.events-li {
+section.events-section div.modal-content {
+  width: 866px !important;
+}
+
+.events-list {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  align-items: stretch;
 }
 
 .events-li .content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 100%;
 }
 
 .events-li .open-modal-btn {
   margin-top: auto;
+}
+
+.swiper-wrapper {
+  display: flex;
+  align-items: stretch;
 }
