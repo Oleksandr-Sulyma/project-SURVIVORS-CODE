@@ -232,16 +232,16 @@ export function createBookModalCard(book) {
                 <button class="btn add-to-cart-btn" type="button" data-action="add-to-cart">Add to Cart</button>
                 <button class="btn buy-now-btn btn-secondary" type="button" data-action="buy-now">Buy Now</button>
             </div>
-            
+
             <div class="accordion-container">
                 <div class="ac">
                     <div class="ac-header">
                         <h4 class="ac-title">Details</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-down"></use>
+                            <use href="./img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-up"></use>
+                            <use href="./img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">
@@ -251,12 +251,12 @@ export function createBookModalCard(book) {
 
                 <div class="ac">
                     <div class="ac-header">
-                        <h4 class="ac-title">Shipping</h4> 
+                        <h4 class="ac-title">Shipping</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-down"></use>
+                            <use href="./img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-up"></use>
+                            <use href="./img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">
@@ -266,15 +266,15 @@ export function createBookModalCard(book) {
                         </p>
                     </div>
                 </div>
-            
+
                 <div class="ac">
                     <div class="ac-header">
-                        <h4 class="ac-title">Returns</h4> 
+                        <h4 class="ac-title">Returns</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-down"></use>
+                            <use href="./img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="./img/symbol-defs.svg#icon-chevron-up"></use>
+                            <use href="./img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">

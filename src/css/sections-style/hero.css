@@ -7,6 +7,7 @@
 }
 
 .hero {
+  padding-top: 0;
   padding-bottom: 32px;
 }
 
@@ -23,6 +24,11 @@
   position: relative;
 }
 
+.hero-page {
+  width: 100%;
+  height: auto;
+}
+
 .hero-img-slide .hero-page {
   border-radius: 8px;
 }
@@ -34,7 +40,7 @@
   left: 16px;
 }
 
-.swiper-slide h3 {
+.swiper-slide > h3 {
   margin-bottom: 16px;
 
   font-size: 20px;

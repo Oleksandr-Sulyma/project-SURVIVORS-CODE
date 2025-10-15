@@ -1,4 +1,3 @@
-
 // -----footer-----
 import { STORAGE_KEYS } from './constants.js';
 
@@ -15,11 +14,11 @@ export function getEmailsFromLocal() {
 }
 // -----footer-end-----
 
-
-// --- modal-book-----
+//------modal-book-----
 export const setLocalStorage = (key, array) =>
   localStorage.setItem(key, JSON.stringify(array));
 
-export const getLocalStorage = key => (JSON.parse(localStorage.getItem(key)) || []);
+export const getLocalStorage = key =>
+  JSON.parse(localStorage.getItem(key)) || [];
 
 export const removeLocalStorage = key => localStorage.removeItem(key);
