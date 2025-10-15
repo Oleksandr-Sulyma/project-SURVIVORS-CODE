@@ -1,26 +1,23 @@
 <section id="books-section" class="books-section grid-container" aria-labelledby="books-heading">
   <div class="books-container grid-content">
     <div class="books-header">
-      <div class="books-header-main">
         <div class="books-header-top">
           <h1 id="books-heading" class="books-title">Books</h1>
           <span id="books-counter-text" class="books-counter" aria-live="polite">Showing 0 of 0</span>
+          <div class="categories-dropdown">
+            <select id="categories-select-tablet" class="categories-select">
+              <option value="all">Categories</option>
+            </select>
+          </div>
         </div>
-        <div class="categories-dropdown">
-          <select id="categories-select-tablet" class="categories-select">
-            <option value="all">Categories</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="books-content">
-      <aside class="books-categories desktop-categories" role="complementary">
+        <aside class="books-categories desktop-categories" role="complementary">
         <ul id="categories-list" class="categories-list" role="list"></ul>
         <div id="categories-loader" class="categories-loader hidden" aria-hidden="true">
           <div class="small-spinner"></div>
         </div>
       </aside>
+    </div>
+    <div class="books-content">
       <div id="books-error" class="books-error" role="alert" aria-live="assertive" style="display: none">
         <div class="error-content">
           <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
