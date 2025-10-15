@@ -44,11 +44,9 @@ const eventSlider = new Swiper(swiperElement, {
     },
     768: {
       slidesPerView: 2,
-      spaceBetween: 32,
     },
     1440: {
       slidesPerView: 3,
-      spaceBetween: 32,
     },
   },
 });

@@ -87,13 +87,6 @@ body.modal-open {
   flex-grow: 1;
 }
 
-.section-header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: var(--gap-lg);
-  gap: 0;
-}
-
 .book-title-mobile {
   font-weight: 600;
   font-size: 40px;
@@ -193,7 +186,7 @@ body.modal-open {
     width: 704px;
     padding: var(--gap-xxl) var(--gap-xl);
   }
-  
+
   .modal-book-layout {
     flex-direction: row;
     gap: var(--gap-lg);
