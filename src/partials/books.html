@@ -2,31 +2,15 @@
   <div class="books-container grid-content">
     <div class="books-header">
       <div class="books-header-main">
-        <div class="books-header-left">
+        <div class="books-header-top">
           <h1 id="books-heading" class="books-title">Books</h1>
           <span id="books-counter-text" class="books-counter" aria-live="polite">Showing 0 of 0</span>
         </div>
-        <div class="categories-dropdown tablet-only">
+        <div class="categories-dropdown">
           <select id="categories-select-tablet" class="categories-select">
             <option value="all">Categories</option>
           </select>
         </div>
-      </div>
-
-      <div class="categories-dropdown mobile-only">
-        <select id="categories-select-mobile" class="categories-select">
-          <option value="all">Categories</option>
-        </select>
-      </div>
-    </div>
-
-    <div id="books-error" class="books-error" role="alert" aria-live="assertive" style="display: none">
-      <div class="error-content">
-        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-        <p class="error-message"></p>
-        <button class="retry-btn" type="button">
-          <span>Try again</span>
-        </button>
       </div>
     </div>
 
@@ -37,6 +21,15 @@
           <div class="small-spinner"></div>
         </div>
       </aside>
+      <div id="books-error" class="books-error" role="alert" aria-live="assertive" style="display: none">
+        <div class="error-content">
+          <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+          <p class="error-message"></p>
+          <button class="retry-btn" type="button">
+            <span>Try again</span>
+          </button>
+        </div>
+      </div>
 
       <div class="books-main" role="main">
         <div id="books-loader" class="books-loader hidden" aria-hidden="true">
