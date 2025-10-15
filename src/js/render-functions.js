@@ -26,15 +26,13 @@ export function createBookCard(book, index = 0) {
       >
     </div>
     <div class="book-info">
-      <div class="book-title-row">
         <h3 class="book-title">${escapeHtml(book.title)}</h3>
+        <p class="book-author">${escapeHtml(book.author)}</p>
         ${
           priceText
             ? `<span class="book-price">${escapeHtml(priceText)}</span>`
             : ''
         }
-      </div>
-      <p class="book-author">${escapeHtml(book.author)}</p>
     </div>
     <div class="book-footer">
       <button

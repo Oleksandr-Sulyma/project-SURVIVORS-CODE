@@ -1,3 +1,6 @@
+.location {
+  padding-bottom: var(--gap-xl);
+}
 .location h2 {
   font-size: 48px;
 }
@@ -46,7 +49,7 @@
 }
 
 .map {
-  padding-top: var(--gap-md);
+  padding-top: 0;
 }
 
 @media screen and (min-width: 768px) {

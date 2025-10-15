@@ -8,10 +8,6 @@
   overflow-x: hidden;
 }
 
-.feedbacks .section-content {
-  display: block;
-}
-
 .feedbacks-header {
   margin-bottom: 80px;
 }
@@ -85,12 +81,13 @@
   line-height: 1.5;
   color: #0b0500;
 }
+
 .carousel-navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 32px;
 }
+
 .feedbacks-pagination.dots {
   position: static;
   display: flex;
