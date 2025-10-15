@@ -7,5 +7,6 @@ export default {
   footerRemark: document.querySelector('.footer-remark'),
   footerBtn: document.querySelector('.footer-btn'),
   elModalCloseBtn: document.querySelector('.modal-close-btn'), 
+  
 };
 

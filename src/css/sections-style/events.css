@@ -213,3 +213,19 @@ section.events-section div.mcontentwidth {
           
         }
 }
+
+.events-li {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.events-li .content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.events-li .open-modal-btn {
+  margin-top: auto;
+}
