@@ -496,20 +496,3 @@
     height: 323px;
   }
 }
-
-CSS
-
-.no-books {
-  display: block; 
-  width: 100%;
-  flex-basis: 100%; 
-  align-self: start; 
-}
-
-.text-no-books {
-  text-align: center;
-  font-size: 24px;
-  color: #a0a0a0; 
-  margin: 0; 
- padding: 0;
-}

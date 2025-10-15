@@ -237,10 +237,10 @@ export function createBookModalCard(book) {
                     <div class="ac-header">
                         <h4 class="ac-title">Details</h4>
                         <svg class="ac-icon arrow-down" width="24" height="25">
-                            <use href="/img/symbol-defs.svg#icon-chevron-down" />
+                            <use href="./img/symbol-defs.svg#icon-chevron-down" />
                         </svg>
                         <svg class="ac-icon arrow-up" width="24" height="25">
-                            <use href="/img/symbol-defs.svg#icon-chevron-up" />
+                            <use href="./img/symbol-defs.svg#icon-chevron-up" />
                         </svg>
                     </div>
                     <div class="ac-panel">
