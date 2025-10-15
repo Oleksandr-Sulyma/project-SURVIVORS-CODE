@@ -3,13 +3,6 @@ body.modal-open {
   overflow: hidden !important;
 }
 
-/* body.modal-open {
-  position: fixed;
-  left: 0;
-  width: 100%;
-  padding-right: 17px;
-} */
-
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -20,12 +13,11 @@ body.modal-open {
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
-  transition: var(--transition);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  padding-top: var(--gap-lg);
-  padding-bottom: var(--gap-lg);
+  padding: var(--gap-lg) 0;
 }
 
 .modal-backdrop.active {
@@ -47,6 +39,8 @@ body.modal-open {
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   padding: var(--gap-xxl) var(--gap-md);
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-close-btn {
@@ -59,33 +53,23 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   color: var(--clr-dark);
-  transition: var(--transition);
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .modal-close-btn:hover,
 .modal-close-btn:focus {
   color: var(--clr-orange);
-}
-
-@media screen and (min-width: 768px) {
-  .modal-content {
-    width: 704px;
-    padding: var(--gap-xxl) var(--gap-xl);
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .modal-content {
-    width: 1300px;
-    max-width: 1300px;
-    padding: var(--gap-xxl) 104px;
-  }
+  outline: none;
 }
 
 .modal-book-layout {
   display: flex;
   flex-direction: column;
   gap: var(--gap-lg);
+  margin-top: 16px;
 }
 
 .book-cover-img {
@@ -110,20 +94,6 @@ body.modal-open {
   gap: 0;
 }
 
-@media screen and (min-width: 768px) {
-  .modal-book-layout {
-    flex-direction: row;
-    gap: var(--gap-lg);
-  }
-
-  .book-cover-img {
-    flex-shrink: 0;
-    flex-basis: 309px;
-    width: 309px;
-    max-width: 309px;
-  }
-}
-
 .book-title-mobile {
   font-weight: 600;
   font-size: 40px;
@@ -138,7 +108,6 @@ body.modal-open {
   font-weight: 400;
   font-size: 24px;
   line-height: 1.4;
-  letter-spacing: -0.01em;
   color: var(--clr-dark);
   margin-bottom: 0;
 }
@@ -161,7 +130,7 @@ body.modal-open {
   font-family: var(--font-main);
   font-size: 16px;
   font-weight: 400;
-  transition: var(--transition);
+  transition: background-color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,6 +146,7 @@ body.modal-open {
 .quantity-control button:not(:disabled):hover,
 .quantity-control button:not(:disabled):focus {
   background-color: rgba(11, 5, 0, 0.05);
+  outline: none;
 }
 
 .quantity-input {
@@ -198,7 +168,6 @@ body.modal-open {
 .quantity-input::-webkit-outer-spin-button,
 .quantity-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-
   margin: 0;
 }
 
@@ -219,7 +188,32 @@ body.modal-open {
   width: 100%;
 }
 
+@media screen and (min-width: 768px) {
+  .modal-content {
+    width: 704px;
+    padding: var(--gap-xxl) var(--gap-xl);
+  }
+  
+  .modal-book-layout {
+    flex-direction: row;
+    gap: var(--gap-lg);
+  }
+
+  .book-cover-img {
+    flex-shrink: 0;
+    flex-basis: 309px;
+    width: 309px;
+    max-width: 309px;
+  }
+}
+
 @media screen and (min-width: 1440px) {
+  .modal-content {
+    width: 1300px;
+    max-width: 1300px;
+    padding: var(--gap-xxl) 104px;
+  }
+
   .modal-book-actions {
     flex-direction: row;
     gap: var(--gap-lg);
@@ -240,8 +234,6 @@ body.modal-open {
   background-color: #fceee6;
   margin: 0;
   padding: 0;
-  /* border: none; */
-  /* border-bottom: 1px solid rgba(11, 5, 0, 0.15); */
   border-bottom: 1px solid black;
 }
 
@@ -249,15 +241,13 @@ body.modal-open {
   border-top: 1px solid rgba(11, 5, 0, 0.15);
 }
 
-
 .ac-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
   background-color: #fceee6;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 16px 0;
   border: none;
 }
 
@@ -288,7 +278,7 @@ body.modal-open {
 .ac-icon {
   fill: var(--clr-dark);
   flex-shrink: 0;
-  transition: var(--transition);
+  transition: transform 0.3s;
   width: 24px;
   height: 24px;
 }
@@ -308,6 +298,5 @@ body.modal-open {
 
 .ac.is-active .arrow-up {
   display: inline-block !important;
-
   transform: rotate(0deg);
 }

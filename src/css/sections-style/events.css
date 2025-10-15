@@ -203,10 +203,29 @@ section.events-section div.mcontentwidth {
 }
 
 @media screen and (min-width: 1440px) {
-  section.events-section li.swiper-slide {
-    margin-right: 24px !important;
-  }
-  section.events-section div.modal-content {
-    width: 866px !important;
-  }
+  
+  
+    section.events-section li.swiper-slide {
+      margin-right: 24px !important;
+    }
+        section.events-section div.modal-content {
+          width: 866px !important;
+          
+        }
+}
+
+.events-li {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.events-li .content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.events-li .open-modal-btn {
+  margin-top: auto;
 }
