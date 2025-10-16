@@ -66,7 +66,7 @@
 
 .books-header-top {
   display: grid;
-  grid-template-columns: max-content auto max-content;
+  grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(2, auto);
   column-gap: var(--gap-md);
   row-gap: var(--gap-lg);
@@ -82,6 +82,7 @@
 .books-counter {
   grid-column: 4;
   font-size: 14px;
+  text-align: end;
 }
 
 .categories-dropdown {
