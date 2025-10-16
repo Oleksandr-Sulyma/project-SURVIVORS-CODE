@@ -241,6 +241,6 @@ export const getBookById = async id => {
     const { data } = await axios.get(`${BOOKS_BASE_URL}/books/${id}`);
     return data;
   } catch (error) {
-    throw error;
+    throw new Error(`Failed to load books: ${error.message}`);
   }
 };
