@@ -1,6 +1,6 @@
 html.modal-open,
 body.modal-open {
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .modal-backdrop {
