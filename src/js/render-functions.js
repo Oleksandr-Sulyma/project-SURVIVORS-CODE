@@ -97,7 +97,9 @@ export function renderBooks(container, books) {
   if (!container) return;
   container.innerHTML = '';
   if (!books || books.length === 0) {
-    showErrorMessage ("Unfortunately, there are no books in this category right now");
+    showErrorMessage(
+      'Unfortunately, there are no books in this category right now'
+    );
     // container.innerHTML = `<li class="no-books"><h3 class ="text-no-books">Unfortunately, there are no books in this category right now</h3></li>`;
     return;
   }
