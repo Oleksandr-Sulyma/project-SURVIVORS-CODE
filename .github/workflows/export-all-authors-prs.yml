@@ -17,7 +17,7 @@ jobs:
       - name: Fetch all merged PRs and group by authors
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: hog-seruj
+          OWNER: Oleksandr-Sulyma
           REPO: project-SURVIVORS-CODE
         run: |
           echo "Fetching merged PRs from $OWNER/$REPO..."
