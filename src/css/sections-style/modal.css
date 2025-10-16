@@ -62,8 +62,6 @@ body.modal-open {
   gap: var(--gap-lg);
 }
 
-
-
 .modal-close-btn {
   position: absolute;
   top: var(--gap-md);

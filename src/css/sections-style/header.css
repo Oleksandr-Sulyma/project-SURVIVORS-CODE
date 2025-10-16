@@ -1,5 +1,7 @@
+html.no-scroll,
 body.no-scroll {
   overflow: hidden;
+  height: 100%;
 }
 
 .header {
