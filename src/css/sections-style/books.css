@@ -66,7 +66,7 @@
 
 .books-header-top {
   display: grid;
-  grid-template-columns: max-content auto max-content;
+  grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(2, auto);
   column-gap: var(--gap-md);
   row-gap: var(--gap-lg);
@@ -82,6 +82,7 @@
 .books-counter {
   grid-column: 4;
   font-size: 14px;
+  text-align: end;
 }
 
 .categories-dropdown {
@@ -233,12 +234,12 @@
 }
 
 .category-button:hover {
-  color: #4a90e2;
+  color: var(--clr-orange);
 }
 
 .category-item.active .category-button {
   font-weight: 600;
-  color: #4a90e2;
+  color: var(--clr-orange);
 }
 
 .categories-loader {
@@ -250,7 +251,7 @@
   width: 30px;
   height: 30px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #4a90e2;
+  border-top: 3px solid var(--clr-orange);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
@@ -290,7 +291,7 @@
   width: 50px;
   height: 50px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #4a90e2;
+  border-top: 4px solid var(--clr-orange);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
@@ -360,17 +361,17 @@
 
 .show-more-button {
   position: relative;
+  height: 48px;
+  width: 100%;
   padding: 12px 36px;
   width: 100%;
   font-size: 16px;
-  background: #C25105;
+  background: #c25105;
   color: #fff;
   border: 1px solid #e15d05;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 48px;
-  min-width: 200px;
 }
 
 .show-more-button:hover {
@@ -452,6 +453,10 @@
 
   .book-media img {
     height: 483px;
+  }
+
+  .show-more-button {
+    width: 342px;
   }
 }
 
