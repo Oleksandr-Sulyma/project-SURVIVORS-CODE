@@ -28,7 +28,7 @@
 | **API** | [Axios](https://axios-http.com/) | Асинхронна взаємодія з бекендом: https://books-backend-v2.b.goit.study/api-docs/. |
 | **Слайдери** | [Swiper.js](https://swiperjs.com/) | Реалізація слайдерів у секціях **Hero**, **Feedbacks** та **Events**. |
 | **Компоненти** | Accordion Library | Розгортання блоків “Details”, “Shipping”, “Returns” у модальному вікні книги. |
-| **Сповіщення** | iziToast | Візуальні повідомлення для підтвердження дій або помилок. |
+| **Сповіщення** | [iziToast](https://github.com/marcelodolza/iziToast) | Візуальні повідомлення для підтвердження дій або помилок. |
 | **Кешування** | Власна реалізація MemoryCache | Локальне кешування категорій і книг. |
 | **Валідація** | Custom Validation + HTML pattern | Перевірка email-введення у формах підписки та реєстрації. |
 | **Адаптивність** | CSS Grid / Flexbox | Гумова верстка з точки 320px і адаптацією під 375px, 768px, 1440px. |
