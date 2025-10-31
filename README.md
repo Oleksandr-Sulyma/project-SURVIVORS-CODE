@@ -63,7 +63,7 @@ iziToast
 
 Крок 1: Клонування репозиторію
 
-git clone [https://github.com/ВАШ-ОРГАНАЙЗЕР/project-SURVIVORS-CODE.git](https://github.com/ВАШ-ОРГАНАЙЗЕР/project-SURVIVORS-CODE.git)
+git clone https://github.com/ВАШ-ОРГАНАЙЗЕР/project-SURVIVORS-CODE.git
 cd project-SURVIVORS-CODE
 
 
@@ -125,7 +125,7 @@ Mobile-First та CSS
 контенту всередині секцій:
 
 <section class="section-name">
-  <div class="container"></div>
+  <div class="container"></div>
 </section>
 
 
@@ -136,7 +136,7 @@ Git та Trello
 Робота ведеться через окремі гілки (branching).
 
 Кожен Dev повинен перевіряти свої зміни на ui-kit.html перед
-  фіналізацією.
+фіналізацією.
 
 JS Modules
 
@@ -146,9 +146,11 @@ export для обміну даними між файлами, щоб уникн
 
 ⚠️ Важливі Примітки (Team Lead / Scrum Master)
 
-1.  Axios: Всі запити мають бути оброблені з використанням try...catch
-    та виведенням помилок через iziToast.
-2.  Splide.js: Переконайтеся, що слайдери коректно ініціалізовані та мають
-    налаштування для тач-скріну.
-3.  Accordion: Перевірте коректність шляху імпорту CSS після вибору
-    фінальної бібліотеки.
+Axios: Всі запити мають бути оброблені з використанням try...catch
+та виведенням помилок через iziToast.
+
+Splide.js: Переконайтеся, що слайдери коректно ініціалізовані та мають
+налаштування для тач-скріну.
+
+Accordion: Перевірте коректність шляху імпорту CSS після вибору
+фінальної бібліотеки.
